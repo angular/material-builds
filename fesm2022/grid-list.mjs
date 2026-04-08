@@ -16,7 +16,6 @@ class MatGridTile {
   });
   _rowspan = 1;
   _colspan = 1;
-  constructor() {}
   get rowspan() {
     return this._rowspan;
   }
@@ -86,7 +85,6 @@ i0.ɵɵngDeclareClassMetadata({
       styles: [".mat-grid-list {\n  display: block;\n  position: relative;\n}\n\n.mat-grid-tile {\n  display: block;\n  position: absolute;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-tile-header,\n.mat-grid-tile .mat-grid-tile-footer {\n  display: flex;\n  align-items: center;\n  height: 48px;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.38);\n  overflow: hidden;\n  padding: 0 16px;\n  position: absolute;\n  left: 0;\n  right: 0;\n}\n.mat-grid-tile .mat-grid-tile-header > *,\n.mat-grid-tile .mat-grid-tile-footer > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-tile-header.mat-2-line,\n.mat-grid-tile .mat-grid-tile-footer.mat-2-line {\n  height: 68px;\n}\n.mat-grid-tile .mat-grid-list-text {\n  display: flex;\n  flex-direction: column;\n  flex: auto;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-list-text > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-list-text:empty {\n  display: none;\n}\n.mat-grid-tile .mat-grid-tile-header {\n  top: 0;\n}\n.mat-grid-tile .mat-grid-tile-footer {\n  bottom: 0;\n}\n.mat-grid-tile .mat-grid-avatar {\n  padding-right: 16px;\n}\n[dir=rtl] .mat-grid-tile .mat-grid-avatar {\n  padding-right: 0;\n  padding-left: 16px;\n}\n.mat-grid-tile .mat-grid-avatar:empty {\n  display: none;\n}\n\n.mat-grid-tile-header {\n  font-size: var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-header .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-header .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-footer {\n  font-size: var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-footer .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-footer .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-content {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n"]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     rowspan: [{
       type: Input
@@ -99,7 +97,6 @@ i0.ɵɵngDeclareClassMetadata({
 class MatGridTileText {
   _element = inject(ElementRef);
   _lines;
-  constructor() {}
   ngAfterContentInit() {
     setLines(this._lines, this._element);
   }
@@ -142,7 +139,6 @@ i0.ɵɵngDeclareClassMetadata({
       template: "<ng-content select=\"[mat-grid-avatar], [matGridAvatar]\"></ng-content>\n<div class=\"mat-grid-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div>\n<ng-content></ng-content>\n"
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     _lines: [{
       type: ContentChildren,
@@ -403,7 +399,6 @@ class MatGridList {
   _gutter = '1px';
   _tileStyler;
   _tiles;
-  constructor() {}
   get cols() {
     return this._cols;
   }
@@ -541,7 +536,6 @@ i0.ɵɵngDeclareClassMetadata({
       styles: [".mat-grid-list {\n  display: block;\n  position: relative;\n}\n\n.mat-grid-tile {\n  display: block;\n  position: absolute;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-tile-header,\n.mat-grid-tile .mat-grid-tile-footer {\n  display: flex;\n  align-items: center;\n  height: 48px;\n  color: #fff;\n  background: rgba(0, 0, 0, 0.38);\n  overflow: hidden;\n  padding: 0 16px;\n  position: absolute;\n  left: 0;\n  right: 0;\n}\n.mat-grid-tile .mat-grid-tile-header > *,\n.mat-grid-tile .mat-grid-tile-footer > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-tile-header.mat-2-line,\n.mat-grid-tile .mat-grid-tile-footer.mat-2-line {\n  height: 68px;\n}\n.mat-grid-tile .mat-grid-list-text {\n  display: flex;\n  flex-direction: column;\n  flex: auto;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n.mat-grid-tile .mat-grid-list-text > * {\n  margin: 0;\n  padding: 0;\n  font-weight: normal;\n  font-size: inherit;\n}\n.mat-grid-tile .mat-grid-list-text:empty {\n  display: none;\n}\n.mat-grid-tile .mat-grid-tile-header {\n  top: 0;\n}\n.mat-grid-tile .mat-grid-tile-footer {\n  bottom: 0;\n}\n.mat-grid-tile .mat-grid-avatar {\n  padding-right: 16px;\n}\n[dir=rtl] .mat-grid-tile .mat-grid-avatar {\n  padding-right: 0;\n  padding-left: 16px;\n}\n.mat-grid-tile .mat-grid-avatar:empty {\n  display: none;\n}\n\n.mat-grid-tile-header {\n  font-size: var(--mat-grid-list-tile-header-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-header .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-header .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-header-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-footer {\n  font-size: var(--mat-grid-list-tile-footer-primary-text-size, var(--mat-sys-body-large));\n}\n.mat-grid-tile-footer .mat-line {\n  white-space: nowrap;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  display: block;\n  box-sizing: border-box;\n}\n.mat-grid-tile-footer .mat-line:nth-child(n+2) {\n  font-size: var(--mat-grid-list-tile-footer-secondary-text-size, var(--mat-sys-body-medium));\n}\n\n.mat-grid-tile-content {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  position: absolute;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  height: 100%;\n  padding: 0;\n  margin: 0;\n}\n"]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     _tiles: [{
       type: ContentChildren,

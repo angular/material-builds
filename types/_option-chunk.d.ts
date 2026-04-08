@@ -21,7 +21,7 @@ declare class MatOptgroup {
     _labelId: string;
     /** Whether the group is in inert a11y mode. */
     _inert: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatOptgroup, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatOptgroup, "mat-optgroup", ["matOptgroup"], { "label": { "alias": "label"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; }, {}, never, ["*", "mat-option, ng-container"], true, never>;
     static ngAcceptInputType_disabled: unknown;
@@ -73,7 +73,7 @@ declare class MatOption<T = any> implements FocusableOption, AfterViewChecked, O
     _text: ElementRef<HTMLElement> | undefined;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the

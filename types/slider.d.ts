@@ -265,7 +265,7 @@ declare class MatSlider implements AfterViewInit, OnDestroy, _MatSlider {
     _hasAnimation: boolean;
     private _resizeTimer;
     private _platform;
-    constructor(...args: unknown[]);
+    constructor();
     /** The radius of the native slider's knob. AFAIK there is no way to avoid hardcoding this. */
     _knobRadius: number;
     _inputPadding: number;
@@ -386,7 +386,6 @@ declare class MatSliderVisualThumb implements _MatSliderVisualThumb, AfterViewIn
     /** The host native HTML input element. */
     _hostElement: HTMLElement;
     private _platform;
-    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     private _onPointerMove;
@@ -526,7 +525,7 @@ declare class MatSliderThumb implements _MatSliderThumb, OnDestroy, ControlValue
      * See https://github.com/angular/angular/issues/14988.
      */
     protected _isControlInitialized: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnDestroy(): void;
     /** @docs-private */
     initProps(): void;
@@ -623,7 +622,7 @@ declare class MatSliderRangeThumb extends MatSliderThumb implements _MatSliderRa
     _isLeftThumb: boolean;
     /** Whether this slider corresponds to the input with greater value. */
     _isEndThumb: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     _getDefaultValue(): number;
     _onInput(): void;
     _onNgControlValueChange(): void;

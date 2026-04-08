@@ -18,7 +18,7 @@ declare const MAT_CARD_CONFIG: InjectionToken<MatCardConfig>;
  */
 declare class MatCard {
     appearance: MatCardAppearance;
-    constructor(...args: unknown[]);
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatCard, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatCard, "mat-card", ["matCard"], { "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, ["*"], true, never>;
 }

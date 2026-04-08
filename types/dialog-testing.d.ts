@@ -73,7 +73,7 @@ declare class MatTestDialogOpener<T = unknown, R = unknown> implements OnDestroy
     private readonly _ngZone;
     /** Static method that prepares this class to open the provided component. */
     static withComponent<T = unknown, R = unknown>(component: ComponentType<T>, config?: MatDialogConfig): ComponentType<MatTestDialogOpener<T, R>>;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnDestroy(): void;
 }
 declare class MatTestDialogOpenerModule {

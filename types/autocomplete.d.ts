@@ -138,7 +138,7 @@ declare class MatAutocomplete implements AfterContentInit, OnDestroy {
      * @docs-private
      */
     readonly inertGroups: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /**
@@ -170,7 +170,6 @@ declare class MatAutocomplete implements AfterContentInit, OnDestroy {
  */
 declare class MatAutocompleteOrigin {
     elementRef: ElementRef<HTMLElement>;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatAutocompleteOrigin, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatAutocompleteOrigin, "[matAutocompleteOrigin]", ["matAutocompleteOrigin"], {}, {}, never, never, true, never>;
 }
@@ -277,7 +276,6 @@ declare class MatAutocompleteTrigger implements ControlValueAccessor, AfterViewI
      * act as a regular input and the user won't be able to open the panel.
      */
     autocompleteDisabled: boolean;
-    constructor(...args: unknown[]);
     /** Class to apply to the panel when it's above the input. */
     private _aboveClass;
     ngAfterViewInit(): void;

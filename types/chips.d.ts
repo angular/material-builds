@@ -42,7 +42,7 @@ declare class MatChipContent {
      * Determine the value of the disabled attribute for this chip action.
      */
     protected _getDisabledAttribute(): string | null;
-    constructor(...args: unknown[]);
+    constructor();
     focus(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatChipContent, "[matChipContent]", never, { "disabled": { "alias": "disabled"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "_allowFocusWhenDisabled": { "alias": "_allowFocusWhenDisabled"; "required": false; }; }, {}, never, never, true, never>;
@@ -228,7 +228,7 @@ declare class MatChip implements OnInit, AfterViewInit, AfterContentInit, DoChec
      */
     private _rippleLoader;
     protected _injector: Injector;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
@@ -356,7 +356,6 @@ declare class MatChipOption extends MatChip implements OnInit {
 declare class MatChipEditInput {
     private readonly _elementRef;
     private readonly _document;
-    constructor(...args: unknown[]);
     initialize(initialValue: string): void;
     getNativeElement(): HTMLElement;
     setValue(value: string): void;
@@ -401,7 +400,7 @@ declare class MatChipRow extends MatChip implements AfterViewInit, OnDestroy {
      */
     private _alreadyFocused;
     _isEditing: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     protected _hasLeadingActionIcon(): boolean;
@@ -465,7 +464,6 @@ declare class MatChipSet implements AfterViewInit, OnDestroy {
     _chips: QueryList<MatChip>;
     /** Flat list of all the actions contained within the chips. */
     _chipActions: QueryList<MatChipAction>;
-    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Checks whether any of the chips is focused. */
@@ -783,7 +781,7 @@ declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterV
     /** Whether the chip grid is in an error state. */
     get errorState(): boolean;
     set errorState(value: boolean);
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngDoCheck(): void;
     ngOnDestroy(): void;
@@ -950,7 +948,7 @@ declare class MatChipInput implements MatChipTextControl, OnChanges, OnDestroy {
     get empty(): boolean;
     /** The native input element to which this directive is attached. */
     readonly inputElement: HTMLInputElement;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnChanges(): void;
     ngOnDestroy(): void;
     /** Utility method to make host definition/tests more clear. */

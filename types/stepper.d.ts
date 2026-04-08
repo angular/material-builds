@@ -54,7 +54,6 @@ declare class MatStepperIcon {
     templateRef: TemplateRef<MatStepperIconContext>;
     /** Name of the icon to be overridden. */
     name: StepState;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIcon, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepperIcon, "ng-template[matStepperIcon]", never, { "name": { "alias": "matStepperIcon"; "required": false; }; }, {}, never, never, true, never>;
 }
@@ -91,7 +90,7 @@ declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDe
      * https://material.angular.dev/guide/material-2-theming#optional-add-backwards-compatibility-styles-for-color-variants
      */
     color: ThemePalette;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the step header. */
@@ -115,7 +114,6 @@ declare class MatStepHeader extends CdkStepHeader implements AfterViewInit, OnDe
  */
 declare class MatStepContent<C = unknown> {
     _template: TemplateRef<C>;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepContent<any>, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatStepContent<any>, "ng-template[matStepContent]", never, {}, {}, never, never, true, never>;
 }
@@ -193,7 +191,7 @@ declare class MatStepper extends CdkStepper implements AfterViewInit, AfterConte
     private _animationDuration;
     /** Whether the stepper is rendering on the server. */
     protected _isServer: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

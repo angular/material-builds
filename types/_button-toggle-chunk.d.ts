@@ -120,7 +120,7 @@ declare class MatButtonToggleGroup implements ControlValueAccessor, OnInit, Afte
     get hideMultipleSelectionIndicator(): boolean;
     set hideMultipleSelectionIndicator(value: boolean);
     private _hideMultipleSelectionIndicator;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterContentInit(): void;
     /**
@@ -222,7 +222,7 @@ declare class MatButtonToggle implements OnInit, AfterViewInit, OnDestroy {
     private _disabledInteractive;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

@@ -14,7 +14,6 @@ declare const MAT_ERROR: InjectionToken<MatError>;
 /** Single error message to be shown underneath the form-field. */
 declare class MatError {
     id: string;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatError, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatError, "mat-error, [matError]", never, { "id": { "alias": "id"; "required": false; }; }, {}, never, never, true, never>;
 }
@@ -92,7 +91,6 @@ declare class MatFormFieldFloatingLabel implements OnDestroy {
     private _parent;
     /** The current resize event subscription. */
     private _resizeSubscription;
-    constructor(...args: unknown[]);
     ngOnDestroy(): void;
     /** Gets the width of the label. Used for the outline notch. */
     getWidth(): number;
@@ -117,7 +115,7 @@ declare class MatFormFieldFloatingLabel implements OnDestroy {
 declare class MatFormFieldLineRipple implements OnDestroy {
     private _elementRef;
     private _cleanupTransitionEnd;
-    constructor(...args: unknown[]);
+    constructor();
     activate(): void;
     deactivate(): void;
     private _handleTransitionEnd;
@@ -277,7 +275,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     private _describedByChanges;
     private _outlineLabelOffsetResizeObserver;
     protected readonly _animationsDisabled: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;

@@ -22,7 +22,6 @@ class MatExpansionPanelContent {
   _expansionPanel = inject(MAT_EXPANSION_PANEL, {
     optional: true
   });
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -50,8 +49,7 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       selector: 'ng-template[matExpansionPanelContent]'
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 const MAT_EXPANSION_PANEL_DEFAULT_OPTIONS = new InjectionToken('MAT_EXPANSION_PANEL_DEFAULT_OPTIONS');

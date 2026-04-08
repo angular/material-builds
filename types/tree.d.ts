@@ -39,7 +39,7 @@ declare class MatTreeNode<T, K = T> extends CdkTreeNode<T, K> implements OnInit,
      */
     get disabled(): boolean;
     set disabled(value: boolean);
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTreeNode<any, any>, never>;

@@ -301,7 +301,7 @@ declare class MatDialog implements OnDestroy {
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     readonly afterAllClosed: Observable<void>;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * Opens a modal dialog containing the given component.
      * @param component Type of the component to load into the dialog.

@@ -4806,7 +4806,6 @@ i0.ɵɵngDeclareClassMetadata({
 
 class MatDatepickerApply {
   _datepicker = inject(MatDatepickerBase);
-  constructor() {}
   _applySelection() {
     this._datepicker._applyPendingSelection();
     this._datepicker.close();
@@ -4846,12 +4845,10 @@ i0.ɵɵngDeclareClassMetadata({
         '(click)': '_applySelection()'
       }
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatDatepickerCancel {
   _datepicker = inject(MatDatepickerBase);
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -4887,15 +4884,13 @@ i0.ɵɵngDeclareClassMetadata({
         '(click)': '_datepicker.close()'
       }
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatDatepickerActions {
   _datepicker = inject(MatDatepickerBase);
   _viewContainerRef = inject(ViewContainerRef);
   _template;
   _portal;
-  constructor() {}
   ngAfterViewInit() {
     this._portal = new TemplatePortal(this._template, this._viewContainerRef);
     this._datepicker.registerActions(this._portal);
@@ -4961,7 +4956,6 @@ i0.ɵɵngDeclareClassMetadata({
       styles: [".mat-datepicker-actions {\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  padding: 0 8px 8px 8px;\n}\n.mat-datepicker-actions .mat-mdc-button-base + .mat-mdc-button-base {\n  margin-left: 8px;\n}\n[dir=rtl] .mat-datepicker-actions .mat-mdc-button-base + .mat-mdc-button-base {\n  margin-left: 0;\n  margin-right: 8px;\n}\n"]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     _template: [{
       type: ViewChild,

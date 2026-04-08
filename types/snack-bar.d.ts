@@ -98,7 +98,7 @@ declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy
     _role?: 'status' | 'alert';
     /** Unique ID of the aria-live element. */
     readonly _liveElementId: string;
-    constructor(...args: unknown[]);
+    constructor();
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */
@@ -212,7 +212,6 @@ interface TextOnlySnackBar {
 declare class SimpleSnackBar implements TextOnlySnackBar {
     snackBarRef: MatSnackBarRef<SimpleSnackBar>;
     data: any;
-    constructor(...args: unknown[]);
     /** Performs the action on the snack bar. */
     action(): void;
     /** If the action button should be shown. */
@@ -264,7 +263,6 @@ declare class MatSnackBar implements OnDestroy {
     /** Reference to the currently opened snackbar at *any* level. */
     get _openedSnackBarRef(): MatSnackBarRef<any> | null;
     set _openedSnackBarRef(value: MatSnackBarRef<any> | null);
-    constructor(...args: unknown[]);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.

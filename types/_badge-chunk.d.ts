@@ -62,7 +62,7 @@ declare class MatBadge implements OnInit, AfterViewInit, OnDestroy {
     /** InteractivityChecker to determine if the badge host is focusable. */
     private _interactivityChecker;
     private _document;
-    constructor(...args: unknown[]);
+    constructor();
     /** Whether the badge is above the host or not */
     isAbove(): boolean;
     /** Whether the badge is after the host or not */

@@ -30,7 +30,6 @@ declare const MAT_LIST_CONFIG: InjectionToken<MatListConfig>;
  */
 declare class MatListItemTitle {
     _elementRef: ElementRef<HTMLElement>;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemTitle, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemTitle, "[matListItemTitle]", never, {}, {}, never, never, true, never>;
 }
@@ -42,7 +41,6 @@ declare class MatListItemTitle {
  */
 declare class MatListItemLine {
     _elementRef: ElementRef<HTMLElement>;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListItemLine, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatListItemLine, "[matListItemLine]", never, {}, {}, never, never, true, never>;
 }
@@ -66,7 +64,6 @@ declare class MatListItemMeta {
  */
 declare class _MatListItemGraphicBase {
     _listOption: ListOption | null;
-    constructor(...args: unknown[]);
     _isAlignedAtStart(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatListItemGraphicBase, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<_MatListItemGraphicBase, never, never, {}, {}, never, never, true, never>;
@@ -165,7 +162,7 @@ declare abstract class MatListItemBase implements AfterViewInit, OnDestroy, Ripp
      * @docs-private
      */
     get rippleDisabled(): boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Whether the list item has icons or avatars. */
@@ -417,7 +414,7 @@ declare class MatSelectionList extends MatListBase implements SelectionList, Con
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
     private readonly _changeDetectorRef;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;

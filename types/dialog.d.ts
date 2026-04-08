@@ -24,7 +24,6 @@ declare class MatDialogClose implements OnInit, OnChanges {
     /** Dialog close input. */
     dialogResult: any;
     _matDialogClose: any;
-    constructor(...args: unknown[]);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges<this>): void;
     _onButtonClick(event: MouseEvent): void;
@@ -35,7 +34,6 @@ declare abstract class MatDialogLayoutSection implements OnInit, OnDestroy {
     protected _dialogRef: MatDialogRef<any, any>;
     private _elementRef;
     private _dialog;
-    constructor(...args: unknown[]);
     protected abstract _onAdd(): void;
     protected abstract _onRemove(): void;
     ngOnInit(): void;

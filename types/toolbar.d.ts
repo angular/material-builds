@@ -20,7 +20,6 @@ declare class MatToolbar implements AfterViewInit {
     color?: string | null;
     /** Reference to all toolbar row elements that have been projected. */
     _toolbarRows: QueryList<MatToolbarRow>;
-    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.

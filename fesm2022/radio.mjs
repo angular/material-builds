@@ -109,7 +109,6 @@ class MatRadioGroup {
     this._markRadiosForCheck();
   }
   _disabledInteractive = false;
-  constructor() {}
   ngAfterContentInit() {
     this._isInitialized = true;
     this._buttonChanges = this._radios.changes.subscribe(() => {
@@ -236,7 +235,6 @@ i0.ɵɵngDeclareClassMetadata({
       }
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     change: [{
       type: Output

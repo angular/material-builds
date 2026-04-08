@@ -255,7 +255,7 @@ declare class MatSelect implements AfterContentInit, OnChanges, OnDestroy, OnIni
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;

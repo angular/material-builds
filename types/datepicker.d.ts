@@ -132,7 +132,7 @@ declare class MatCalendarBody<D = any> implements OnChanges, OnDestroy, AfterVie
      * use the built-in identity tracking, because it logs warnings.
      */
     _trackRow: (row: MatCalendarCell[]) => MatCalendarCell<any>[];
-    constructor(...args: unknown[]);
+    constructor();
     /** Called when a cell is clicked. */
     _cellClicked(cell: MatCalendarCell, event: MouseEvent): void;
     _emitActiveDateChange(cell: MatCalendarCell, event: FocusEvent): void;
@@ -431,7 +431,7 @@ declare class MatMonthView<D> implements AfterContentInit, OnChanges, OnDestroy 
         narrow: string;
         id: number;
     }[]>;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
@@ -544,7 +544,7 @@ declare class MatMultiYearView<D> implements AfterContentInit, OnDestroy {
     _todayYear: i0.WritableSignal<number>;
     /** The year of the selected date. Null if the selected date is null. */
     _selectedYear: i0.WritableSignal<number | null>;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Initializes this multi-year view. */
@@ -639,7 +639,7 @@ declare class MatYearView<D> implements AfterContentInit, OnDestroy {
      * Null if the selected Date is in a different year.
      */
     _selectedMonth: i0.WritableSignal<number | null>;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Handles when a new month is selected. */
@@ -713,7 +713,7 @@ declare class MatCalendarHeader<D> {
     private _periodButtonLabel;
     private _prevButtonLabel;
     private _nextButtonLabel;
-    constructor(...args: unknown[]);
+    constructor();
     /** The display text for the current calendar view. */
     get periodButtonText(): string;
     /** The aria description for the current calendar view. */
@@ -838,7 +838,7 @@ declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDe
      * Emits whenever there is a state change that the header may need to respond to.
      */
     readonly stateChanges: Subject<void>;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
@@ -954,7 +954,7 @@ declare abstract class MatDatepickerInputBase<S, D = ExtractDateTypeFromSelectio
     protected abstract _shouldHandleChangeEvent(event: DateSelectionModelChange<S>): boolean;
     /** Whether the last value set on the input was valid. */
     protected _lastValueValid: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
@@ -1054,7 +1054,7 @@ declare class MatDatepickerContent<S, D = ExtractDateTypeFromSelection<S>> imple
     _actionsPortal: TemplatePortal | null;
     /** Id of the label for the `role="dialog"` element. */
     _dialogLabelId: string | null;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     _handleUserSelection(event: MatCalendarUserEvent<D | null>): void;
@@ -1214,7 +1214,7 @@ declare abstract class MatDatepickerBase<C extends MatDatepickerControl<D>, S, D
     /** Emits when the datepicker's state changes. */
     readonly stateChanges: Subject<void>;
     private readonly _changeDetectorRef;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     /** Selects the given date */
@@ -1303,7 +1303,7 @@ declare class MatDatepickerInput<D> extends MatDatepickerInputBase<D | null, D> 
     private _dateFilter;
     /** The combined form control validator for this input. */
     protected _validator: ValidatorFn | null;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
@@ -1409,7 +1409,7 @@ declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnD
     _customIcon: MatDatepickerToggleIcon;
     /** Underlying button element. */
     _button: MatButton;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     ngAfterContentInit(): void;
@@ -1448,7 +1448,7 @@ declare abstract class MatDateRangeInputPartBase<D> extends MatDatepickerInputBa
     /** Whether the input is in an error state. */
     get errorState(): boolean;
     set errorState(value: boolean);
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;
@@ -1604,7 +1604,7 @@ declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>,
      * @docs-private
      */
     readonly disableAutomaticLabeling = true;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -1662,7 +1662,6 @@ declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>,
 /** Button that will close the datepicker and assign the current selection to the data model. */
 declare class MatDatepickerApply {
     private _datepicker;
-    constructor(...args: unknown[]);
     _applySelection(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerApply, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerApply, "[matDatepickerApply], [matDateRangePickerApply]", never, {}, {}, never, never, true, never>;
@@ -1670,7 +1669,6 @@ declare class MatDatepickerApply {
 /** Button that will close the datepicker and discard the current selection. */
 declare class MatDatepickerCancel {
     _datepicker: MatDatepickerBase<MatDatepickerControl<any>, unknown, {}>;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerCancel, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatDatepickerCancel, "[matDatepickerCancel], [matDateRangePickerCancel]", never, {}, {}, never, never, true, never>;
 }
@@ -1683,7 +1681,6 @@ declare class MatDatepickerActions implements AfterViewInit, OnDestroy {
     private _viewContainerRef;
     _template: TemplateRef<unknown>;
     private _portal;
-    constructor(...args: unknown[]);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerActions, never>;

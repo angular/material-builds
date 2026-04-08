@@ -120,7 +120,6 @@ declare class MatRadioGroup implements AfterContentInit, OnDestroy, ControlValue
     get disabledInteractive(): boolean;
     set disabledInteractive(value: boolean);
     private _disabledInteractive;
-    constructor(...args: unknown[]);
     /**
      * Initialize properties once content children are available.
      * This allows us to propagate relevant attributes to associated buttons.
@@ -249,7 +248,7 @@ declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, OnDestro
     /** Whether animations are disabled. */
     _noopAnimations: boolean;
     private _injector;
-    constructor(...args: unknown[]);
+    constructor();
     /** Focuses the radio button. */
     focus(options?: FocusOptions, origin?: FocusOrigin): void;
     /**

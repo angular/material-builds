@@ -213,7 +213,6 @@ class MatMenuContent {
   _portal;
   _outlet;
   _attached = new Subject();
-  constructor() {}
   attach(context = {}) {
     if (!this._portal) {
       this._portal = new TemplatePortal(this._template, this._viewContainerRef);
@@ -272,8 +271,7 @@ i0.ɵɵngDeclareClassMetadata({
         useExisting: MatMenuContent
       }]
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {

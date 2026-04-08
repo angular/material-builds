@@ -330,7 +330,6 @@ i0.ɵɵngDeclareClassMetadata({
 
 class MatAutocompleteOrigin {
   elementRef = inject(ElementRef);
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -360,8 +359,7 @@ i0.ɵɵngDeclareClassMetadata({
       selector: '[matAutocompleteOrigin]',
       exportAs: 'matAutocompleteOrigin'
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 const MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
@@ -431,7 +429,6 @@ class MatAutocompleteTrigger {
   connectedTo;
   autocompleteAttribute = 'off';
   autocompleteDisabled = false;
-  constructor() {}
   _aboveClass = 'mat-mdc-autocomplete-panel-above';
   ngAfterViewInit() {
     this._initialized.next();
@@ -997,7 +994,6 @@ i0.ɵɵngDeclareClassMetadata({
       providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     autocomplete: [{
       type: Input,

@@ -125,7 +125,7 @@ declare class MatPaginator implements OnInit, OnDestroy {
     /** Emits when the paginator is initialized. */
     initialized: Observable<void>;
     /** Inserted by Angular inject() migration for backwards compatibility */
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Advances to the next page if it exists. */

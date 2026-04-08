@@ -92,7 +92,6 @@ declare class MatGridTile {
     _gridList?: MatGridListBase | null | undefined;
     _rowspan: number;
     _colspan: number;
-    constructor(...args: unknown[]);
     /** Amount of rows that the grid tile takes up. */
     get rowspan(): number;
     set rowspan(value: NumberInput);
@@ -110,7 +109,6 @@ declare class MatGridTile {
 declare class MatGridTileText implements AfterContentInit {
     private _element;
     _lines: QueryList<MatLine>;
-    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatGridTileText, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatGridTileText, "mat-grid-tile-header, mat-grid-tile-footer", never, {}, {}, ["_lines"], ["[mat-grid-avatar], [matGridAvatar]", "[mat-line], [matLine]", "*"], true, never>;
@@ -166,7 +164,6 @@ declare class MatGridList implements MatGridListBase, OnInit, AfterContentChecke
     private _tileStyler;
     /** Query list of tiles that are being rendered. */
     _tiles: QueryList<MatGridTile>;
-    constructor(...args: unknown[]);
     /** Amount of columns in the grid list. */
     get cols(): number;
     set cols(value: NumberInput);

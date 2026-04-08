@@ -261,7 +261,6 @@ class MatBottomSheet {
       this._bottomSheetRefAtThisLevel = value;
     }
   }
-  constructor() {}
   open(componentOrTemplateRef, config) {
     const _config = {
       ...(this._defaultOptions || new MatBottomSheetConfig()),
@@ -341,8 +340,7 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       providedIn: 'root'
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 class MatBottomSheetModule {

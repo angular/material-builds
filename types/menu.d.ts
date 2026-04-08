@@ -33,7 +33,6 @@ declare class MatMenuContent implements OnDestroy {
     private _outlet;
     /** Emits when the menu content has been attached. */
     readonly _attached: Subject<void>;
-    constructor(...args: unknown[]);
     /**
      * Attaches the content with a particular context.
      * @docs-private
@@ -114,7 +113,7 @@ declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin, options?: FocusOptions): void;
     ngAfterViewInit(): void;
@@ -245,7 +244,7 @@ declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, On
      */
     readonly close: EventEmitter<MenuCloseReason>;
     readonly panelId: string;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -453,7 +452,7 @@ declare class MatMenuTrigger extends MatMenuTriggerBase implements AfterContentI
      * @breaking-change 8.0.0
      */
     readonly onMenuClose: EventEmitter<void>;
-    constructor(...args: unknown[]);
+    constructor();
     /** Whether the menu triggers a sub-menu or a top-level one. */
     triggersSubmenu(): boolean;
     /** Toggles the menu between the open and closed states. */

@@ -83,7 +83,7 @@ declare class MatButtonBase implements AfterViewInit, OnDestroy {
     set _tabindex(value: number);
     /** Whether the button is showing a progress indicator. */
     readonly showProgress: i0.InputSignalWithTransform<boolean, unknown>;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */
@@ -112,7 +112,7 @@ declare class MatButton extends MatButtonBase {
     get appearance(): MatButtonAppearance | null;
     set appearance(value: MatButtonAppearance | '');
     private _appearance;
-    constructor(...args: unknown[]);
+    constructor();
     /** Programmatically sets the appearance of the button. */
     setAppearance(appearance: MatButtonAppearance): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, never>;
@@ -150,7 +150,7 @@ declare class MatFabButton extends MatButtonBase {
     private _options;
     _isFab: boolean;
     extended: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab], button[matFab], a[matFab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
     static ngAcceptInputType_extended: unknown;
@@ -163,7 +163,7 @@ declare class MatFabButton extends MatButtonBase {
 declare class MatMiniFabButton extends MatButtonBase {
     private _options;
     _isFab: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
 }
@@ -190,7 +190,7 @@ type MatMiniFabAnchor = MatMiniFabButton;
  * See https://material.io/develop/web/components/buttons/icon-buttons/
  */
 declare class MatIconButton extends MatButtonBase {
-    constructor(...args: unknown[]);
+    constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconButton, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatIconButton, "button[mat-icon-button], a[mat-icon-button], button[matIconButton], a[matIconButton]", ["matButton", "matAnchor"], {}, {}, never, ["*", "[progressIndicator]"], true, never>;
 }

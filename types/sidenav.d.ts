@@ -24,7 +24,6 @@ declare class MatDrawerContent extends CdkScrollable implements AfterContentInit
     private _platform;
     private _changeDetectorRef;
     _container: MatDrawerContainer;
-    constructor(...args: unknown[]);
     ngAfterContentInit(): void;
     /** Determines whether the content element should be hidden from the user. */
     protected _shouldBeHidden(): boolean;
@@ -109,7 +108,7 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
     readonly _modeChanged: Subject<void>;
     private _injector;
     private _changeDetectorRef;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * Focuses the provided element. If the element is not focusable, it will add a tabIndex
      * attribute to forcefully focus it. The attribute is removed after focus is moved.
@@ -251,7 +250,7 @@ declare class MatDrawerContainer implements AfterContentInit, DoCheck, OnDestroy
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     get scrollable(): CdkScrollable;
     private _injector;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */

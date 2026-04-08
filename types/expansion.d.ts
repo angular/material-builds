@@ -55,7 +55,6 @@ declare const MAT_EXPANSION_PANEL: InjectionToken<MatExpansionPanelBase>;
 declare class MatExpansionPanelContent {
     _template: TemplateRef<any>;
     _expansionPanel: MatExpansionPanelBase | null;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatExpansionPanelContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatExpansionPanelContent, "ng-template[matExpansionPanelContent]", never, {}, {}, never, never, true, never>;
 }
@@ -145,7 +144,7 @@ declare class MatExpansionPanel extends CdkAccordionItem implements AfterContent
     _portal: TemplatePortal;
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
-    constructor(...args: unknown[]);
+    constructor();
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */
@@ -184,7 +183,7 @@ declare class MatExpansionPanelHeader implements AfterViewInit, OnDestroy, Focus
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(...args: unknown[]);
+    constructor();
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

@@ -26,7 +26,6 @@ const LIST_OPTION = new InjectionToken('ListOption');
 
 class MatListItemTitle {
   _elementRef = inject(ElementRef);
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -60,12 +59,10 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mat-mdc-list-item-title mdc-list-item__primary-text'
       }
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatListItemLine {
   _elementRef = inject(ElementRef);
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -99,8 +96,7 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mat-mdc-list-item-line mdc-list-item__secondary-text'
       }
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatListItemMeta {
   static ɵfac = i0.ɵɵngDeclareFactory({
@@ -142,7 +138,6 @@ class _MatListItemGraphicBase {
   _listOption = inject(LIST_OPTION, {
     optional: true
   });
-  constructor() {}
   _isAlignedAtStart() {
     return !this._listOption || this._listOption?._getTogglePosition() === 'after';
   }
@@ -181,8 +176,7 @@ i0.ɵɵngDeclareClassMetadata({
         '[class.mdc-list-item__end]': '!_isAlignedAtStart()'
       }
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatListItemAvatar extends _MatListItemGraphicBase {
   static ɵfac = i0.ɵɵngDeclareFactory({

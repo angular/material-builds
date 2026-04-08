@@ -25,7 +25,7 @@ declare class MatBottomSheetContainer extends CdkDialogContainer implements OnDe
     }>;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    constructor(...args: unknown[]);
+    constructor();
     /** Begin animation of bottom sheet entrance into view. */
     enter(): void;
     /** Begin animation of the bottom sheet exiting from view. */
@@ -163,7 +163,6 @@ declare class MatBottomSheet implements OnDestroy {
     /** Reference to the currently opened bottom sheet. */
     get _openedBottomSheetRef(): MatBottomSheetRef<any> | null;
     set _openedBottomSheetRef(value: MatBottomSheetRef<any> | null);
-    constructor(...args: unknown[]);
     /**
      * Opens a bottom sheet containing the given component.
      * @param component Type of the component to load into the bottom sheet.

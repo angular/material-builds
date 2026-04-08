@@ -76,7 +76,7 @@ declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterView
     private _sortActionDescription;
     /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
     disableClear: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngAfterViewInit(): void;
     ngOnDestroy(): void;

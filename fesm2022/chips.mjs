@@ -1067,7 +1067,6 @@ i0.ɵɵngDeclareClassMetadata({
 class MatChipEditInput {
   _elementRef = inject(ElementRef);
   _document = inject(DOCUMENT);
-  constructor() {}
   initialize(initialValue) {
     this.getNativeElement().focus();
     this.setValue(initialValue);
@@ -1131,8 +1130,7 @@ i0.ɵɵngDeclareClassMetadata({
         'contenteditable': 'true'
       }
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 class MatChipRow extends MatChip {
@@ -1430,7 +1428,6 @@ class MatChipSet {
   }
   _chips;
   _chipActions = new QueryList();
-  constructor() {}
   ngAfterViewInit() {
     this._setUpFocusManagement();
     this._trackChipSetChanges();
@@ -1611,7 +1608,6 @@ i0.ɵɵngDeclareClassMetadata({
       styles: [".mat-mdc-chip-set {\n  display: flex;\n}\n.mat-mdc-chip-set:focus {\n  outline: none;\n}\n.mat-mdc-chip-set .mdc-evolution-chip-set__chips {\n  min-width: 100%;\n  margin-left: -8px;\n  margin-right: 0;\n}\n.mat-mdc-chip-set .mdc-evolution-chip {\n  margin: 4px 0 4px 8px;\n}\n[dir=rtl] .mat-mdc-chip-set .mdc-evolution-chip-set__chips {\n  margin-left: 0;\n  margin-right: -8px;\n}\n[dir=rtl] .mat-mdc-chip-set .mdc-evolution-chip {\n  margin-left: 0;\n  margin-right: 8px;\n}\n\n.mdc-evolution-chip-set__chips {\n  display: flex;\n  flex-flow: wrap;\n  min-width: 0;\n}\n\n.mat-mdc-chip-set-stacked {\n  flex-direction: column;\n  align-items: flex-start;\n}\n.mat-mdc-chip-set-stacked .mat-mdc-chip {\n  width: 100%;\n}\n.mat-mdc-chip-set-stacked .mdc-evolution-chip__graphic {\n  flex-grow: 0;\n}\n.mat-mdc-chip-set-stacked .mdc-evolution-chip__action--primary {\n  flex-basis: 100%;\n  justify-content: start;\n}\n\ninput.mat-mdc-chip-input {\n  flex: 1 0 150px;\n  margin-left: 8px;\n}\n[dir=rtl] input.mat-mdc-chip-input {\n  margin-left: 0;\n  margin-right: 8px;\n}\n.mat-mdc-form-field:not(.mat-form-field-hide-placeholder) input.mat-mdc-chip-input::placeholder {\n  opacity: 1;\n}\n.mat-mdc-form-field:not(.mat-form-field-hide-placeholder) input.mat-mdc-chip-input::-moz-placeholder {\n  opacity: 1;\n}\n.mat-mdc-form-field:not(.mat-form-field-hide-placeholder) input.mat-mdc-chip-input::-webkit-input-placeholder {\n  opacity: 1;\n}\n.mat-mdc-form-field:not(.mat-form-field-hide-placeholder) input.mat-mdc-chip-input:-ms-input-placeholder {\n  opacity: 1;\n}\n.mat-mdc-chip-set + input.mat-mdc-chip-input {\n  margin-left: 0;\n  margin-right: 0;\n}\n"]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     disabled: [{
       type: Input,

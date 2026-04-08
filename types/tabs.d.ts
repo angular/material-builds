@@ -18,7 +18,6 @@ declare const MAT_TAB_CONTENT: InjectionToken<MatTabContent>;
 /** Decorates the `ng-template` tags and reads out the template from it. */
 declare class MatTabContent {
     template: TemplateRef<any>;
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatTabContent, never>;
     static ɵdir: i0.ɵɵDirectiveDeclaration<MatTabContent, "[matTabContent]", never, {}, {}, never, never, true, never>;
 }
@@ -99,7 +98,7 @@ declare class MatTab implements OnInit, OnChanges, OnDestroy {
      * Whether the tab is currently active.
      */
     isActive: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
     ngOnInit(): void;
@@ -270,7 +269,7 @@ declare abstract class MatPaginatedTabHeader implements AfterContentChecked, Aft
     readonly selectFocusedIndex: EventEmitter<number>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<number>;
-    constructor(...args: unknown[]);
+    constructor();
     /** Called when the user has selected an item via the keyboard. */
     protected abstract _itemSelected(event: KeyboardEvent): void;
     ngAfterViewInit(): void;
@@ -423,7 +422,6 @@ declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDest
     private _centeringSub;
     /** Subscription to events for when the tab body finishes leaving from center position. */
     private _leavingSub;
-    constructor(...args: unknown[]);
     /** Set initial visibility or set up subscription for changing visibility. */
     ngOnInit(): void;
     /** Clean up centering subscription. */
@@ -497,7 +495,7 @@ declare class MatTabBody implements OnInit, OnDestroy {
     preserveContent: boolean;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     set position(position: number);
-    constructor(...args: unknown[]);
+    constructor();
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Sets up the transition events. */
@@ -644,7 +642,7 @@ declare class MatTabGroup implements AfterViewInit, AfterContentInit, AfterConte
     private _groupId;
     /** Whether the tab group is rendered on the server. */
     protected _isServer: boolean;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * After the content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position
@@ -776,7 +774,7 @@ declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentIni
     _nextPaginator: ElementRef<HTMLElement>;
     _previousPaginator: ElementRef<HTMLElement>;
     _inkBar: MatInkBar;
-    constructor(...args: unknown[]);
+    constructor();
     protected _itemSelected(): void;
     ngAfterContentInit(): void;
     ngAfterViewInit(): void;
@@ -825,7 +823,7 @@ declare class MatTabLink extends InkBarItem implements AfterViewInit, OnDestroy,
     get rippleDisabled(): boolean;
     /** Unique id for the tab. */
     id: string;
-    constructor(...args: unknown[]);
+    constructor();
     /** Focuses the tab link. */
     focus(): void;
     ngAfterViewInit(): void;

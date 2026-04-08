@@ -43,7 +43,7 @@ declare class MatProgressSpinner {
     private _defaultColor;
     /** The element of the determinate spinner. */
     _determinateCircle: ElementRef<HTMLElement>;
-    constructor(...args: unknown[]);
+    constructor();
     /**
      * Mode of the progress bar.
      *

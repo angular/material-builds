@@ -47,7 +47,6 @@ class MatToolbar {
   _document = inject(DOCUMENT);
   color;
   _toolbarRows;
-  constructor() {}
   ngAfterViewInit() {
     if (this._platform.isBrowser) {
       this._checkToolbarMixedModes();
@@ -122,7 +121,6 @@ i0.ɵɵngDeclareClassMetadata({
       styles: [".mat-toolbar {\n  background: var(--mat-toolbar-container-background-color, var(--mat-sys-surface));\n  color: var(--mat-toolbar-container-text-color, var(--mat-sys-on-surface));\n}\n.mat-toolbar, .mat-toolbar h1, .mat-toolbar h2, .mat-toolbar h3, .mat-toolbar h4, .mat-toolbar h5, .mat-toolbar h6 {\n  font-family: var(--mat-toolbar-title-text-font, var(--mat-sys-title-large-font));\n  font-size: var(--mat-toolbar-title-text-size, var(--mat-sys-title-large-size));\n  line-height: var(--mat-toolbar-title-text-line-height, var(--mat-sys-title-large-line-height));\n  font-weight: var(--mat-toolbar-title-text-weight, var(--mat-sys-title-large-weight));\n  letter-spacing: var(--mat-toolbar-title-text-tracking, var(--mat-sys-title-large-tracking));\n  margin: 0;\n}\n@media (forced-colors: active) {\n  .mat-toolbar {\n    outline: solid 1px;\n  }\n}\n.mat-toolbar .mat-form-field-underline,\n.mat-toolbar .mat-form-field-ripple,\n.mat-toolbar .mat-focused .mat-form-field-ripple {\n  background-color: currentColor;\n}\n.mat-toolbar .mat-form-field-label,\n.mat-toolbar .mat-focused .mat-form-field-label,\n.mat-toolbar .mat-select-value,\n.mat-toolbar .mat-select-arrow,\n.mat-toolbar .mat-form-field.mat-focused .mat-select-arrow {\n  color: inherit;\n}\n.mat-toolbar .mat-input-element {\n  caret-color: currentColor;\n}\n.mat-toolbar .mat-mdc-button-base.mat-mdc-button-base.mat-unthemed {\n  --mat-button-text-label-text-color: var(--mat-toolbar-container-text-color, var(--mat-sys-on-surface));\n  --mat-button-outlined-label-text-color: var(--mat-toolbar-container-text-color, var(--mat-sys-on-surface));\n}\n\n.mat-toolbar-row, .mat-toolbar-single-row {\n  display: flex;\n  box-sizing: border-box;\n  padding: 0 16px;\n  width: 100%;\n  flex-direction: row;\n  align-items: center;\n  white-space: nowrap;\n  height: var(--mat-toolbar-standard-height, 64px);\n}\n@media (max-width: 599px) {\n  .mat-toolbar-row, .mat-toolbar-single-row {\n    height: var(--mat-toolbar-mobile-height, 56px);\n  }\n}\n\n.mat-toolbar-multiple-rows {\n  display: flex;\n  box-sizing: border-box;\n  flex-direction: column;\n  width: 100%;\n  min-height: var(--mat-toolbar-standard-height, 64px);\n}\n@media (max-width: 599px) {\n  .mat-toolbar-multiple-rows {\n    min-height: var(--mat-toolbar-mobile-height, 56px);\n  }\n}\n"]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     color: [{
       type: Input

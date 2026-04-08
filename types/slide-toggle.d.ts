@@ -105,7 +105,7 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
     readonly toggleChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;

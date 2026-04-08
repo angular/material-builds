@@ -20,7 +20,6 @@ import '@angular/cdk/coercion';
 const MAT_TAB_CONTENT = new InjectionToken('MatTabContent');
 class MatTabContent {
   template = inject(TemplateRef);
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -56,8 +55,7 @@ i0.ɵɵngDeclareClassMetadata({
         useExisting: MatTabContent
       }]
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 const MAT_TAB_LABEL = new InjectionToken('MatTabLabel');
@@ -1030,9 +1028,6 @@ class MatTabBodyPortal extends CdkPortalOutlet {
   _ngZone = inject(NgZone);
   _centeringSub = Subscription.EMPTY;
   _leavingSub = Subscription.EMPTY;
-  constructor() {
-    super();
-  }
   ngOnInit() {
     super.ngOnInit();
     this._centeringSub = this._host._beforeCentering.pipe(startWith(this._host._isCenterPosition())).subscribe(isCentering => {
@@ -1059,7 +1054,7 @@ class MatTabBodyPortal extends CdkPortalOutlet {
     version: "22.0.0-next.6",
     ngImport: i0,
     type: MatTabBodyPortal,
-    deps: [],
+    deps: null,
     target: i0.ɵɵFactoryTarget.Directive
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
@@ -1082,8 +1077,7 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       selector: '[matTabBodyHost]'
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatTabBody {
   _elementRef = inject(ElementRef);

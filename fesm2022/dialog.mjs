@@ -525,7 +525,6 @@ class MatDialogClose {
   type = 'button';
   dialogResult;
   _matDialogClose;
-  constructor() {}
   ngOnInit() {
     if (!this.dialogRef) {
       this.dialogRef = getClosestDialog(this._elementRef, this._dialog.openDialogs);
@@ -591,7 +590,6 @@ i0.ɵɵngDeclareClassMetadata({
       }
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     ariaLabel: [{
       type: Input,
@@ -616,7 +614,6 @@ class MatDialogLayoutSection {
   });
   _elementRef = inject(ElementRef);
   _dialog = inject(MatDialog);
-  constructor() {}
   ngOnInit() {
     if (!this._dialogRef) {
       this._dialogRef = getClosestDialog(this._elementRef, this._dialog.openDialogs);
@@ -658,8 +655,7 @@ i0.ɵɵngDeclareClassMetadata({
   type: MatDialogLayoutSection,
   decorators: [{
     type: Directive
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatDialogTitle extends MatDialogLayoutSection {
   id = inject(_IdGenerator).getId('mat-mdc-dialog-title-');

@@ -30,7 +30,6 @@ declare class MatPseudoCheckbox {
      * indicator inside a square box. 'minimal' appearance only renders the checkmark/mixedmark.
      */
     appearance: 'minimal' | 'full';
-    constructor(...args: unknown[]);
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPseudoCheckbox, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatPseudoCheckbox, "mat-pseudo-checkbox", never, { "state": { "alias": "state"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "appearance": { "alias": "appearance"; "required": false; }; }, {}, never, never, true, never>;
 }

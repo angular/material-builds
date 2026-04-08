@@ -126,7 +126,7 @@ declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy
     get errorState(): boolean;
     set errorState(value: boolean);
     protected _neverEmptyInputTypes: string[];
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;

@@ -275,7 +275,6 @@ i0.ɵɵngDeclareClassMetadata({
 class MatStepperIcon {
   templateRef = inject(TemplateRef);
   name;
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -307,7 +306,6 @@ i0.ɵɵngDeclareClassMetadata({
       selector: 'ng-template[matStepperIcon]'
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     name: [{
       type: Input,
@@ -318,7 +316,6 @@ i0.ɵɵngDeclareClassMetadata({
 
 class MatStepContent {
   _template = inject(TemplateRef);
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -346,8 +343,7 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       selector: 'ng-template[matStepContent]'
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 class MatStep extends CdkStep {

@@ -170,7 +170,7 @@ declare class MatTooltip implements OnDestroy, AfterViewInit {
     private readonly _destroyed;
     /** Whether ngOnDestroyed has been called. */
     private _isDestroyed;
-    constructor(...args: unknown[]);
+    constructor();
     ngAfterViewInit(): void;
     /**
      * Dispose the tooltip when destroyed.
@@ -269,7 +269,6 @@ declare class TooltipComponent implements OnDestroy {
     private readonly _showAnimation;
     /** Name of the hide animation and the class that toggles it. */
     private readonly _hideAnimation;
-    constructor(...args: unknown[]);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param delay Amount of milliseconds to the delay showing the tooltip.

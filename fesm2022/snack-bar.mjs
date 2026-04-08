@@ -207,7 +207,6 @@ i0.ɵɵngDeclareClassMetadata({
 class SimpleSnackBar {
   snackBarRef = inject(MatSnackBarRef);
   data = inject(MAT_SNACK_BAR_DATA);
-  constructor() {}
   action() {
     this.snackBarRef.dismissWithAction();
   }
@@ -277,8 +276,7 @@ i0.ɵɵngDeclareClassMetadata({
       template: "<div matSnackBarLabel>\n  {{data.message}}\n</div>\n\n@if (hasAction) {\n  <div matSnackBarActions>\n    <button matButton matSnackBarAction (click)=\"action()\">\n      {{data.action}}\n    </button>\n  </div>\n}\n",
       styles: [".mat-mdc-simple-snack-bar {\n  display: flex;\n}\n.mat-mdc-simple-snack-bar .mat-mdc-snack-bar-label {\n  max-height: 50vh;\n  overflow: auto;\n}\n"]
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 const ENTER_ANIMATION = '_mat-snack-bar-enter';
@@ -609,7 +607,6 @@ class MatSnackBar {
       this._snackBarRefAtThisLevel = value;
     }
   }
-  constructor() {}
   openFromComponent(component, config) {
     return this._attach(component, config);
   }
@@ -770,8 +767,7 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       providedIn: 'root'
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 
 const DIRECTIVES = [MatSnackBarContainer, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction];

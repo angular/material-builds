@@ -55,7 +55,6 @@ class MatSliderVisualThumb {
   _isValueIndicatorVisible = false;
   _hostElement = inject(ElementRef).nativeElement;
   _platform = inject(Platform);
-  constructor() {}
   ngAfterViewInit() {
     const sliderInput = this._slider._getInput(this.thumbPosition);
     if (!sliderInput) {
@@ -283,7 +282,6 @@ i0.ɵɵngDeclareClassMetadata({
       styles: [".mat-mdc-slider-visual-thumb .mat-ripple {\n  height: 100%;\n  width: 100%;\n}\n\n.mat-mdc-slider .mdc-slider__tick-marks {\n  justify-content: start;\n}\n.mat-mdc-slider .mdc-slider__tick-marks .mdc-slider__tick-mark--active,\n.mat-mdc-slider .mdc-slider__tick-marks .mdc-slider__tick-mark--inactive {\n  position: absolute;\n  left: 2px;\n}\n"]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     discrete: [{
       type: Input

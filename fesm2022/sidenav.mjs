@@ -3,7 +3,7 @@ import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
-import { CdkScrollable, ViewportRuler, ScrollDispatcher, CdkScrollableModule } from '@angular/cdk/scrolling';
+import { CdkScrollable, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, Renderer2, DOCUMENT, signal, EventEmitter, Injector, ChangeDetectorRef, afterNextRender, QueryList, ViewEncapsulation, ChangeDetectionStrategy, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
@@ -23,12 +23,6 @@ class MatDrawerContent extends CdkScrollable {
   _platform = inject(Platform);
   _changeDetectorRef = inject(ChangeDetectorRef);
   _container = inject(MatDrawerContainer);
-  constructor() {
-    const elementRef = inject(ElementRef);
-    const scrollDispatcher = inject(ScrollDispatcher);
-    const ngZone = inject(NgZone);
-    super(elementRef, scrollDispatcher, ngZone);
-  }
   ngAfterContentInit() {
     this._container._contentMarginChanges.subscribe(() => {
       this._changeDetectorRef.markForCheck();
@@ -49,7 +43,7 @@ class MatDrawerContent extends CdkScrollable {
     version: "22.0.0-next.6",
     ngImport: i0,
     type: MatDrawerContent,
-    deps: [],
+    deps: null,
     target: i0.ɵɵFactoryTarget.Component
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
@@ -101,8 +95,7 @@ i0.ɵɵngDeclareClassMetadata({
         useExisting: MatDrawerContent
       }]
     }]
-  }],
-  ctorParameters: () => []
+  }]
 });
 class MatDrawer {
   _elementRef = inject(ElementRef);

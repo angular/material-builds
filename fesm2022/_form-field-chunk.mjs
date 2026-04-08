@@ -44,7 +44,6 @@ i0.ɵɵngDeclareClassMetadata({
 const MAT_ERROR = new InjectionToken('MatError');
 class MatError {
   id = inject(_IdGenerator).getId('mat-mdc-error-');
-  constructor() {}
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.0-next.6",
@@ -94,7 +93,6 @@ i0.ɵɵngDeclareClassMetadata({
       }]
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     id: [{
       type: Input
@@ -296,7 +294,6 @@ class MatFormFieldFloatingLabel {
   _ngZone = inject(NgZone);
   _parent = inject(FLOATING_LABEL_PARENT);
   _resizeSubscription = new Subscription();
-  constructor() {}
   ngOnDestroy() {
     this._resizeSubscription.unsubscribe();
   }
@@ -359,7 +356,6 @@ i0.ɵɵngDeclareClassMetadata({
       }
     }]
   }],
-  ctorParameters: () => [],
   propDecorators: {
     floating: [{
       type: Input

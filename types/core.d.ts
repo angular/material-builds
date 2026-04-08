@@ -82,7 +82,7 @@ declare const MAT_DATE_FORMATS: InjectionToken<MatDateFormats>;
 declare class NativeDateAdapter extends DateAdapter<Date> {
     /** The injected locale. */
     private readonly _matDateLocale;
-    constructor(...args: unknown[]);
+    constructor();
     getYear(date: Date): number;
     getMonth(date: Date): number;
     getDate(date: Date): number;
