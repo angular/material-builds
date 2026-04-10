@@ -1,4 +1,4 @@
-import { _IdGenerator, LiveAnnouncer, removeAriaReferencedId, addAriaReferencedId, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { _IdGenerator, LiveAnnouncer, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, ENTER, SPACE, A, ESCAPE, DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
@@ -350,7 +350,6 @@ class MatSelect {
     this._destroy.next();
     this._destroy.complete();
     this.stateChanges.complete();
-    this._clearFromModal();
   }
   toggle() {
     this.panelOpen ? this.close() : this.open();
@@ -364,7 +363,6 @@ class MatSelect {
     }
     this._cleanupDetach?.();
     this._overlayWidth = this._getOverlayWidth(this._preferredOverlayOrigin);
-    this._applyModalPanelOwnership();
     this._panelOpen = true;
     this._overlayDir.positionChange.pipe(take(1)).subscribe(() => {
       this._changeDetectorRef.detectChanges();
@@ -376,27 +374,6 @@ class MatSelect {
     this._changeDetectorRef.markForCheck();
     this.stateChanges.next();
     Promise.resolve().then(() => this.openedChange.emit(true));
-  }
-  _trackedModal = null;
-  _applyModalPanelOwnership() {
-    const modal = this._elementRef.nativeElement.closest('body > .cdk-overlay-container [aria-modal="true"]');
-    if (!modal) {
-      return;
-    }
-    const panelId = `${this.id}-panel`;
-    if (this._trackedModal) {
-      removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
-    }
-    addAriaReferencedId(modal, 'aria-owns', panelId);
-    this._trackedModal = modal;
-  }
-  _clearFromModal() {
-    if (!this._trackedModal) {
-      return;
-    }
-    const panelId = `${this.id}-panel`;
-    removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
-    this._trackedModal = null;
   }
   close() {
     if (this._panelOpen) {

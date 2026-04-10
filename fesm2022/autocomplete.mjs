@@ -1,6 +1,6 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, TemplateRef, booleanAttribute, Input, Output, ContentChildren, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, Directive, Injector, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
-import { _IdGenerator, ActiveDescendantKeyManager, removeAriaReferencedId, addAriaReferencedId } from '@angular/cdk/a11y';
+import { _IdGenerator, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
@@ -450,7 +450,6 @@ class MatAutocompleteTrigger {
     this._componentDestroyed = true;
     this._destroyPanel();
     this._closeKeyEventStream.complete();
-    this._clearFromModal();
   }
   get panelOpen() {
     return this._overlayAttached && this.autocomplete.showPanel;
@@ -482,9 +481,6 @@ class MatAutocompleteTrigger {
     this._updatePanelState();
     if (!this._componentDestroyed) {
       this._changeDetectorRef.detectChanges();
-    }
-    if (this._trackedModal) {
-      removeAriaReferencedId(this._trackedModal, 'aria-owns', this.autocomplete.id);
     }
   }
   updatePosition() {
@@ -715,10 +711,6 @@ class MatAutocompleteTrigger {
   _openPanelInternal(valueOnAttach = this._element.nativeElement.value) {
     this._attachOverlay(valueOnAttach);
     this._floatLabel();
-    if (this._trackedModal) {
-      const panelId = this.autocomplete.id;
-      addAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
-    }
   }
   _attachOverlay(valueOnAttach) {
     if (!this.autocomplete) {
@@ -767,7 +759,6 @@ class MatAutocompleteTrigger {
     this.autocomplete._latestOpeningTrigger = this;
     this.autocomplete._setColor(this._formField?.color);
     this._updatePanelState();
-    this._applyModalPanelOwnership();
     if (this.panelOpen && wasOpen !== this.panelOpen) {
       this._emitOpened();
     }
@@ -898,26 +889,6 @@ class MatAutocompleteTrigger {
         const newScrollPosition = _getOptionScrollPosition(element.offsetTop, element.offsetHeight, autocomplete._getScrollTop(), autocomplete.panel.nativeElement.offsetHeight);
         autocomplete._setScrollTop(newScrollPosition);
       }
-    }
-  }
-  _trackedModal = null;
-  _applyModalPanelOwnership() {
-    const modal = this._element.nativeElement.closest('body > .cdk-overlay-container [aria-modal="true"]');
-    if (!modal) {
-      return;
-    }
-    const panelId = this.autocomplete.id;
-    if (this._trackedModal) {
-      removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
-    }
-    addAriaReferencedId(modal, 'aria-owns', panelId);
-    this._trackedModal = modal;
-  }
-  _clearFromModal() {
-    if (this._trackedModal) {
-      const panelId = this.autocomplete.id;
-      removeAriaReferencedId(this._trackedModal, 'aria-owns', panelId);
-      this._trackedModal = null;
     }
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
