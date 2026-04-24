@@ -44,6 +44,7 @@ class MatDialogConfig {
   closeOnNavigation = true;
   enterAnimationDuration;
   exitAnimationDuration;
+  bindings;
 }
 
 const OPEN_CLASS = 'mdc-dialog--open';

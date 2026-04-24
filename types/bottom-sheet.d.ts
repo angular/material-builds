@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, Injector, ComponentRef, TemplateRef } from '@angular/core';
+import { OnDestroy, EventEmitter, InjectionToken, ViewContainerRef, Injector, Binding, ComponentRef, TemplateRef } from '@angular/core';
 import * as i1 from '@angular/cdk/dialog';
 import { CdkDialogContainer, RestoreFocusValue, DialogRef } from '@angular/cdk/dialog';
 import * as i2 from '@angular/cdk/portal';
@@ -101,6 +101,11 @@ declare class MatBottomSheetConfig<D = any> {
     minHeight?: number | string;
     /** Maximum height for the bottom sheet. If a number is provided, assumes pixel units. */
     maxHeight?: number | string;
+    /**
+     * Bindings to apply to the component rendered inside the dialog.
+     * Does nothing for template-based dialogs.
+     */
+    bindings?: Binding[];
 }
 
 /**

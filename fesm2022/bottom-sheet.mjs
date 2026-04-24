@@ -174,6 +174,7 @@ class MatBottomSheetConfig {
   height = '';
   minHeight;
   maxHeight;
+  bindings;
 }
 
 class MatBottomSheetRef {

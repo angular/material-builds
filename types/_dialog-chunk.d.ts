@@ -1,6 +1,6 @@
 import { ScrollStrategy, ComponentType } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
-import { ViewContainerRef, Injector, OnDestroy, EventEmitter, ComponentRef, InjectionToken, TemplateRef } from '@angular/core';
+import { ViewContainerRef, Injector, Binding, OnDestroy, EventEmitter, ComponentRef, InjectionToken, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
 import { DialogConfig, RestoreFocusValue, CdkDialogContainer, DialogRef, Dialog } from '@angular/cdk/dialog';
 import { FocusOrigin } from '@angular/cdk/a11y';
@@ -112,6 +112,11 @@ declare class MatDialogConfig<D = any> {
      * @breaking-change 17.0.0 Remove string signature.
      */
     exitAnimationDuration?: string | number;
+    /**
+     * Bindings to apply to the component rendered inside the dialog.
+     * Does nothing for template-based dialogs.
+     */
+    bindings?: Binding[];
 }
 
 /** Event that captures the state of dialog container animations. */
