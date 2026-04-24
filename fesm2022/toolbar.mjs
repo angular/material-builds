@@ -6,7 +6,7 @@ import { BidiModule } from '@angular/cdk/bidi';
 class MatToolbarRow {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatToolbarRow,
     deps: [],
@@ -14,7 +14,7 @@ class MatToolbarRow {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatToolbarRow,
     isStandalone: true,
     selector: "mat-toolbar-row",
@@ -27,7 +27,7 @@ class MatToolbarRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatToolbarRow,
   decorators: [{
@@ -63,7 +63,7 @@ class MatToolbar {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatToolbar,
     deps: [],
@@ -71,7 +71,7 @@ class MatToolbar {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatToolbar,
     isStandalone: true,
     selector: "mat-toolbar",
@@ -101,7 +101,7 @@ class MatToolbar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatToolbar,
   decorators: [{
@@ -140,7 +140,7 @@ function throwToolbarMixedModesError() {
 class MatToolbarModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatToolbarModule,
     deps: [],
@@ -148,7 +148,7 @@ class MatToolbarModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatToolbarModule,
     imports: [MatToolbar, MatToolbarRow],
@@ -156,7 +156,7 @@ class MatToolbarModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatToolbarModule,
     imports: [BidiModule]
@@ -164,7 +164,7 @@ class MatToolbarModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatToolbarModule,
   decorators: [{

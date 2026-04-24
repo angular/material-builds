@@ -151,7 +151,7 @@ class MatDialogContainer extends CdkDialogContainer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogContainer,
     deps: null,
@@ -159,7 +159,7 @@ class MatDialogContainer extends CdkDialogContainer {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatDialogContainer,
     isStandalone: true,
     selector: "mat-dialog-container",
@@ -197,7 +197,7 @@ class MatDialogContainer extends CdkDialogContainer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogContainer,
   decorators: [{
@@ -487,7 +487,7 @@ class MatDialog {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialog,
     deps: [],
@@ -495,7 +495,7 @@ class MatDialog {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialog,
     providedIn: 'root'
@@ -503,7 +503,7 @@ class MatDialog {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialog,
   decorators: [{
@@ -541,7 +541,7 @@ class MatDialogClose {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogClose,
     deps: [],
@@ -549,7 +549,7 @@ class MatDialogClose {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatDialogClose,
     isStandalone: true,
     selector: "[mat-dialog-close], [matDialogClose]",
@@ -575,7 +575,7 @@ class MatDialogClose {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogClose,
   decorators: [{
@@ -634,7 +634,7 @@ class MatDialogLayoutSection {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogLayoutSection,
     deps: [],
@@ -642,7 +642,7 @@ class MatDialogLayoutSection {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatDialogLayoutSection,
     isStandalone: true,
     ngImport: i0
@@ -650,7 +650,7 @@ class MatDialogLayoutSection {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogLayoutSection,
   decorators: [{
@@ -667,7 +667,7 @@ class MatDialogTitle extends MatDialogLayoutSection {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogTitle,
     deps: null,
@@ -675,7 +675,7 @@ class MatDialogTitle extends MatDialogLayoutSection {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatDialogTitle,
     isStandalone: true,
     selector: "[mat-dialog-title], [matDialogTitle]",
@@ -695,7 +695,7 @@ class MatDialogTitle extends MatDialogLayoutSection {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogTitle,
   decorators: [{
@@ -718,7 +718,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDialogContent {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogContent,
     deps: [],
@@ -726,7 +726,7 @@ class MatDialogContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatDialogContent,
     isStandalone: true,
     selector: "[mat-dialog-content], mat-dialog-content, [matDialogContent]",
@@ -741,7 +741,7 @@ class MatDialogContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogContent,
   decorators: [{
@@ -765,7 +765,7 @@ class MatDialogActions extends MatDialogLayoutSection {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogActions,
     deps: null,
@@ -773,7 +773,7 @@ class MatDialogActions extends MatDialogLayoutSection {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatDialogActions,
     isStandalone: true,
     selector: "[mat-dialog-actions], mat-dialog-actions, [matDialogActions]",
@@ -794,7 +794,7 @@ class MatDialogActions extends MatDialogLayoutSection {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogActions,
   decorators: [{
@@ -827,7 +827,7 @@ const DIRECTIVES = [MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialo
 class MatDialogModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogModule,
     deps: [],
@@ -835,7 +835,7 @@ class MatDialogModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogModule,
     imports: [DialogModule, OverlayModule, PortalModule, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogActions, MatDialogContent],
@@ -843,7 +843,7 @@ class MatDialogModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatDialogModule,
     providers: [MatDialog],
@@ -852,7 +852,7 @@ class MatDialogModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatDialogModule,
   decorators: [{

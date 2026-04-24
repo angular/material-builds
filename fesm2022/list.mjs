@@ -28,7 +28,7 @@ class MatListItemTitle {
   _elementRef = inject(ElementRef);
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItemTitle,
     deps: [],
@@ -36,7 +36,7 @@ class MatListItemTitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItemTitle,
     isStandalone: true,
     selector: "[matListItemTitle]",
@@ -48,7 +48,7 @@ class MatListItemTitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItemTitle,
   decorators: [{
@@ -65,7 +65,7 @@ class MatListItemLine {
   _elementRef = inject(ElementRef);
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItemLine,
     deps: [],
@@ -73,7 +73,7 @@ class MatListItemLine {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItemLine,
     isStandalone: true,
     selector: "[matListItemLine]",
@@ -85,7 +85,7 @@ class MatListItemLine {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItemLine,
   decorators: [{
@@ -101,7 +101,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatListItemMeta {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItemMeta,
     deps: [],
@@ -109,7 +109,7 @@ class MatListItemMeta {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItemMeta,
     isStandalone: true,
     selector: "[matListItemMeta]",
@@ -121,7 +121,7 @@ class MatListItemMeta {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItemMeta,
   decorators: [{
@@ -143,7 +143,7 @@ class _MatListItemGraphicBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: _MatListItemGraphicBase,
     deps: [],
@@ -151,7 +151,7 @@ class _MatListItemGraphicBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: _MatListItemGraphicBase,
     isStandalone: true,
     host: {
@@ -165,7 +165,7 @@ class _MatListItemGraphicBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: _MatListItemGraphicBase,
   decorators: [{
@@ -181,7 +181,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatListItemAvatar extends _MatListItemGraphicBase {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItemAvatar,
     deps: null,
@@ -189,7 +189,7 @@ class MatListItemAvatar extends _MatListItemGraphicBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItemAvatar,
     isStandalone: true,
     selector: "[matListItemAvatar]",
@@ -202,7 +202,7 @@ class MatListItemAvatar extends _MatListItemGraphicBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItemAvatar,
   decorators: [{
@@ -218,7 +218,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatListItemIcon extends _MatListItemGraphicBase {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItemIcon,
     deps: null,
@@ -226,7 +226,7 @@ class MatListItemIcon extends _MatListItemGraphicBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItemIcon,
     isStandalone: true,
     selector: "[matListItemIcon]",
@@ -239,7 +239,7 @@ class MatListItemIcon extends _MatListItemGraphicBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItemIcon,
   decorators: [{
@@ -278,7 +278,7 @@ class MatListBase {
   });
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListBase,
     deps: [],
@@ -286,7 +286,7 @@ class MatListBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListBase,
     isStandalone: true,
     inputs: {
@@ -303,7 +303,7 @@ class MatListBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListBase,
   decorators: [{
@@ -438,7 +438,7 @@ class MatListItemBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItemBase,
     deps: [],
@@ -446,7 +446,7 @@ class MatListItemBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItemBase,
     isStandalone: true,
     inputs: {
@@ -473,7 +473,7 @@ class MatListItemBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItemBase,
   decorators: [{
@@ -532,7 +532,7 @@ class MatActionList extends MatListBase {
   _isNonInteractive = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatActionList,
     deps: null,
@@ -540,7 +540,7 @@ class MatActionList extends MatListBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatActionList,
     isStandalone: true,
     selector: "mat-action-list",
@@ -566,7 +566,7 @@ class MatActionList extends MatListBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatActionList,
   decorators: [{
@@ -594,7 +594,7 @@ const MAT_LIST = new InjectionToken('MatList');
 class MatList extends MatListBase {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatList,
     deps: null,
@@ -602,7 +602,7 @@ class MatList extends MatListBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatList,
     isStandalone: true,
     selector: "mat-list",
@@ -625,7 +625,7 @@ class MatList extends MatListBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatList,
   decorators: [{
@@ -668,7 +668,7 @@ class MatListItem extends MatListItemBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListItem,
     deps: null,
@@ -676,7 +676,7 @@ class MatListItem extends MatListItemBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListItem,
     isStandalone: true,
     selector: "mat-list-item, a[mat-list-item], button[mat-list-item]",
@@ -737,7 +737,7 @@ class MatListItem extends MatListItemBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListItem,
   decorators: [{
@@ -929,7 +929,7 @@ class MatListOption extends MatListItemBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListOption,
     deps: null,
@@ -937,7 +937,7 @@ class MatListOption extends MatListItemBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListOption,
     isStandalone: true,
     selector: "mat-list-option",
@@ -1023,7 +1023,7 @@ class MatListOption extends MatListItemBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListOption,
   decorators: [{
@@ -1106,7 +1106,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatListSubheaderCssMatStyler {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListSubheaderCssMatStyler,
     deps: [],
@@ -1114,7 +1114,7 @@ class MatListSubheaderCssMatStyler {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatListSubheaderCssMatStyler,
     isStandalone: true,
     selector: "[mat-subheader], [matSubheader]",
@@ -1126,7 +1126,7 @@ class MatListSubheaderCssMatStyler {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListSubheaderCssMatStyler,
   decorators: [{
@@ -1145,7 +1145,7 @@ class MatNavList extends MatListBase {
   _isNonInteractive = false;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatNavList,
     deps: null,
@@ -1153,7 +1153,7 @@ class MatNavList extends MatListBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatNavList,
     isStandalone: true,
     selector: "mat-nav-list",
@@ -1179,7 +1179,7 @@ class MatNavList extends MatListBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatNavList,
   decorators: [{
@@ -1440,7 +1440,7 @@ class MatSelectionList extends MatListBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSelectionList,
     deps: [],
@@ -1448,7 +1448,7 @@ class MatSelectionList extends MatListBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatSelectionList,
     isStandalone: true,
     selector: "mat-selection-list",
@@ -1499,7 +1499,7 @@ class MatSelectionList extends MatListBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatSelectionList,
   decorators: [{
@@ -1558,7 +1558,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatListModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListModule,
     deps: [],
@@ -1566,7 +1566,7 @@ class MatListModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListModule,
     imports: [ObserversModule, MatRippleModule, MatPseudoCheckboxModule, MatList, MatActionList, MatNavList, MatSelectionList, MatListItem, MatListOption, MatListSubheaderCssMatStyler, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemTitle, MatListItemMeta],
@@ -1574,7 +1574,7 @@ class MatListModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatListModule,
     imports: [ObserversModule, MatRippleModule, MatPseudoCheckboxModule, BidiModule, MatDividerModule]
@@ -1582,7 +1582,7 @@ class MatListModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatListModule,
   decorators: [{

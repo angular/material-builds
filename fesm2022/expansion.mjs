@@ -24,7 +24,7 @@ class MatExpansionPanelContent {
   });
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionPanelContent,
     deps: [],
@@ -32,7 +32,7 @@ class MatExpansionPanelContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatExpansionPanelContent,
     isStandalone: true,
     selector: "ng-template[matExpansionPanelContent]",
@@ -41,7 +41,7 @@ class MatExpansionPanelContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionPanelContent,
   decorators: [{
@@ -169,7 +169,7 @@ class MatExpansionPanel extends CdkAccordionItem {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionPanel,
     deps: [],
@@ -177,7 +177,7 @@ class MatExpansionPanel extends CdkAccordionItem {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatExpansionPanel,
     isStandalone: true,
     selector: "mat-expansion-panel",
@@ -240,7 +240,7 @@ class MatExpansionPanel extends CdkAccordionItem {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionPanel,
   decorators: [{
@@ -301,7 +301,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionPanelActionRow {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionPanelActionRow,
     deps: [],
@@ -309,7 +309,7 @@ class MatExpansionPanelActionRow {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatExpansionPanelActionRow,
     isStandalone: true,
     selector: "mat-action-row",
@@ -321,7 +321,7 @@ class MatExpansionPanelActionRow {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionPanelActionRow,
   decorators: [{
@@ -434,7 +434,7 @@ class MatExpansionPanelHeader {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionPanelHeader,
     deps: [],
@@ -442,7 +442,7 @@ class MatExpansionPanelHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatExpansionPanelHeader,
     isStandalone: true,
     selector: "mat-expansion-panel-header",
@@ -481,7 +481,7 @@ class MatExpansionPanelHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionPanelHeader,
   decorators: [{
@@ -528,7 +528,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionPanelDescription {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionPanelDescription,
     deps: [],
@@ -536,7 +536,7 @@ class MatExpansionPanelDescription {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatExpansionPanelDescription,
     isStandalone: true,
     selector: "mat-panel-description",
@@ -548,7 +548,7 @@ class MatExpansionPanelDescription {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionPanelDescription,
   decorators: [{
@@ -564,7 +564,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionPanelTitle {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionPanelTitle,
     deps: [],
@@ -572,7 +572,7 @@ class MatExpansionPanelTitle {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatExpansionPanelTitle,
     isStandalone: true,
     selector: "mat-panel-title",
@@ -584,7 +584,7 @@ class MatExpansionPanelTitle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionPanelTitle,
   decorators: [{
@@ -625,7 +625,7 @@ class MatAccordion extends CdkAccordion {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatAccordion,
     deps: null,
@@ -633,7 +633,7 @@ class MatAccordion extends CdkAccordion {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatAccordion,
     isStandalone: true,
     selector: "mat-accordion",
@@ -664,7 +664,7 @@ class MatAccordion extends CdkAccordion {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatAccordion,
   decorators: [{
@@ -707,7 +707,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatExpansionModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionModule,
     deps: [],
@@ -715,7 +715,7 @@ class MatExpansionModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionModule,
     imports: [CdkAccordionModule, PortalModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelTitle, MatExpansionPanelDescription, MatExpansionPanelContent],
@@ -723,7 +723,7 @@ class MatExpansionModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatExpansionModule,
     imports: [CdkAccordionModule, PortalModule, BidiModule]
@@ -731,7 +731,7 @@ class MatExpansionModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatExpansionModule,
   decorators: [{

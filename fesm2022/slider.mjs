@@ -205,7 +205,7 @@ class MatSliderVisualThumb {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSliderVisualThumb,
     deps: [],
@@ -213,7 +213,7 @@ class MatSliderVisualThumb {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatSliderVisualThumb,
     isStandalone: true,
     selector: "mat-slider-visual-thumb",
@@ -261,7 +261,7 @@ class MatSliderVisualThumb {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatSliderVisualThumb,
   decorators: [{
@@ -863,7 +863,7 @@ class MatSlider {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSlider,
     deps: [],
@@ -871,7 +871,7 @@ class MatSlider {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatSlider,
     isStandalone: true,
     selector: "mat-slider",
@@ -936,7 +936,7 @@ class MatSlider {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatSlider,
   decorators: [{
@@ -1392,7 +1392,7 @@ class MatSliderThumb {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSliderThumb,
     deps: [],
@@ -1400,7 +1400,7 @@ class MatSliderThumb {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatSliderThumb,
     isStandalone: true,
     selector: "input[matSliderThumb]",
@@ -1437,7 +1437,7 @@ class MatSliderThumb {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatSliderThumb,
   decorators: [{
@@ -1635,7 +1635,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSliderRangeThumb,
     deps: [],
@@ -1643,7 +1643,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     type: MatSliderRangeThumb,
     isStandalone: true,
     selector: "input[matSliderStartThumb], input[matSliderEndThumb]",
@@ -1658,7 +1658,7 @@ class MatSliderRangeThumb extends MatSliderThumb {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatSliderRangeThumb,
   decorators: [{
@@ -1678,7 +1678,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSliderModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSliderModule,
     deps: [],
@@ -1686,7 +1686,7 @@ class MatSliderModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSliderModule,
     imports: [MatRippleModule, MatSlider, MatSliderThumb, MatSliderRangeThumb, MatSliderVisualThumb],
@@ -1694,7 +1694,7 @@ class MatSliderModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.8",
+    version: "22.0.0-next.9",
     ngImport: i0,
     type: MatSliderModule,
     imports: [MatRippleModule, BidiModule]
@@ -1702,7 +1702,7 @@ class MatSliderModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.8",
+  version: "22.0.0-next.9",
   ngImport: i0,
   type: MatSliderModule,
   decorators: [{
