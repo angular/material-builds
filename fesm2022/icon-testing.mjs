@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, NgModule } from '@angular/core';
+import { Service, NgModule } from '@angular/core';
 import { of } from 'rxjs';
 import { MatIconRegistry } from './_icon-registry-chunk.mjs';
 import { ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
@@ -108,13 +108,14 @@ class FakeMatIconRegistry {
     ngImport: i0,
     type: FakeMatIconRegistry,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: FakeMatIconRegistry
+    type: FakeMatIconRegistry,
+    autoProvided: false
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -123,7 +124,10 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: FakeMatIconRegistry,
   decorators: [{
-    type: Injectable
+    type: Service,
+    args: [{
+      autoProvided: false
+    }]
   }]
 });
 class MatIconTestingModule {

@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { inject, DOCUMENT, NgZone, Injector, RendererFactory2, Injectable } from '@angular/core';
+import { inject, DOCUMENT, NgZone, Injector, RendererFactory2, Service } from '@angular/core';
 import { Platform, _getEventTarget } from '@angular/cdk/platform';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, defaultRippleAnimationConfig } from './_ripple-chunk.mjs';
@@ -116,14 +116,13 @@ class MatRippleLoader {
     ngImport: i0,
     type: MatRippleLoader,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatRippleLoader,
-    providedIn: 'root'
+    type: MatRippleLoader
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -132,10 +131,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatRippleLoader,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }],
   ctorParameters: () => []
 });

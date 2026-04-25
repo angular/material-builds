@@ -1,6 +1,6 @@
 import { createBlockScrollStrategy, createGlobalPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
-import { EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Component, InjectionToken, inject, Injector, Injectable, ElementRef, Input, Directive, NgModule } from '@angular/core';
+import { EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Component, InjectionToken, inject, Injector, Service, ElementRef, Input, Directive, NgModule } from '@angular/core';
 import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
@@ -492,14 +492,13 @@ class MatDialog {
     ngImport: i0,
     type: MatDialog,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatDialog,
-    providedIn: 'root'
+    type: MatDialog
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -508,10 +507,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatDialog,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }],
   ctorParameters: () => []
 });

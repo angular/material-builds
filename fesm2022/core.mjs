@@ -5,7 +5,7 @@ export { MAT_OPTGROUP, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, MatO
 export { MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleRef, RippleRenderer, RippleState, defaultRippleAnimationConfig } from './_ripple-chunk.mjs';
 export { MatLine, MatLineModule, setLines } from './_line-chunk.mjs';
 import * as i0 from '@angular/core';
-import { Version, inject, Injectable, NgModule } from '@angular/core';
+import { Version, inject, Service, NgModule } from '@angular/core';
 export { MatOptionModule } from './_option-module-chunk.mjs';
 export { MatPseudoCheckbox } from './_pseudo-checkbox-chunk.mjs';
 export { MatPseudoCheckboxModule } from './_pseudo-checkbox-module-chunk.mjs';
@@ -24,7 +24,7 @@ import '@angular/cdk/coercion';
 import '@angular/cdk/bidi';
 import 'rxjs/operators';
 
-const VERSION = new Version('22.0.0-next.6+sha-e44ff83');
+const VERSION = new Version('22.0.0-next.6+sha-cbc907b');
 
 const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 const TIME_REGEX = /^(\d?\d)[:.](\d?\d)(?:[:.](\d?\d))?\s*(AM|PM)?$/i;
@@ -260,13 +260,14 @@ class NativeDateAdapter extends DateAdapter {
     ngImport: i0,
     type: NativeDateAdapter,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: NativeDateAdapter
+    type: NativeDateAdapter,
+    autoProvided: false
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -275,7 +276,10 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: NativeDateAdapter,
   decorators: [{
-    type: Injectable
+    type: Service,
+    args: [{
+      autoProvided: false
+    }]
   }],
   ctorParameters: () => []
 });

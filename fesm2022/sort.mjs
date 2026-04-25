@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, EventEmitter, booleanAttribute, Output, Input, Optional, Inject, Directive, inject, ChangeDetectorRef, ElementRef, signal, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule, Injectable } from '@angular/core';
+import { InjectionToken, EventEmitter, booleanAttribute, Output, Input, Optional, Inject, Directive, inject, ChangeDetectorRef, ElementRef, signal, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule, Service } from '@angular/core';
 import { ReplaySubject, Subject, merge } from 'rxjs';
 import { FocusMonitor, AriaDescriber } from '@angular/cdk/a11y';
 import { SPACE, ENTER } from '@angular/cdk/keycodes';
@@ -443,14 +443,13 @@ class MatSortHeaderIntl {
     ngImport: i0,
     type: MatSortHeaderIntl,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatSortHeaderIntl,
-    providedIn: 'root'
+    type: MatSortHeaderIntl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -459,10 +458,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatSortHeaderIntl,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }]
 });
 

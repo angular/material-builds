@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, InjectionToken, ChangeDetectorRef, signal, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
+import { Service, inject, ElementRef, NgZone, EventEmitter, Injector, Renderer2, afterNextRender, Output, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, Injectable, InjectionToken, ChangeDetectorRef, signal, ViewChild, ViewContainerRef, DOCUMENT, booleanAttribute, Directive, forwardRef, HostAttributeToken, ContentChild, TemplateRef, NgModule } from '@angular/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
 import { DateAdapter, MAT_DATE_FORMATS } from './_date-formats-chunk.mjs';
 import { _IdGenerator, CdkMonitorFocus, CdkTrapFocus, A11yModule } from '@angular/cdk/a11y';
@@ -61,14 +61,13 @@ class MatDatepickerIntl {
     ngImport: i0,
     type: MatDatepickerIntl,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatDatepickerIntl,
-    providedIn: 'root'
+    type: MatDatepickerIntl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -77,10 +76,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatDatepickerIntl,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }]
 });
 

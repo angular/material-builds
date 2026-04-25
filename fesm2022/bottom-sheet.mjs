@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { EventEmitter, inject, ViewEncapsulation, ChangeDetectionStrategy, Component, InjectionToken, Injector, Injectable, NgModule } from '@angular/core';
+import { EventEmitter, inject, ViewEncapsulation, ChangeDetectionStrategy, Component, InjectionToken, Injector, Service, NgModule } from '@angular/core';
 import { CdkDialogContainer, Dialog, DialogModule } from '@angular/cdk/dialog';
 import { createGlobalPositionStrategy, createBlockScrollStrategy } from '@angular/cdk/overlay';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -321,14 +321,13 @@ class MatBottomSheet {
     ngImport: i0,
     type: MatBottomSheet,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatBottomSheet,
-    providedIn: 'root'
+    type: MatBottomSheet
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -337,10 +336,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatBottomSheet,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }]
 });
 

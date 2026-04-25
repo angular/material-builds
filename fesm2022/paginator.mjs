@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { Injectable, InjectionToken, inject, ChangeDetectorRef, numberAttribute, EventEmitter, booleanAttribute, Output, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
+import { Service, InjectionToken, inject, ChangeDetectorRef, numberAttribute, EventEmitter, booleanAttribute, Output, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { Subject, ReplaySubject } from 'rxjs';
 import { MatFormField } from './_form-field-chunk.mjs';
@@ -58,14 +58,13 @@ class MatPaginatorIntl {
     ngImport: i0,
     type: MatPaginatorIntl,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatPaginatorIntl,
-    providedIn: 'root'
+    type: MatPaginatorIntl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -74,10 +73,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatPaginatorIntl,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }]
 });
 

@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, inject, ChangeDetectionStrategy, ViewEncapsulation, Component, NgZone, ElementRef, ChangeDetectorRef, DOCUMENT, Injector, afterNextRender, ViewChild, TemplateRef, Injectable, NgModule } from '@angular/core';
+import { InjectionToken, Directive, inject, ChangeDetectionStrategy, ViewEncapsulation, Component, NgZone, ElementRef, ChangeDetectorRef, DOCUMENT, Injector, afterNextRender, ViewChild, TemplateRef, Service, NgModule } from '@angular/core';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { OverlayConfig, createGlobalPositionStrategy, createOverlayRef, OverlayModule } from '@angular/cdk/overlay';
@@ -747,14 +747,13 @@ class MatSnackBar {
     ngImport: i0,
     type: MatSnackBar,
     deps: [],
-    target: i0.ɵɵFactoryTarget.Injectable
+    target: i0.ɵɵFactoryTarget.Service
   });
-  static ɵprov = i0.ɵɵngDeclareInjectable({
-    minVersion: "12.0.0",
+  static ɵprov = i0.ɵɵngDeclareService({
+    minVersion: "22.0.0",
     version: "22.0.0-next.9",
     ngImport: i0,
-    type: MatSnackBar,
-    providedIn: 'root'
+    type: MatSnackBar
   });
 }
 i0.ɵɵngDeclareClassMetadata({
@@ -763,10 +762,7 @@ i0.ɵɵngDeclareClassMetadata({
   ngImport: i0,
   type: MatSnackBar,
   decorators: [{
-    type: Injectable,
-    args: [{
-      providedIn: 'root'
-    }]
+    type: Service
   }]
 });
 
