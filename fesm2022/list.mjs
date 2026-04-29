@@ -803,12 +803,6 @@ class MatListOption extends MatListItemBase {
   _unscopedContent;
   selectedChange = new EventEmitter();
   togglePosition = 'after';
-  get checkboxPosition() {
-    return this.togglePosition;
-  }
-  set checkboxPosition(value) {
-    this.togglePosition = value;
-  }
   get color() {
     return this._color || this._selectionList.color;
   }
@@ -943,7 +937,6 @@ class MatListOption extends MatListItemBase {
     selector: "mat-list-option",
     inputs: {
       togglePosition: "togglePosition",
-      checkboxPosition: "checkboxPosition",
       color: "color",
       value: "value",
       selected: "selected"
@@ -1086,9 +1079,6 @@ i0.ɵɵngDeclareClassMetadata({
       type: Output
     }],
     togglePosition: [{
-      type: Input
-    }],
-    checkboxPosition: [{
       type: Input
     }],
     color: [{

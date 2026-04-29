@@ -7,28 +7,6 @@ import * as i2 from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
 
 /**
- * Valid positions for the arrow to be in for its opacity and translation. If the state is a
- * sort direction, the position of the arrow will be above/below and opacity 0. If the state is
- * hint, the arrow will be in the center with a slight opacity. Active state means the arrow will
- * be fully opaque in the center.
- *
- * @docs-private
- * @deprecated No longer being used, to be removed.
- * @breaking-change 21.0.0
- */
-type ArrowViewState = SortDirection | 'hint' | 'active';
-/**
- * States describing the arrow's animated position (animating fromState to toState).
- * If the fromState is not defined, there will be no animated transition to the toState.
- * @docs-private
- * @deprecated No longer being used, to be removed.
- * @breaking-change 21.0.0
- */
-interface ArrowViewStateTransition {
-    fromState?: ArrowViewState;
-    toState?: ArrowViewState;
-}
-/**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
  *
@@ -127,4 +105,3 @@ declare class MatSortHeaderIntl {
 }
 
 export { MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition };
-export type { ArrowViewState, ArrowViewStateTransition };

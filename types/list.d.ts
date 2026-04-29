@@ -285,14 +285,6 @@ declare class MatListOption extends MatListItemBase implements ListOption, OnIni
     /** Whether the label should appear before or after the checkbox/radio. Defaults to 'after' */
     togglePosition: MatListOptionTogglePosition;
     /**
-     * Whether the label should appear before or after the checkbox/radio. Defaults to 'after'
-     *
-     * @deprecated Use `togglePosition` instead.
-     * @breaking-change 17.0.0
-     */
-    get checkboxPosition(): MatListOptionTogglePosition;
-    set checkboxPosition(value: MatListOptionTogglePosition);
-    /**
      * Theme color of the list option. This sets the color of the checkbox/radio.
      * This API is supported in M2 themes only, it has no effect in M3 themes. For color customization
      * in M3, see https://material.angular.dev/components/list/styling.
@@ -352,7 +344,7 @@ declare class MatListOption extends MatListItemBase implements ListOption, OnIni
     _setTabindex(value: number): void;
     protected _hasBothLeadingAndTrailing(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatListOption, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "checkboxPosition": { "alias": "checkboxPosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatListOption, "mat-list-option", ["matListOption"], { "togglePosition": { "alias": "togglePosition"; "required": false; }; "color": { "alias": "color"; "required": false; }; "value": { "alias": "value"; "required": false; }; "selected": { "alias": "selected"; "required": false; }; }, { "selectedChange": "selectedChange"; }, ["_lines", "_titles"], ["[matListItemAvatar],[matListItemIcon]", "[matListItemTitle]", "[matListItemLine]", "*", "mat-divider"], true, never>;
 }
 
 declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
@@ -509,5 +501,5 @@ declare class MatListModule {
     static ɵinj: i0.ɵɵInjectorDeclaration<MatListModule>;
 }
 
-export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, MatListOptionTogglePosition as MatListOptionCheckboxPosition, MatListOptionTogglePosition, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, _MatListItemGraphicBase };
+export { MAT_LIST, MAT_LIST_CONFIG, MAT_NAV_LIST, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatActionList, MatList, MatListItem, MatListItemAvatar, MatListItemIcon, MatListItemLine, MatListItemMeta, MatListItemTitle, MatListModule, MatListOption, MatListOptionTogglePosition, MatListSubheaderCssMatStyler, MatNavList, MatSelectionList, MatSelectionListChange, SELECTION_LIST, _MatListItemGraphicBase };
 export type { MatListConfig, SelectionList };
