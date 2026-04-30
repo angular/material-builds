@@ -7,7 +7,7 @@ class ShowOnDirtyErrorStateMatcher {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: ShowOnDirtyErrorStateMatcher,
     deps: [],
@@ -15,7 +15,7 @@ class ShowOnDirtyErrorStateMatcher {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: ShowOnDirtyErrorStateMatcher,
     autoProvided: false
@@ -23,7 +23,7 @@ class ShowOnDirtyErrorStateMatcher {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: ShowOnDirtyErrorStateMatcher,
   decorators: [{
@@ -39,7 +39,7 @@ class ErrorStateMatcher {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: ErrorStateMatcher,
     deps: [],
@@ -47,14 +47,14 @@ class ErrorStateMatcher {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: ErrorStateMatcher
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: ErrorStateMatcher,
   decorators: [{

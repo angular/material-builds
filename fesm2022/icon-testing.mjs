@@ -104,7 +104,7 @@ class FakeMatIconRegistry {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: FakeMatIconRegistry,
     deps: [],
@@ -112,7 +112,7 @@ class FakeMatIconRegistry {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: FakeMatIconRegistry,
     autoProvided: false
@@ -120,7 +120,7 @@ class FakeMatIconRegistry {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: FakeMatIconRegistry,
   decorators: [{
@@ -133,7 +133,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatIconTestingModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatIconTestingModule,
     deps: [],
@@ -141,13 +141,13 @@ class MatIconTestingModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatIconTestingModule
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatIconTestingModule,
     providers: [{
@@ -158,7 +158,7 @@ class MatIconTestingModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: MatIconTestingModule,
   decorators: [{

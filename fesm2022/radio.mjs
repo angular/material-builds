@@ -171,7 +171,7 @@ class MatRadioGroup {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatRadioGroup,
     deps: [],
@@ -179,7 +179,7 @@ class MatRadioGroup {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     type: MatRadioGroup,
     isStandalone: true,
     selector: "mat-radio-group",
@@ -217,7 +217,7 @@ class MatRadioGroup {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: MatRadioGroup,
   decorators: [{
@@ -507,7 +507,7 @@ class MatRadioButton {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatRadioButton,
     deps: [],
@@ -515,7 +515,7 @@ class MatRadioButton {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     type: MatRadioButton,
     isStandalone: true,
     selector: "mat-radio-button",
@@ -593,7 +593,7 @@ class MatRadioButton {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: MatRadioButton,
   decorators: [{
@@ -709,7 +709,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatRadioModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatRadioModule,
     deps: [],
@@ -717,7 +717,7 @@ class MatRadioModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatRadioModule,
     imports: [MatRippleModule, MatRadioGroup, MatRadioButton],
@@ -725,7 +725,7 @@ class MatRadioModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.9",
+    version: "22.0.0-next.10",
     ngImport: i0,
     type: MatRadioModule,
     imports: [MatRippleModule, MatRadioButton, BidiModule]
@@ -733,7 +733,7 @@ class MatRadioModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.9",
+  version: "22.0.0-next.10",
   ngImport: i0,
   type: MatRadioModule,
   decorators: [{
