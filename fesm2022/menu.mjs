@@ -335,6 +335,9 @@ class MatMenu {
   lazyContent;
   overlapTrigger = false;
   hasBackdrop;
+  get panelClass() {
+    return this._previousPanelClass;
+  }
   set panelClass(classes) {
     const previousPanelClass = this._previousPanelClass;
     const newClassList = {
@@ -354,7 +357,7 @@ class MatMenu {
     }
     this._classList = newClassList;
   }
-  _previousPanelClass;
+  _previousPanelClass = '';
   get classList() {
     return this.panelClass;
   }

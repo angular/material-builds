@@ -224,6 +224,7 @@ declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, On
      * to style the containing menu from outside the component.
      * @param classes list of class names
      */
+    get panelClass(): string;
     set panelClass(classes: string);
     private _previousPanelClass;
     /**
