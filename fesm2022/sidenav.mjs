@@ -40,7 +40,7 @@ class MatDrawerContent extends CdkScrollable {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatDrawerContent,
     deps: null,
@@ -48,7 +48,7 @@ class MatDrawerContent extends CdkScrollable {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     type: MatDrawerContent,
     isStandalone: true,
     selector: "mat-drawer-content",
@@ -73,7 +73,7 @@ class MatDrawerContent extends CdkScrollable {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatDrawerContent,
   decorators: [{
@@ -377,7 +377,7 @@ class MatDrawer {
   };
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatDrawer,
     deps: [],
@@ -385,7 +385,7 @@ class MatDrawer {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     type: MatDrawer,
     isStandalone: true,
     selector: "mat-drawer",
@@ -435,7 +435,7 @@ class MatDrawer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatDrawer,
   decorators: [{
@@ -719,7 +719,7 @@ class MatDrawerContainer {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatDrawerContainer,
     deps: [],
@@ -727,7 +727,7 @@ class MatDrawerContainer {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     type: MatDrawerContainer,
     isStandalone: true,
     selector: "mat-drawer-container",
@@ -778,7 +778,7 @@ class MatDrawerContainer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatDrawerContainer,
   decorators: [{
@@ -831,7 +831,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSidenavContent extends MatDrawerContent {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatSidenavContent,
     deps: null,
@@ -839,7 +839,7 @@ class MatSidenavContent extends MatDrawerContent {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     type: MatSidenavContent,
     isStandalone: true,
     selector: "mat-sidenav-content",
@@ -859,7 +859,7 @@ class MatSidenavContent extends MatDrawerContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatSidenavContent,
   decorators: [{
@@ -902,7 +902,7 @@ class MatSidenav extends MatDrawer {
   _fixedBottomGap = 0;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatSidenav,
     deps: null,
@@ -910,7 +910,7 @@ class MatSidenav extends MatDrawer {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     type: MatSidenav,
     isStandalone: true,
     selector: "mat-sidenav",
@@ -951,7 +951,7 @@ class MatSidenav extends MatDrawer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatSidenav,
   decorators: [{
@@ -997,7 +997,7 @@ class MatSidenavContainer extends MatDrawerContainer {
   _content = undefined;
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatSidenavContainer,
     deps: null,
@@ -1005,7 +1005,7 @@ class MatSidenavContainer extends MatDrawerContainer {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     type: MatSidenavContainer,
     isStandalone: true,
     selector: "mat-sidenav-container",
@@ -1047,7 +1047,7 @@ class MatSidenavContainer extends MatDrawerContainer {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatSidenavContainer,
   decorators: [{
@@ -1089,7 +1089,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSidenavModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatSidenavModule,
     deps: [],
@@ -1097,7 +1097,7 @@ class MatSidenavModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatSidenavModule,
     imports: [CdkScrollableModule, MatDrawer, MatDrawerContainer, MatDrawerContent, MatSidenav, MatSidenavContainer, MatSidenavContent],
@@ -1105,7 +1105,7 @@ class MatSidenavModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.10",
+    version: "22.0.0-next.12",
     ngImport: i0,
     type: MatSidenavModule,
     imports: [CdkScrollableModule, BidiModule, CdkScrollableModule]
@@ -1113,7 +1113,7 @@ class MatSidenavModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.10",
+  version: "22.0.0-next.12",
   ngImport: i0,
   type: MatSidenavModule,
   decorators: [{
