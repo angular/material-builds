@@ -1,6 +1,6 @@
 import { _getEventTarget, normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { ViewEncapsulation, ChangeDetectionStrategy, Component, InjectionToken, inject, ElementRef, NgZone, Injector, Input, Directive } from '@angular/core';
+import { ViewEncapsulation, Component, InjectionToken, inject, ElementRef, NgZone, Injector, Input, Directive } from '@angular/core';
 import { isFakeMousedownFromScreenReader, isFakeTouchstartFromScreenReader } from '@angular/cdk/a11y';
 import { coerceElement } from '@angular/cdk/coercion';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
@@ -117,7 +117,6 @@ class _MatRippleStylesLoader {
     template: '',
     isInline: true,
     styles: [".mat-ripple {\n  overflow: hidden;\n  position: relative;\n}\n.mat-ripple:not(:empty) {\n  transform: translateZ(0);\n}\n\n.mat-ripple.mat-ripple-unbounded {\n  overflow: visible;\n}\n\n.mat-ripple-element {\n  position: absolute;\n  border-radius: 50%;\n  pointer-events: none;\n  transition: opacity, transform 0ms cubic-bezier(0, 0, 0.2, 1);\n  transform: scale3d(0, 0, 0);\n  background-color: var(--mat-ripple-color, color-mix(in srgb, var(--mat-sys-on-surface) 10%, transparent));\n}\n@media (forced-colors: active) {\n  .mat-ripple-element {\n    display: none;\n  }\n}\n.cdk-drag-preview .mat-ripple-element, .cdk-drag-placeholder .mat-ripple-element {\n  display: none;\n}\n"],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -130,7 +129,6 @@ i0.ɵɵngDeclareClassMetadata({
     type: Component,
     args: [{
       template: '',
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       host: {
         'mat-ripple-style-loader': ''

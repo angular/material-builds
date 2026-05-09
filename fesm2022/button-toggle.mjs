@@ -4,7 +4,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { hasModifierKey, RIGHT_ARROW, DOWN_ARROW, LEFT_ARROW, UP_ARROW, ENTER, SPACE } from '@angular/cdk/keycodes';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import * as i0 from '@angular/core';
-import { InjectionToken, forwardRef, inject, ChangeDetectorRef, ElementRef, EventEmitter, HostAttributeToken, signal, booleanAttribute, Input, Output, ContentChildren, Directive, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
+import { InjectionToken, forwardRef, inject, ChangeDetectorRef, ElementRef, EventEmitter, HostAttributeToken, signal, booleanAttribute, Input, Output, ContentChildren, Directive, ViewChild, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRipple } from './_ripple-chunk.mjs';
 import { MatPseudoCheckbox } from './_pseudo-checkbox-chunk.mjs';
@@ -652,7 +652,6 @@ class MatButtonToggle {
       selector: "mat-pseudo-checkbox",
       inputs: ["state", "disabled", "appearance"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -667,7 +666,6 @@ i0.ɵɵngDeclareClassMetadata({
       selector: 'mat-button-toggle',
       encapsulation: ViewEncapsulation.None,
       exportAs: 'matButtonToggle',
-      changeDetection: ChangeDetectionStrategy.OnPush,
       host: {
         '[class.mat-button-toggle-standalone]': '!buttonToggleGroup',
         '[class.mat-button-toggle-checked]': 'checked',

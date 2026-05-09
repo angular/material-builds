@@ -1,7 +1,7 @@
 import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, ViewChild, Input, ViewEncapsulation, ChangeDetectionStrategy, Component, computed, afterRenderEffect, numberAttribute, booleanAttribute, ContentChildren, ContentChild, ViewChildren, EventEmitter, signal, forwardRef, Output, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, NgZone, Renderer2, ElementRef, ViewChild, Input, ViewEncapsulation, Component, computed, afterRenderEffect, numberAttribute, booleanAttribute, ContentChildren, ContentChild, ViewChildren, EventEmitter, signal, forwardRef, Output, Directive, NgModule } from '@angular/core';
 import { RippleState, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS } from './_ripple-chunk.mjs';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './_animation-chunk.mjs';
@@ -255,7 +255,6 @@ class MatSliderVisualThumb {
       inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"],
       exportAs: ["matRipple"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -271,7 +270,6 @@ i0.ɵɵngDeclareClassMetadata({
       host: {
         'class': 'mdc-slider__thumb mat-mdc-slider-visual-thumb'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: MAT_SLIDER_VISUAL_THUMB,
@@ -930,7 +928,6 @@ class MatSlider {
       selector: "mat-slider-visual-thumb",
       inputs: ["discrete", "thumbPosition", "valueIndicatorText"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -953,7 +950,6 @@ i0.ɵɵngDeclareClassMetadata({
         '[class._mat-animation-noopable]': '_noopAnimations'
       },
       exportAs: 'matSlider',
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: MAT_SLIDER,

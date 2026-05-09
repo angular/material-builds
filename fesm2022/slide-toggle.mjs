@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, booleanAttribute, forwardRef, numberAttribute, Output, Input, ViewChild, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, booleanAttribute, forwardRef, numberAttribute, Output, Input, ViewChild, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FocusMonitor, _IdGenerator } from '@angular/cdk/a11y';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
@@ -237,7 +237,6 @@ class MatSlideToggle {
       selector: "div[mat-internal-form-field]",
       inputs: ["labelPosition"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -264,7 +263,6 @@ i0.ɵɵngDeclareClassMetadata({
       },
       exportAs: 'matSlideToggle',
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
       providers: [{
         provide: NG_VALUE_ACCESSOR,
         useExisting: forwardRef(() => MatSlideToggle),

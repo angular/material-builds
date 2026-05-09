@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Input, ChangeDetectionStrategy, ViewEncapsulation, Component, NgModule } from '@angular/core';
+import { InjectionToken, inject, DOCUMENT, ElementRef, ErrorHandler, HostAttributeToken, booleanAttribute, Input, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { MatIconRegistry } from './_icon-registry-chunk.mjs';
@@ -269,7 +269,6 @@ class MatIcon {
     template: '<ng-content></ng-content>',
     isInline: true,
     styles: ["mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn {\n  color: var(--mat-icon-color, inherit);\n}\n\n.mat-icon {\n  -webkit-user-select: none;\n  user-select: none;\n  background-repeat: no-repeat;\n  display: inline-block;\n  fill: currentColor;\n  height: 24px;\n  width: 24px;\n  overflow: hidden;\n}\n.mat-icon.mat-icon-inline {\n  font-size: inherit;\n  height: inherit;\n  line-height: inherit;\n  width: inherit;\n}\n.mat-icon.mat-ligature-font[fontIcon]::before {\n  content: attr(fontIcon);\n}\n\n[dir=rtl] .mat-icon-rtl-mirror {\n  transform: scale(-1, 1);\n}\n\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon {\n  display: block;\n}\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon {\n  margin: auto;\n}\n"],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -296,7 +295,6 @@ i0.ɵɵngDeclareClassMetadata({
         '[class.mat-icon-no-color]': 'color !== "primary" && color !== "accent" && color !== "warn"'
       },
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
       styles: ["mat-icon, mat-icon.mat-primary, mat-icon.mat-accent, mat-icon.mat-warn {\n  color: var(--mat-icon-color, inherit);\n}\n\n.mat-icon {\n  -webkit-user-select: none;\n  user-select: none;\n  background-repeat: no-repeat;\n  display: inline-block;\n  fill: currentColor;\n  height: 24px;\n  width: 24px;\n  overflow: hidden;\n}\n.mat-icon.mat-icon-inline {\n  font-size: inherit;\n  height: inherit;\n  line-height: inherit;\n  width: inherit;\n}\n.mat-icon.mat-ligature-font[fontIcon]::before {\n  content: attr(fontIcon);\n}\n\n[dir=rtl] .mat-icon-rtl-mirror {\n  transform: scale(-1, 1);\n}\n\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon {\n  display: block;\n}\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,\n.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon {\n  margin: auto;\n}\n"]
     }]
   }],

@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ViewContainerRef, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, ViewEncapsulation, ChangeDetectionStrategy, Component, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ViewContainerRef, signal, viewChild, viewChildren, input, output, booleanAttribute, computed, effect, ElementRef, afterNextRender, untracked, ViewEncapsulation, Component, model, Renderer2, Directive, HostAttributeToken, NgModule } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { createRepositionScrollStrategy, createFlexibleConnectedPositionStrategy, createOverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -468,7 +468,6 @@ class MatTimepicker {
       outputs: ["onSelectionChange"],
       exportAs: ["matOption"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -482,7 +481,6 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       selector: 'mat-timepicker',
       exportAs: 'matTimepicker',
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       imports: [MatOption],
       providers: [{
@@ -1164,7 +1162,6 @@ class MatTimepickerToggle {
       selector: "button[mat-icon-button], a[mat-icon-button], button[matIconButton], a[matIconButton]",
       exportAs: ["matButton", "matAnchor"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -1184,7 +1181,6 @@ i0.ɵɵngDeclareClassMetadata({
       },
       exportAs: 'matTimepickerToggle',
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
       imports: [MatIconButton],
       template: "<button\n  matIconButton\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"getAriaLabel()\"\n  [attr.aria-labelledby]=\"ariaLabelledby()\"\n  [attr.aria-expanded]=\"timepicker().isOpen()\"\n  [tabIndex]=\"_isDisabled() ? -1 : tabIndex()\"\n  [disabled]=\"_isDisabled()\"\n  [disableRipple]=\"disableRipple()\">\n\n  <ng-content select=\"[matTimepickerToggleIcon]\">\n    <svg\n      class=\"mat-timepicker-toggle-default-icon\"\n      height=\"24px\"\n      width=\"24px\"\n      viewBox=\"0 -960 960 960\"\n      fill=\"currentColor\"\n      focusable=\"false\"\n      aria-hidden=\"true\">\n      <path d=\"m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z\"/>\n    </svg>\n  </ng-content>\n</button>\n"
     }]

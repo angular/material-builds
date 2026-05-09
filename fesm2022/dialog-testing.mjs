@@ -1,6 +1,6 @@
 import { ContentContainerComponentHarness, HarnessPredicate, TestKey } from '@angular/cdk/testing';
 import { __decorate, __metadata } from 'tslib';
-import { inject, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { inject, NgZone, Component, ViewEncapsulation, NgModule } from '@angular/core';
 import { MATERIAL_ANIMATIONS } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from './dialog.mjs';
 import '@angular/cdk/overlay';
@@ -105,7 +105,6 @@ let MatTestDialogOpener = class MatTestDialogOpener {
 MatTestDialogOpener = MatTestDialogOpener_1 = __decorate([Component({
   selector: 'mat-test-dialog-opener',
   template: '',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 }), __metadata("design:paramtypes", [])], MatTestDialogOpener);
 let MatTestDialogOpenerModule = class MatTestDialogOpenerModule {};
