@@ -5,7 +5,7 @@ import { hasModifierKey, ENTER, SPACE, A, ESCAPE, DOWN_ARROW, UP_ARROW, LEFT_ARR
 import { createRepositionScrollStrategy, OVERLAY_DEFAULT_CONFIG, CdkOverlayOrigin, CdkConnectedOverlay, OverlayModule } from '@angular/cdk/overlay';
 import { ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, signal, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Output, Input, ViewChild, ContentChild, ContentChildren, ChangeDetectionStrategy, ViewEncapsulation, Component, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, signal, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Output, Input, ViewChild, ContentChild, ContentChildren, ViewEncapsulation, Component, Directive, NgModule } from '@angular/core';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { _getEventTarget } from '@angular/cdk/platform';
 import { Subject, defer, merge } from 'rxjs';
@@ -886,7 +886,6 @@ class MatSelect {
       outputs: ["backdropClick", "positionChange", "attach", "detach", "overlayKeydown", "overlayOutsideClick"],
       exportAs: ["cdkConnectedOverlay"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -901,7 +900,6 @@ i0.ɵɵngDeclareClassMetadata({
       selector: 'mat-select',
       exportAs: 'matSelect',
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
       host: {
         'role': 'combobox',
         'aria-haspopup': 'listbox',

@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, Directive, inject, ChangeDetectionStrategy, ViewEncapsulation, Component, NgZone, ElementRef, ChangeDetectorRef, DOCUMENT, Injector, afterNextRender, ViewChild, TemplateRef, Service, NgModule } from '@angular/core';
+import { InjectionToken, Directive, inject, ViewEncapsulation, Component, NgZone, ElementRef, ChangeDetectorRef, DOCUMENT, Injector, afterNextRender, ViewChild, ChangeDetectionStrategy, TemplateRef, Service, NgModule } from '@angular/core';
 import { _IdGenerator, LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { OverlayConfig, createGlobalPositionStrategy, createOverlayRef, OverlayModule } from '@angular/cdk/overlay';
@@ -253,7 +253,6 @@ class SimpleSnackBar {
       type: MatSnackBarAction,
       selector: "[matSnackBarAction]"
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -268,7 +267,6 @@ i0.ɵɵngDeclareClassMetadata({
       selector: 'simple-snack-bar',
       exportAs: 'matSnackBar',
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
       imports: [MatButton, MatSnackBarLabel, MatSnackBarActions, MatSnackBarAction],
       host: {
         'class': 'mat-mdc-simple-snack-bar'

@@ -4,7 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
 import { NgTemplateOutlet } from '@angular/common';
 import * as i0 from '@angular/core';
-import { Directive, InjectionToken, inject, Input, ElementRef, NgZone, Renderer2, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, Component, ChangeDetectorRef, viewChild, computed, contentChild, signal, effect, afterRenderEffect, ContentChildren, ContentChild } from '@angular/core';
+import { Directive, InjectionToken, inject, Input, ElementRef, NgZone, Renderer2, ViewChild, ViewEncapsulation, Component, ChangeDetectorRef, viewChild, computed, contentChild, signal, effect, afterRenderEffect, ContentChildren, ContentChild } from '@angular/core';
 import { Subscription, Subject, merge } from 'rxjs';
 import { startWith, map, pairwise, filter, takeUntil } from 'rxjs/operators';
 import { SharedResizeObserver } from '@angular/cdk/observers/private';
@@ -510,7 +510,6 @@ class MatFormFieldNotchedOutline {
     }],
     ngImport: i0,
     template: "<div class=\"mat-mdc-notch-piece mdc-notched-outline__leading\"></div>\n<div class=\"mat-mdc-notch-piece mdc-notched-outline__notch\" #notch>\n  <ng-content></ng-content>\n</div>\n<div class=\"mat-mdc-notch-piece mdc-notched-outline__trailing\"></div>\n",
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -527,7 +526,6 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mdc-notched-outline',
         '[class.mdc-notched-outline--notched]': 'open'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       template: "<div class=\"mat-mdc-notch-piece mdc-notched-outline__leading\"></div>\n<div class=\"mat-mdc-notch-piece mdc-notched-outline__notch\" #notch>\n  <ng-content></ng-content>\n</div>\n<div class=\"mat-mdc-notch-piece mdc-notched-outline__trailing\"></div>\n"
     }]
@@ -1180,7 +1178,6 @@ class MatFormField {
       selector: "mat-hint",
       inputs: ["align", "id"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -1217,7 +1214,6 @@ i0.ɵɵngDeclareClassMetadata({
         '[class.ng-pending]': '_shouldForward("pending")'
       },
       encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush,
       providers: [{
         provide: MAT_FORM_FIELD,
         useExisting: MatFormField

@@ -2267,7 +2267,6 @@ class MatTabLink extends InkBarItem {
       inputs: ["matRippleColor", "matRippleUnbounded", "matRippleCentered", "matRippleRadius", "matRippleAnimation", "matRippleDisabled", "matRippleTrigger"],
       exportAs: ["matRipple"]
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -2281,7 +2280,6 @@ i0.ɵɵngDeclareClassMetadata({
     args: [{
       selector: '[mat-tab-link], [matTabLink]',
       exportAs: 'matTabLink',
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       host: {
         'class': 'mdc-tab mat-mdc-tab-link mat-focus-indicator',
@@ -2367,7 +2365,6 @@ class MatTabNavPanel {
     ngImport: i0,
     template: '<ng-content></ng-content>',
     isInline: true,
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -2388,8 +2385,7 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mat-mdc-tab-nav-panel',
         'role': 'tabpanel'
       },
-      encapsulation: ViewEncapsulation.None,
-      changeDetection: ChangeDetectionStrategy.OnPush
+      encapsulation: ViewEncapsulation.None
     }]
   }],
   propDecorators: {

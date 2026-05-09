@@ -5,7 +5,7 @@ import { ESCAPE, hasModifierKey } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ViewportRuler, CdkScrollableModule } from '@angular/cdk/scrolling';
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, NgZone, Renderer2, DOCUMENT, signal, EventEmitter, Injector, ChangeDetectorRef, afterNextRender, QueryList, ViewEncapsulation, ChangeDetectionStrategy, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, NgZone, Renderer2, DOCUMENT, signal, EventEmitter, Injector, ChangeDetectorRef, afterNextRender, QueryList, ViewEncapsulation, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
 import { _animationsDisabled } from './_animation-chunk.mjs';
@@ -68,7 +68,6 @@ class MatDrawerContent extends CdkScrollable {
     ngImport: i0,
     template: '<ng-content></ng-content>',
     isInline: true,
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -88,7 +87,6 @@ i0.ɵɵngDeclareClassMetadata({
         '[style.margin-right.px]': '_container._contentMargins.right',
         '[class.mat-drawer-content-hidden]': '_shouldBeHidden()'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: CdkScrollable,
@@ -432,7 +430,6 @@ class MatDrawer {
       type: CdkScrollable,
       selector: "[cdk-scrollable], [cdkScrollable]"
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -456,7 +453,6 @@ i0.ɵɵngDeclareClassMetadata({
         '[style.visibility]': '(!_container && !opened) ? "hidden" : null',
         '[attr.tabIndex]': '(mode !== "side") ? "-1" : null'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       imports: [CdkScrollable],
       template: "<div class=\"mat-drawer-inner-container\" cdkScrollable #content>\r\n  <ng-content></ng-content>\r\n</div>\r\n"
@@ -777,7 +773,6 @@ class MatDrawerContainer {
       type: MatDrawerContent,
       selector: "mat-drawer-content"
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -795,7 +790,6 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mat-drawer-container',
         '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: MAT_DRAWER_CONTAINER,
@@ -860,7 +854,6 @@ class MatSidenavContent extends MatDrawerContent {
     ngImport: i0,
     template: '<ng-content></ng-content>',
     isInline: true,
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -877,7 +870,6 @@ i0.ɵɵngDeclareClassMetadata({
       host: {
         'class': 'mat-drawer-content mat-sidenav-content'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: CdkScrollable,
@@ -954,7 +946,6 @@ class MatSidenav extends MatDrawer {
       type: CdkScrollable,
       selector: "[cdk-scrollable], [cdkScrollable]"
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -980,7 +971,6 @@ i0.ɵɵngDeclareClassMetadata({
         '[style.top.px]': 'fixedInViewport ? fixedTopGap : null',
         '[style.bottom.px]': 'fixedInViewport ? fixedBottomGap : null'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       imports: [CdkScrollable],
       providers: [{
@@ -1052,7 +1042,6 @@ class MatSidenavContainer extends MatDrawerContainer {
       type: MatSidenavContent,
       selector: "mat-sidenav-content"
     }],
-    changeDetection: i0.ChangeDetectionStrategy.OnPush,
     encapsulation: i0.ViewEncapsulation.None
   });
 }
@@ -1070,7 +1059,6 @@ i0.ɵɵngDeclareClassMetadata({
         'class': 'mat-drawer-container mat-sidenav-container',
         '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride'
       },
-      changeDetection: ChangeDetectionStrategy.OnPush,
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: MAT_DRAWER_CONTAINER,
