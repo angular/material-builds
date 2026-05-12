@@ -23,8 +23,11 @@ declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
     private _platform;
     private _changeDetectorRef;
+    private _element;
+    private _isInert;
     _container: MatDrawerContainer;
     ngAfterContentInit(): void;
+    _updateInert(): void;
     /** Determines whether the content element should be hidden from the user. */
     protected _shouldBeHidden(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
@@ -110,12 +113,6 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
     private _changeDetectorRef;
     constructor();
     /**
-     * Focuses the provided element. If the element is not focusable, it will add a tabIndex
-     * attribute to forcefully focus it. The attribute is removed after focus is moved.
-     * @param element The element to focus.
-     */
-    private _forceFocus;
-    /**
      * Focuses the first element that matches the given selector within the focus trap.
      * @param selector The CSS selector for the element to set focus to.
      */
@@ -125,6 +122,7 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
      * the focus trap is disabled in `side` mode.
      */
     private _takeFocus;
+    private _notifyContentFocus;
     /**
      * Restores focus to the element that was originally focused when the drawer opened.
      * If no element was focused at that time, the focus will be restored to the drawer.
