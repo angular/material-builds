@@ -22,11 +22,23 @@ const MAT_DRAWER_CONTAINER = new InjectionToken('MAT_DRAWER_CONTAINER');
 class MatDrawerContent extends CdkScrollable {
   _platform = inject(Platform);
   _changeDetectorRef = inject(ChangeDetectorRef);
+  _element = inject(ElementRef);
+  _isInert = false;
   _container = inject(MatDrawerContainer);
   ngAfterContentInit() {
-    this._container._contentMarginChanges.subscribe(() => {
-      this._changeDetectorRef.markForCheck();
-    });
+    this._container._contentMarginChanges.subscribe(() => this._changeDetectorRef.markForCheck());
+  }
+  _updateInert() {
+    const newValue = this._container._isShowingBackdrop();
+    if (newValue !== this._isInert) {
+      const element = this._element.nativeElement;
+      this._isInert = newValue;
+      if (newValue) {
+        element.setAttribute('inert', 'true');
+      } else {
+        element.removeAttribute('inert');
+      }
+    }
   }
   _shouldBeHidden() {
     if (this._platform.isBrowser) {
@@ -209,7 +221,11 @@ class MatDrawer {
       this.openedChange.emit(this.opened);
     });
   }
-  _forceFocus(element, options) {
+  _focusByCssSelector(selector, options) {
+    const element = this._elementRef.nativeElement.querySelector(selector);
+    if (!element) {
+      return;
+    }
     if (!this._interactivityChecker.isFocusable(element)) {
       element.tabIndex = -1;
       this._ngZone.runOutsideAngular(() => {
@@ -223,12 +239,6 @@ class MatDrawer {
       });
     }
     element.focus(options);
-  }
-  _focusByCssSelector(selector, options) {
-    let elementToFocus = this._elementRef.nativeElement.querySelector(selector);
-    if (elementToFocus) {
-      this._forceFocus(elementToFocus, options);
-    }
   }
   _takeFocus() {
     if (!this._focusTrap) {
@@ -246,19 +256,26 @@ class MatDrawer {
           if (!hasMovedFocus && typeof element.focus === 'function') {
             element.focus();
           }
+          this._notifyContentFocus();
         }, {
           injector: this._injector
         });
         break;
       case 'first-heading':
         this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
+        this._notifyContentFocus();
         break;
       default:
         this._focusByCssSelector(this.autoFocus);
+        this._notifyContentFocus();
         break;
     }
   }
+  _notifyContentFocus() {
+    (this._container?._content || this._container?._userContent)?._updateInert();
+  }
   _restoreFocus(focusOrigin) {
+    this._notifyContentFocus();
     if (this.autoFocus === 'dialog') {
       return;
     }
@@ -849,6 +866,9 @@ class MatSidenavContent extends MatDrawerContent {
     providers: [{
       provide: CdkScrollable,
       useExisting: MatSidenavContent
+    }, {
+      provide: MatDrawerContent,
+      useExisting: MatSidenavContent
     }],
     usesInheritance: true,
     ngImport: i0,
@@ -873,6 +893,9 @@ i0.ɵɵngDeclareClassMetadata({
       encapsulation: ViewEncapsulation.None,
       providers: [{
         provide: CdkScrollable,
+        useExisting: MatSidenavContent
+      }, {
+        provide: MatDrawerContent,
         useExisting: MatSidenavContent
       }]
     }]
