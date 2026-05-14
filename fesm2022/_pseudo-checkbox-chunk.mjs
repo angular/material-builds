@@ -9,7 +9,7 @@ class MatPseudoCheckbox {
   appearance = 'full';
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatPseudoCheckbox,
     deps: [],
@@ -17,7 +17,7 @@ class MatPseudoCheckbox {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatPseudoCheckbox,
     isStandalone: true,
     selector: "mat-pseudo-checkbox",
@@ -46,7 +46,7 @@ class MatPseudoCheckbox {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatPseudoCheckbox,
   decorators: [{

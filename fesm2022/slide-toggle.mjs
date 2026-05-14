@@ -159,7 +159,7 @@ class MatSlideToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatSlideToggle,
     deps: [],
@@ -167,7 +167,7 @@ class MatSlideToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatSlideToggle,
     isStandalone: true,
     selector: "mat-slide-toggle",
@@ -242,7 +242,7 @@ class MatSlideToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatSlideToggle,
   decorators: [{
@@ -361,7 +361,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSlideToggleModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatSlideToggleModule,
     deps: [],
@@ -369,7 +369,7 @@ class MatSlideToggleModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatSlideToggleModule,
     imports: [MatSlideToggle],
@@ -377,7 +377,7 @@ class MatSlideToggleModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatSlideToggleModule,
     imports: [MatSlideToggle, BidiModule]
@@ -385,7 +385,7 @@ class MatSlideToggleModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatSlideToggleModule,
   decorators: [{
