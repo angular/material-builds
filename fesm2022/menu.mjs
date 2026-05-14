@@ -97,7 +97,7 @@ class MatMenuItem {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuItem,
     deps: [],
@@ -105,7 +105,7 @@ class MatMenuItem {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatMenuItem,
     isStandalone: true,
     selector: "[mat-menu-item]",
@@ -144,7 +144,7 @@ class MatMenuItem {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatMenuItem,
   decorators: [{
@@ -236,7 +236,7 @@ class MatMenuContent {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuContent,
     deps: [],
@@ -244,7 +244,7 @@ class MatMenuContent {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatMenuContent,
     isStandalone: true,
     selector: "ng-template[matMenuContent]",
@@ -257,7 +257,7 @@ class MatMenuContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatMenuContent,
   decorators: [{
@@ -515,7 +515,7 @@ class MatMenu {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenu,
     deps: [],
@@ -523,7 +523,7 @@ class MatMenu {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatMenu,
     isStandalone: true,
     selector: "mat-menu",
@@ -582,7 +582,7 @@ class MatMenu {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatMenu,
   decorators: [{
@@ -953,7 +953,7 @@ class MatMenuTriggerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuTriggerBase,
     deps: "invalid",
@@ -961,7 +961,7 @@ class MatMenuTriggerBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatMenuTriggerBase,
     isStandalone: true,
     ngImport: i0
@@ -969,7 +969,7 @@ class MatMenuTriggerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatMenuTriggerBase,
   decorators: [{
@@ -1079,7 +1079,7 @@ class MatMenuTrigger extends MatMenuTriggerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuTrigger,
     deps: [],
@@ -1087,7 +1087,7 @@ class MatMenuTrigger extends MatMenuTriggerBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatMenuTrigger,
     isStandalone: true,
     selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
@@ -1123,7 +1123,7 @@ class MatMenuTrigger extends MatMenuTriggerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatMenuTrigger,
   decorators: [{
@@ -1287,7 +1287,7 @@ class MatContextMenuTrigger extends MatMenuTriggerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatContextMenuTrigger,
     deps: [],
@@ -1295,7 +1295,7 @@ class MatContextMenuTrigger extends MatMenuTriggerBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     type: MatContextMenuTrigger,
     isStandalone: true,
     selector: "[matContextMenuTriggerFor]",
@@ -1326,7 +1326,7 @@ class MatContextMenuTrigger extends MatMenuTriggerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatContextMenuTrigger,
   decorators: [{
@@ -1378,7 +1378,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatMenuModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuModule,
     deps: [],
@@ -1386,7 +1386,7 @@ class MatMenuModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuModule,
     imports: [MatRippleModule, OverlayModule, MatMenu, MatMenuItem, MatMenuContent, MatMenuTrigger, MatContextMenuTrigger],
@@ -1394,7 +1394,7 @@ class MatMenuModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0-next.12",
+    version: "22.0.0-rc.0",
     ngImport: i0,
     type: MatMenuModule,
     imports: [MatRippleModule, OverlayModule, BidiModule, CdkScrollableModule]
@@ -1402,7 +1402,7 @@ class MatMenuModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0-next.12",
+  version: "22.0.0-rc.0",
   ngImport: i0,
   type: MatMenuModule,
   decorators: [{
