@@ -7,7 +7,7 @@ import { CdkScrollable, ViewportRuler, CdkScrollableModule } from '@angular/cdk/
 import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, Renderer2, DOCUMENT, signal, EventEmitter, Injector, ChangeDetectorRef, afterNextRender, QueryList, ViewEncapsulation, Component, ViewChild, Output, Input, ContentChild, ContentChildren, NgModule } from '@angular/core';
 import { Subject, merge } from 'rxjs';
-import { filter, map, mapTo, takeUntil, take, startWith, debounceTime } from 'rxjs/operators';
+import { filter, map, mapTo, takeUntil, take, startWith, debounceTime, delay } from 'rxjs/operators';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import '@angular/cdk/layout';
 
@@ -23,10 +23,20 @@ class MatDrawerContent extends CdkScrollable {
   _platform = inject(Platform);
   _changeDetectorRef = inject(ChangeDetectorRef);
   _element = inject(ElementRef);
+  _ngZone = inject(NgZone);
   _isInert = false;
   _container = inject(MatDrawerContainer);
   ngAfterContentInit() {
     this._container._contentMarginChanges.subscribe(() => this._changeDetectorRef.markForCheck());
+  }
+  _drawerToggled(drawer) {
+    if (drawer.opened) {
+      this._ngZone.runOutsideAngular(() => {
+        drawer._animationEnd.pipe(delay(50), take(1)).subscribe(() => this._updateInert());
+      });
+    } else {
+      this._updateInert();
+    }
   }
   _updateInert() {
     const newValue = this._container._isShowingBackdrop();
@@ -256,26 +266,19 @@ class MatDrawer {
           if (!hasMovedFocus && typeof element.focus === 'function') {
             element.focus();
           }
-          this._notifyContentFocus();
         }, {
           injector: this._injector
         });
         break;
       case 'first-heading':
         this._focusByCssSelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
-        this._notifyContentFocus();
         break;
       default:
         this._focusByCssSelector(this.autoFocus);
-        this._notifyContentFocus();
         break;
     }
   }
-  _notifyContentFocus() {
-    (this._container?._content || this._container?._userContent)?._updateInert();
-  }
   _restoreFocus(focusOrigin) {
-    this._notifyContentFocus();
     if (this.autoFocus === 'dialog') {
       return;
     }
@@ -335,6 +338,7 @@ class MatDrawer {
       return Promise.resolve(isOpen ? 'open' : 'close');
     }
     this._opened.set(isOpen);
+    (this._container?._content || this._container?._userContent)?._drawerToggled(this);
     if (this._container?._transitionsEnabled) {
       this._setIsAnimating(true);
       setTimeout(() => this._animationStarted.next());

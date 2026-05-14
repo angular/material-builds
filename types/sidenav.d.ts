@@ -24,10 +24,12 @@ declare class MatDrawerContent extends CdkScrollable implements AfterContentInit
     private _platform;
     private _changeDetectorRef;
     private _element;
+    private _ngZone;
     private _isInert;
     _container: MatDrawerContainer;
     ngAfterContentInit(): void;
-    _updateInert(): void;
+    _drawerToggled(drawer: MatDrawer): void;
+    private _updateInert;
     /** Determines whether the content element should be hidden from the user. */
     protected _shouldBeHidden(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContent, never>;
@@ -122,7 +124,6 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
      * the focus trap is disabled in `side` mode.
      */
     private _takeFocus;
-    private _notifyContentFocus;
     /**
      * Restores focus to the element that was originally focused when the drawer opened.
      * If no element was focused at that time, the focus will be restored to the drawer.
