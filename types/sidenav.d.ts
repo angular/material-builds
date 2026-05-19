@@ -287,7 +287,7 @@ declare class MatDrawerContainer implements AfterContentInit, DoCheck, OnDestroy
     private _isDrawerOpen;
     private _drawerHasBackdrop;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDrawerContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer", "mat-drawer-content", "*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatDrawerContainer, "mat-drawer-container", ["matDrawerContainer"], { "autosize": { "alias": "autosize"; "required": false; }; "hasBackdrop": { "alias": "hasBackdrop"; "required": false; }; }, { "backdropClick": "backdropClick"; }, ["_content", "_allDrawers"], ["mat-drawer, mat-sidenav", "mat-drawer-content, mat-sidenav-content", "*"], true, never>;
 }
 
 declare class MatSidenavContent extends MatDrawerContent {
@@ -320,7 +320,7 @@ declare class MatSidenavContainer extends MatDrawerContainer {
     _allDrawers: QueryList<MatSidenav>;
     _content: MatSidenavContent;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSidenavContainer, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-sidenav", "mat-sidenav-content", "*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSidenavContainer, "mat-sidenav-container", ["matSidenavContainer"], {}, {}, ["_content", "_allDrawers"], ["mat-drawer, mat-sidenav", "mat-drawer-content, mat-sidenav-content", "*"], true, never>;
 }
 
 declare class MatSidenavModule {
