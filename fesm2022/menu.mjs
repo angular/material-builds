@@ -729,6 +729,8 @@ class MatMenuTriggerBase {
           this._parentMaterialMenu.closed.emit(reason);
         }
       });
+    } else {
+      this._destroyMenu();
     }
     this._menuItemInstance?._setTriggersSubmenu(this._triggersSubmenu());
   }
