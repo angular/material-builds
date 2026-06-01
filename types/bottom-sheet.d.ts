@@ -59,7 +59,7 @@ declare class MatBottomSheetConfig<D = any> {
      * takes precedence over the injector indirectly provided by `ViewContainerRef`.
      */
     injector?: Injector;
-    /** Extra CSS classes to be added to the bottom sheet container. */
+    /** Extra CSS classes to be added to the overlay panel containing the bottom sheet. */
     panelClass?: string | string[];
     /** Text layout direction for the bottom sheet. */
     direction?: Direction;

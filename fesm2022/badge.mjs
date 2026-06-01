@@ -1,11 +1,12 @@
 import { AriaDescriber, _IdGenerator, InteractivityChecker, A11yModule } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { inject, NgZone, ElementRef, Renderer2, DOCUMENT, booleanAttribute, ViewEncapsulation, Component, Input, Directive, NgModule } from '@angular/core';
+import { InjectionToken, inject, NgZone, ElementRef, Renderer2, DOCUMENT, booleanAttribute, ViewEncapsulation, Component, Input, Directive, NgModule } from '@angular/core';
 import { _CdkPrivateStyleLoader, _VisuallyHiddenLoader } from '@angular/cdk/private';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { BidiModule } from '@angular/cdk/bidi';
 import '@angular/cdk/layout';
 
+const MAT_BADGE_CONFIG = new InjectionToken('MAT_BADGE_CONFIG');
 const BADGE_CONTENT_CLASS = 'mat-badge-content';
 class _MatBadgeStyleLoader {
   static ɵfac = i0.ɵɵngDeclareFactory({
@@ -57,10 +58,10 @@ class MatBadge {
     this._setColor(value);
     this._color = value;
   }
-  _color = 'primary';
-  overlap = true;
+  _color;
+  overlap;
   disabled = false;
-  position = 'above after';
+  position;
   get content() {
     return this._content;
   }
@@ -75,7 +76,7 @@ class MatBadge {
     this._updateDescription(newDescription);
   }
   _description;
-  size = 'medium';
+  size;
   hidden = false;
   _badgeElement;
   _inlineBadgeDescription;
@@ -83,9 +84,16 @@ class MatBadge {
   _interactivityChecker = inject(InteractivityChecker);
   _document = inject(DOCUMENT);
   constructor() {
+    const config = inject(MAT_BADGE_CONFIG, {
+      optional: true
+    });
     const styleLoader = inject(_CdkPrivateStyleLoader);
     styleLoader.load(_MatBadgeStyleLoader);
     styleLoader.load(_VisuallyHiddenLoader);
+    this._color = config?.color || 'primary';
+    this.overlap = config?.overlap ?? true;
+    this.position = config?.position || 'above after';
+    this.size = config?.size || 'medium';
     if (typeof ngDevMode === 'undefined' || ngDevMode) {
       const nativeElement = this._elementRef.nativeElement;
       if (nativeElement.nodeType !== nativeElement.ELEMENT_NODE) {
@@ -351,5 +359,5 @@ i0.ɵɵngDeclareClassMetadata({
   }]
 });
 
-export { MatBadge, MatBadgeModule };
+export { MAT_BADGE_CONFIG, MatBadge, MatBadgeModule };
 //# sourceMappingURL=badge.mjs.map
