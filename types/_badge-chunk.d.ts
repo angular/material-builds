@@ -1,11 +1,24 @@
 import * as i0 from '@angular/core';
-import { OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { InjectionToken, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ThemePalette } from './_palette-chunk.js';
 
 /** Allowed position options for matBadgePosition */
 type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after' | 'before' | 'after' | 'above' | 'below';
 /** Allowed size options for matBadgeSize */
 type MatBadgeSize = 'small' | 'medium' | 'large';
+/** Object that can be used to configure the default options for the badge component. */
+interface MatBadgeConfig {
+    /** Default position for badges. */
+    position?: MatBadgePosition;
+    /** Default size for badges. */
+    size?: MatBadgeSize;
+    /** Default color to apply to all badges. */
+    color?: ThemePalette;
+    /** Whether badges should overlap by default. */
+    overlap?: boolean;
+}
+/** Injection token that can be used to configure the default options for the badge component. */
+declare const MAT_BADGE_CONFIG: InjectionToken<MatBadgeConfig>;
 /**
  * Component used to load the structural styles of the badge.
  * @docs-private
@@ -96,5 +109,5 @@ declare class MatBadge implements OnInit, AfterViewInit, OnDestroy {
     static ngAcceptInputType_hidden: unknown;
 }
 
-export { MatBadge, _MatBadgeStyleLoader };
-export type { MatBadgePosition, MatBadgeSize };
+export { MAT_BADGE_CONFIG, MatBadge, _MatBadgeStyleLoader };
+export type { MatBadgeConfig, MatBadgePosition, MatBadgeSize };

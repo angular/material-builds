@@ -1,7 +1,7 @@
 import * as i0 from '@angular/core';
 import * as i1 from '@angular/cdk/a11y';
 import { MatBadge, _MatBadgeStyleLoader } from './_badge-chunk.js';
-export { MatBadgePosition, MatBadgeSize } from './_badge-chunk.js';
+export { MAT_BADGE_CONFIG, MatBadgeConfig, MatBadgePosition, MatBadgeSize } from './_badge-chunk.js';
 import * as i2 from '@angular/cdk/bidi';
 import './_palette-chunk.js';
 
