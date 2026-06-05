@@ -55,6 +55,7 @@ function parseInterval(value) {
   return result;
 }
 function generateOptions(adapter, formats, min, max, interval) {
+  interval = Math.max(interval, 1);
   const options = [];
   let current = adapter.compareTime(min, max) < 1 ? min : max;
   while (adapter.sameDate(current, min) && adapter.compareTime(current, max) < 1 && adapter.isValid(current)) {
