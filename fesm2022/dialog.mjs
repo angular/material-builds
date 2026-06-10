@@ -534,6 +534,9 @@ class MatDialogClose {
     }
   }
   _onButtonClick(event) {
+    if (this._elementRef.nativeElement.getAttribute('aria-disabled') === 'true') {
+      return;
+    }
     _closeDialogVia(this.dialogRef, event.screenX === 0 && event.screenY === 0 ? 'keyboard' : 'mouse', this.dialogResult);
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
