@@ -55,8 +55,8 @@ class MatBottomSheetContainer extends CdkDialogContainer {
   }
   _simulateAnimation(name) {
     this._ngZone.run(() => {
-      this._handleAnimationEvent(true, name);
-      setTimeout(() => this._handleAnimationEvent(false, name));
+      this._handleAnimationEvent(true, name, this._elementRef.nativeElement);
+      setTimeout(() => this._handleAnimationEvent(false, name, this._elementRef.nativeElement));
     });
   }
   _trapFocus() {
@@ -64,14 +64,16 @@ class MatBottomSheetContainer extends CdkDialogContainer {
       preventScroll: true
     });
   }
-  _handleAnimationEvent(isStart, animationName) {
-    const isEnter = animationName === ENTER_ANIMATION;
-    const isExit = animationName === EXIT_ANIMATION;
-    if (isEnter || isExit) {
-      this._animationStateChanged.emit({
-        toState: isEnter ? 'visible' : 'hidden',
-        phase: isStart ? 'start' : 'done'
-      });
+  _handleAnimationEvent(isStart, animationName, target) {
+    if (target === this._elementRef.nativeElement) {
+      const isEnter = animationName === ENTER_ANIMATION;
+      const isExit = animationName === EXIT_ANIMATION;
+      if (isEnter || isExit) {
+        this._animationStateChanged.emit({
+          toState: isEnter ? 'visible' : 'hidden',
+          phase: isStart ? 'start' : 'done'
+        });
+      }
     }
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
@@ -93,9 +95,9 @@ class MatBottomSheetContainer extends CdkDialogContainer {
         "tabindex": "-1"
       },
       listeners: {
-        "animationstart": "_handleAnimationEvent(true, $event.animationName)",
-        "animationend": "_handleAnimationEvent(false, $event.animationName)",
-        "animationcancel": "_handleAnimationEvent(false, $event.animationName)"
+        "animationstart": "_handleAnimationEvent(true, $event.animationName, $event.target)",
+        "animationend": "_handleAnimationEvent(false, $event.animationName, $event.target)",
+        "animationcancel": "_handleAnimationEvent(false, $event.animationName, $event.target)"
       },
       properties: {
         "class.mat-bottom-sheet-container-animations-enabled": "!_animationsDisabled",
@@ -143,9 +145,9 @@ i0.ɵɵngDeclareClassMetadata({
         '[attr.role]': '_config.role',
         '[attr.aria-modal]': '_config.ariaModal',
         '[attr.aria-label]': '_config.ariaLabel',
-        '(animationstart)': '_handleAnimationEvent(true, $event.animationName)',
-        '(animationend)': '_handleAnimationEvent(false, $event.animationName)',
-        '(animationcancel)': '_handleAnimationEvent(false, $event.animationName)'
+        '(animationstart)': '_handleAnimationEvent(true, $event.animationName, $event.target)',
+        '(animationend)': '_handleAnimationEvent(false, $event.animationName, $event.target)',
+        '(animationcancel)': '_handleAnimationEvent(false, $event.animationName, $event.target)'
       },
       imports: [CdkPortalOutlet],
       template: "<ng-template cdkPortalOutlet></ng-template>\r\n",

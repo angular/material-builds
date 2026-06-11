@@ -490,7 +490,13 @@ class MatStepper extends CdkStepper {
     return this._animationDuration;
   }
   set animationDuration(value) {
-    this._animationDuration = /^\d+$/.test(value) ? value + 'ms' : value;
+    if (/^[0-9]+(?:\.[0-9]+)?$/.test(value)) {
+      this._animationDuration = value + 'ms';
+    } else if (/^[0-9]+(?:\.[0-9]+)?(?:ms|s)$/.test(value)) {
+      this._animationDuration = value;
+    } else {
+      this._animationDuration = '';
+    }
   }
   _animationDuration = '';
   _isServer = !inject(Platform).isBrowser;

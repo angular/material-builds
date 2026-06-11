@@ -24,8 +24,8 @@ class TileCoordinator {
     return new TilePosition(this.rowIndex, gapStartIndex);
   }
   _findMatchingGap(tileCols) {
-    if (tileCols > this.tracker.length && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-      throw Error(`mat-grid-list: tile with colspan ${tileCols} is wider than ` + `grid with cols="${this.tracker.length}".`);
+    if (tileCols > this.tracker.length) {
+      throw Error(`mat-grid-list: tile with colspan ${tileCols} is wider than grid with cols="${this.tracker.length}".`);
     }
     let gapStartIndex = -1;
     let gapEndIndex = -1;
