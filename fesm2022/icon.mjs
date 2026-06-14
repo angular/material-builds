@@ -230,7 +230,7 @@ class MatIcon {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0",
+    version: "22.1.0-next.0",
     ngImport: i0,
     type: MatIcon,
     deps: [],
@@ -238,7 +238,7 @@ class MatIcon {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.0.0",
+    version: "22.1.0-next.0",
     type: MatIcon,
     isStandalone: true,
     selector: "mat-icon",
@@ -274,7 +274,7 @@ class MatIcon {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0",
+  version: "22.1.0-next.0",
   ngImport: i0,
   type: MatIcon,
   decorators: [{
@@ -324,7 +324,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatIconModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.0",
+    version: "22.1.0-next.0",
     ngImport: i0,
     type: MatIconModule,
     deps: [],
@@ -332,7 +332,7 @@ class MatIconModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.0",
+    version: "22.1.0-next.0",
     ngImport: i0,
     type: MatIconModule,
     imports: [MatIcon],
@@ -340,7 +340,7 @@ class MatIconModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.0",
+    version: "22.1.0-next.0",
     ngImport: i0,
     type: MatIconModule,
     imports: [BidiModule]
@@ -348,7 +348,7 @@ class MatIconModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.0",
+  version: "22.1.0-next.0",
   ngImport: i0,
   type: MatIconModule,
   decorators: [{
