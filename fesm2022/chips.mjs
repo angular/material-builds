@@ -514,13 +514,13 @@ class MatChip {
     this._rippleLoader.setDisabled(this._elementRef.nativeElement, this._isRippleDisabled());
   }
   ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._elementRef);
-    this._rippleLoader?.destroyRipple(this._elementRef.nativeElement);
-    this._actionChanges?.unsubscribe();
     this.destroyed.emit({
       chip: this
     });
     this.destroyed.complete();
+    this._focusMonitor.stopMonitoring(this._elementRef);
+    this._rippleLoader?.destroyRipple(this._elementRef.nativeElement);
+    this._actionChanges?.unsubscribe();
   }
   remove() {
     if (this.removable) {
@@ -2182,6 +2182,15 @@ class MatChipGrid extends MatChipSet {
       }
     }
     this.stateChanges.next();
+  }
+  _redirectDestroyedChipFocus() {
+    if (this._lastDestroyedFocusedChipIndex === null) {
+      return;
+    }
+    super._redirectDestroyedChipFocus();
+    if (!this._chips.length || this._chips.length === 1 && this._chips.first.disabled) {
+      this._keyManager.updateActiveItem(-1);
+    }
   }
   _focusLastChip() {
     if (this._chips.length) {

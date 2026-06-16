@@ -433,7 +433,7 @@ declare class MatChipSet implements AfterViewInit, OnDestroy {
     protected _changeDetectorRef: ChangeDetectorRef;
     private _dir;
     /** Index of the last destroyed chip that had focus. */
-    private _lastDestroyedFocusedChipIndex;
+    protected _lastDestroyedFocusedChipIndex: number | null;
     /** Used to manage focus within the chip list. */
     protected _keyManager: FocusKeyManager<MatChipAction>;
     /** Subject that emits when the component has been destroyed. */
@@ -509,7 +509,7 @@ declare class MatChipSet implements AfterViewInit, OnDestroy {
      * Finds the next appropriate chip to move focus to,
      * if the currently-focused chip is destroyed.
      */
-    private _redirectDestroyedChipFocus;
+    protected _redirectDestroyedChipFocus(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatChipSet, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatChipSet, "mat-chip-set", never, { "disabled": { "alias": "disabled"; "required": false; }; "role": { "alias": "role"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; }, {}, ["_chips"], ["*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
@@ -839,6 +839,7 @@ declare class MatChipGrid extends MatChipSet implements AfterContentInit, AfterV
     protected _allowFocusEscape(): void;
     /** Handles custom keyboard events. */
     _handleKeydown(event: KeyboardEvent): void;
+    protected _redirectDestroyedChipFocus(): void;
     _focusLastChip(): void;
     /** Emits change event to set the model value. */
     private _propagateChanges;
