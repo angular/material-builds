@@ -84,6 +84,8 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
     color: string | undefined;
     /** Whether the slide toggle is disabled. */
     disabled: boolean;
+    /** Whether the slide toggle should be full width. */
+    fullWidth: boolean;
     /** Whether the slide toggle has a ripple. */
     disableRipple: boolean;
     /** Tabindex of slide toggle. */
@@ -131,9 +133,10 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
     _handleClick(): void;
     _getAriaLabelledBy(): string | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSlideToggle, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatSlideToggle, "mat-slide-toggle", ["matSlideToggle"], { "name": { "alias": "name"; "required": false; }; "id": { "alias": "id"; "required": false; }; "labelPosition": { "alias": "labelPosition"; "required": false; }; "ariaLabel": { "alias": "aria-label"; "required": false; }; "ariaLabelledby": { "alias": "aria-labelledby"; "required": false; }; "ariaDescribedby": { "alias": "aria-describedby"; "required": false; }; "required": { "alias": "required"; "required": false; }; "color": { "alias": "color"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "fullWidth": { "alias": "fullWidth"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "tabIndex": { "alias": "tabIndex"; "required": false; }; "checked": { "alias": "checked"; "required": false; }; "hideIcon": { "alias": "hideIcon"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; }, { "change": "change"; "toggleChange": "toggleChange"; }, never, ["*"], true, never>;
     static ngAcceptInputType_required: unknown;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_fullWidth: unknown;
     static ngAcceptInputType_disableRipple: unknown;
     static ngAcceptInputType_tabIndex: unknown;
     static ngAcceptInputType_checked: unknown;
