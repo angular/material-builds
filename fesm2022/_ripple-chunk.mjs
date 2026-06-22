@@ -96,7 +96,7 @@ const pointerUpEvents = ['mouseup', 'mouseleave', 'touchend', 'touchcancel'];
 class _MatRippleStylesLoader {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0",
+    version: "22.1.0-next.1",
     ngImport: i0,
     type: _MatRippleStylesLoader,
     deps: [],
@@ -104,7 +104,7 @@ class _MatRippleStylesLoader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.0",
+    version: "22.1.0-next.1",
     type: _MatRippleStylesLoader,
     isStandalone: true,
     selector: "ng-component",
@@ -122,7 +122,7 @@ class _MatRippleStylesLoader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0",
+  version: "22.1.0-next.1",
   ngImport: i0,
   type: _MatRippleStylesLoader,
   decorators: [{
@@ -458,7 +458,7 @@ class MatRipple {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.0",
+    version: "22.1.0-next.1",
     ngImport: i0,
     type: MatRipple,
     deps: [],
@@ -466,7 +466,7 @@ class MatRipple {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.0",
+    version: "22.1.0-next.1",
     type: MatRipple,
     isStandalone: true,
     selector: "[mat-ripple], [matRipple]",
@@ -491,7 +491,7 @@ class MatRipple {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.0",
+  version: "22.1.0-next.1",
   ngImport: i0,
   type: MatRipple,
   decorators: [{
