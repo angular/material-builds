@@ -490,6 +490,16 @@ const passiveEventListenerOptions = {
 };
 const HEADER_SCROLL_DELAY = 650;
 const HEADER_SCROLL_INTERVAL = 100;
+function normalizeDuration(value) {
+  const stringValue = value + '';
+  if (/^[0-9]+(?:\.[0-9]+)?$/.test(stringValue)) {
+    return `${value}ms`;
+  } else if (/^[0-9]+(?:\.[0-9]+)?(?:ms|s)$/.test(stringValue)) {
+    return stringValue;
+  } else {
+    return '';
+  }
+}
 class MatPaginatedTabHeader {
   _elementRef = inject(ElementRef);
   _changeDetectorRef = inject(ChangeDetectorRef);
@@ -1826,10 +1836,6 @@ class MatTabChangeEvent {
   index;
   tab;
 }
-function normalizeDuration(value) {
-  const stringValue = value + '';
-  return /^\d+$/.test(stringValue) ? value + 'ms' : stringValue;
-}
 
 class MatTabNav extends MatPaginatedTabHeader {
   _focusedItem = signal(null, ...(ngDevMode ? [{
@@ -1844,14 +1850,7 @@ class MatTabNav extends MatPaginatedTabHeader {
   }
   _fitInkBarToContent = new BehaviorSubject(false);
   stretchTabs = true;
-  get animationDuration() {
-    return this._animationDuration;
-  }
-  set animationDuration(value) {
-    const stringValue = value + '';
-    this._animationDuration = /^\d+$/.test(stringValue) ? value + 'ms' : stringValue;
-  }
-  _animationDuration;
+  animationDuration = '';
   _items;
   get backgroundColor() {
     return this._backgroundColor;
@@ -1945,7 +1944,7 @@ class MatTabNav extends MatPaginatedTabHeader {
     inputs: {
       fitInkBarToContent: ["fitInkBarToContent", "fitInkBarToContent", booleanAttribute],
       stretchTabs: ["mat-stretch-tabs", "stretchTabs", booleanAttribute],
-      animationDuration: "animationDuration",
+      animationDuration: ["animationDuration", "animationDuration", normalizeDuration],
       backgroundColor: "backgroundColor",
       disableRipple: ["disableRipple", "disableRipple", booleanAttribute],
       color: "color",
@@ -2067,7 +2066,10 @@ i0.ɵɵngDeclareClassMetadata({
       }]
     }],
     animationDuration: [{
-      type: Input
+      type: Input,
+      args: [{
+        transform: normalizeDuration
+      }]
     }],
     _items: [{
       type: ContentChildren,

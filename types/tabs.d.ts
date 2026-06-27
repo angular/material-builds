@@ -735,9 +735,8 @@ declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentIni
     _fitInkBarToContent: BehaviorSubject<boolean>;
     /** Whether tabs should be stretched to fill the header. */
     stretchTabs: boolean;
-    get animationDuration(): string;
-    set animationDuration(value: string | number);
-    private _animationDuration;
+    /** Duration for the header animation. Will be normalized to milliseconds if no units are set. */
+    animationDuration: string;
     /** Query list of all tab links of the tab navigation. */
     _items: QueryList<MatTabLink>;
     /**
@@ -786,6 +785,7 @@ declare class MatTabNav extends MatPaginatedTabHeader implements AfterContentIni
     static ɵcmp: i0.ɵɵComponentDeclaration<MatTabNav, "[mat-tab-nav-bar]", ["matTabNavBar", "matTabNav"], { "fitInkBarToContent": { "alias": "fitInkBarToContent"; "required": false; }; "stretchTabs": { "alias": "mat-stretch-tabs"; "required": false; }; "animationDuration": { "alias": "animationDuration"; "required": false; }; "backgroundColor": { "alias": "backgroundColor"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; "color": { "alias": "color"; "required": false; }; "tabPanel": { "alias": "tabPanel"; "required": false; }; }, {}, ["_items"], ["*"], true, never>;
     static ngAcceptInputType_fitInkBarToContent: unknown;
     static ngAcceptInputType_stretchTabs: unknown;
+    static ngAcceptInputType_animationDuration: string | number;
     static ngAcceptInputType_disableRipple: unknown;
 }
 /**
