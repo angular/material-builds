@@ -29,6 +29,7 @@ declare class MatDrawerContent extends CdkScrollable implements AfterContentInit
     _container: MatDrawerContainer;
     ngAfterContentInit(): void;
     _drawerToggled(drawer: MatDrawer): void;
+    _drawerModeChanged(): void;
     private _updateInert;
     /** Determines whether the content element should be hidden from the user. */
     protected _shouldBeHidden(): boolean;
@@ -157,6 +158,8 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
      * @param focusOrigin Origin to use when restoring focus.
      */
     private _setOpen;
+    /** Gets the current content element. */
+    private _getContent;
     /** Toggles whether the drawer is currently animating. */
     private _setIsAnimating;
     _getWidth(): number;
