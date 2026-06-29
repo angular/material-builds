@@ -38,6 +38,9 @@ class MatDrawerContent extends CdkScrollable {
       this._updateInert();
     }
   }
+  _drawerModeChanged() {
+    this._updateInert();
+  }
   _updateInert() {
     const newValue = this._container._isShowingBackdrop();
     if (newValue !== this._isInert) {
@@ -155,6 +158,7 @@ class MatDrawer {
     this._mode = value;
     this._updateFocusTrapState();
     this._modeChanged.next();
+    this._getContent()?._drawerModeChanged();
   }
   _mode = 'over';
   get disableClose() {
@@ -338,7 +342,7 @@ class MatDrawer {
       return Promise.resolve(isOpen ? 'open' : 'close');
     }
     this._opened.set(isOpen);
-    (this._container?._content || this._container?._userContent)?._drawerToggled(this);
+    this._getContent()?._drawerToggled(this);
     if (this._container?._transitionsEnabled) {
       this._setIsAnimating(true);
       setTimeout(() => this._animationStarted.next());
@@ -357,6 +361,9 @@ class MatDrawer {
     return new Promise(resolve => {
       this.openedChange.pipe(take(1)).subscribe(open => resolve(open ? 'open' : 'close'));
     });
+  }
+  _getContent() {
+    return this._container?._content || this._container?._userContent;
   }
   _setIsAnimating(isAnimating) {
     this._elementRef.nativeElement.classList.toggle('mat-drawer-animating', isAnimating);
