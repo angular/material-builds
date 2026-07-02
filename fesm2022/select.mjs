@@ -761,7 +761,7 @@ class MatSelect {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     ngImport: i0,
     type: MatSelect,
     deps: [],
@@ -769,7 +769,7 @@ class MatSelect {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     type: MatSelect,
     isStandalone: true,
     selector: "mat-select",
@@ -891,7 +891,7 @@ class MatSelect {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.4",
+  version: "22.0.5",
   ngImport: i0,
   type: MatSelect,
   decorators: [{
@@ -1077,7 +1077,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSelectTrigger {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     ngImport: i0,
     type: MatSelectTrigger,
     deps: [],
@@ -1085,7 +1085,7 @@ class MatSelectTrigger {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     type: MatSelectTrigger,
     isStandalone: true,
     selector: "mat-select-trigger",
@@ -1098,7 +1098,7 @@ class MatSelectTrigger {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.4",
+  version: "22.0.5",
   ngImport: i0,
   type: MatSelectTrigger,
   decorators: [{
@@ -1116,7 +1116,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatSelectModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     ngImport: i0,
     type: MatSelectModule,
     deps: [],
@@ -1124,7 +1124,7 @@ class MatSelectModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     ngImport: i0,
     type: MatSelectModule,
     imports: [OverlayModule, MatOptionModule, MatSelect, MatSelectTrigger],
@@ -1132,7 +1132,7 @@ class MatSelectModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.0.4",
+    version: "22.0.5",
     ngImport: i0,
     type: MatSelectModule,
     imports: [OverlayModule, MatOptionModule, BidiModule, CdkScrollableModule, MatFormFieldModule, MatOptionModule]
@@ -1140,7 +1140,7 @@ class MatSelectModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.0.4",
+  version: "22.0.5",
   ngImport: i0,
   type: MatSelectModule,
   decorators: [{
