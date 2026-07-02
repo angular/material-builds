@@ -48,7 +48,7 @@ class MatButton extends MatButtonBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButton,
     deps: [],
@@ -56,7 +56,7 @@ class MatButton extends MatButtonBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     type: MatButton,
     isStandalone: true,
     selector: "\n    button[matButton], a[matButton], button[mat-button], button[mat-raised-button],\n    button[mat-flat-button], button[mat-stroked-button], a[mat-button], a[mat-raised-button],\n    a[mat-flat-button], a[mat-stroked-button]\n  ",
@@ -76,7 +76,7 @@ class MatButton extends MatButtonBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatButton,
   decorators: [{
@@ -141,7 +141,7 @@ class MatFabButton extends MatButtonBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatFabButton,
     deps: [],
@@ -149,7 +149,7 @@ class MatFabButton extends MatButtonBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     type: MatFabButton,
     isStandalone: true,
     selector: "button[mat-fab], a[mat-fab], button[matFab], a[matFab]",
@@ -173,7 +173,7 @@ class MatFabButton extends MatButtonBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatFabButton,
   decorators: [{
@@ -213,7 +213,7 @@ class MatMiniFabButton extends MatButtonBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatMiniFabButton,
     deps: [],
@@ -221,7 +221,7 @@ class MatMiniFabButton extends MatButtonBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     type: MatMiniFabButton,
     isStandalone: true,
     selector: "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]",
@@ -238,7 +238,7 @@ class MatMiniFabButton extends MatButtonBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatMiniFabButton,
   decorators: [{
@@ -262,7 +262,7 @@ const MatMiniFabAnchor = MatMiniFabButton;
 class MatButtonModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonModule,
     deps: [],
@@ -270,7 +270,7 @@ class MatButtonModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonModule,
     imports: [MatRippleModule, MatButton, MatMiniFabButton, MatIconButton, MatFabButton],
@@ -278,7 +278,7 @@ class MatButtonModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonModule,
     imports: [MatRippleModule, BidiModule]
@@ -286,7 +286,7 @@ class MatButtonModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatButtonModule,
   decorators: [{

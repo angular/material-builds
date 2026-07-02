@@ -304,7 +304,7 @@ class MatButtonToggleGroup {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonToggleGroup,
     deps: [],
@@ -312,7 +312,7 @@ class MatButtonToggleGroup {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     type: MatButtonToggleGroup,
     isStandalone: true,
     selector: "mat-button-toggle-group",
@@ -358,7 +358,7 @@ class MatButtonToggleGroup {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatButtonToggleGroup,
   decorators: [{
@@ -582,7 +582,7 @@ class MatButtonToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonToggle,
     deps: [],
@@ -590,7 +590,7 @@ class MatButtonToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     type: MatButtonToggle,
     isStandalone: true,
     selector: "mat-button-toggle",
@@ -657,7 +657,7 @@ class MatButtonToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatButtonToggle,
   decorators: [{
@@ -747,7 +747,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatButtonToggleModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonToggleModule,
     deps: [],
@@ -755,7 +755,7 @@ class MatButtonToggleModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonToggleModule,
     imports: [MatRippleModule, MatButtonToggleGroup, MatButtonToggle],
@@ -763,7 +763,7 @@ class MatButtonToggleModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.0-next.3",
+    version: "22.1.0-next.4",
     ngImport: i0,
     type: MatButtonToggleModule,
     imports: [MatRippleModule, MatButtonToggle, BidiModule]
@@ -771,7 +771,7 @@ class MatButtonToggleModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.3",
+  version: "22.1.0-next.4",
   ngImport: i0,
   type: MatButtonToggleModule,
   decorators: [{
