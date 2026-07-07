@@ -10,6 +10,7 @@ import { MatRippleModule } from './_ripple-module-chunk.js';
 import { AbstractControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ThemePalette } from './_palette-chunk.js';
 import { ErrorStateMatcher } from './_error-options-chunk.js';
+import { Field } from '@angular/forms/signals';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Subject } from 'rxjs';
 import * as i2$2 from '@angular/cdk/bidi';
@@ -140,6 +141,7 @@ declare class MatStep extends CdkStep implements ErrorStateMatcher, AfterContent
     ngOnDestroy(): void;
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
+    isSignalErrorState(field: Field<unknown> | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStep, never>;
     static ɵcmp: i0.ɵɵComponentDeclaration<MatStep, "mat-step", ["matStep"], { "color": { "alias": "color"; "required": false; }; }, {}, ["stepLabel", "_lazyContent"], ["*"], true, never>;
 }

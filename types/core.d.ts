@@ -5,6 +5,7 @@ import { NgControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ErrorStateMatcher as ErrorStateMatcher$1 } from './_error-options-chunk.js';
 export { ShowOnDirtyErrorStateMatcher } from './_error-options-chunk.js';
+import { FormField } from '@angular/forms/signals';
 export { MatLine, MatLineModule, setLines } from './_line-chunk.js';
 export { MatOptionModule } from './_option-module-chunk.js';
 export { MAT_OPTGROUP, MatOptgroup, MatOption, MatOptionSelectionChange, _countGroupLabelsBeforeOption, _getOptionScrollPosition } from './_option-chunk.js';
@@ -48,7 +49,6 @@ interface ErrorStateMatcher extends ErrorStateMatcher$1 {
  */
 declare class _ErrorStateTracker {
     private _defaultMatcher;
-    ngControl: NgControl | null;
     private _parentFormGroup;
     private _parentForm;
     private _stateChanges;
@@ -56,7 +56,11 @@ declare class _ErrorStateTracker {
     errorState: boolean;
     /** User-defined matcher for the error state. */
     matcher: ErrorStateMatcher;
-    constructor(_defaultMatcher: ErrorStateMatcher | null, ngControl: NgControl | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
+    /** Reactive or template-based control directive. */
+    ngControl: NgControl | null;
+    /** Signal-based form field directive. */
+    formField: FormField<unknown> | null;
+    constructor(_defaultMatcher: ErrorStateMatcher | null, directive: NgControl | FormField<unknown> | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
     /** Updates the error state based on the provided error state matcher. */
     updateErrorState(): void;
 }

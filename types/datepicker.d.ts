@@ -20,6 +20,7 @@ import './_ripple-loader-chunk.js';
 import './_ripple-module-chunk.js';
 import './_ripple-chunk.js';
 import '@angular/cdk/platform';
+import '@angular/forms/signals';
 
 /** Extra CSS classes that can be associated with a calendar cell. */
 type MatCalendarCellCssClasses = string | string[] | Set<string> | Record<string, any>;

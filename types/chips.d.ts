@@ -8,6 +8,7 @@ import { MatFormFieldControl } from './_form-field-control-chunk.js';
 import { MatRippleModule } from './_ripple-module-chunk.js';
 import { ModifierKey } from '@angular/cdk/keycodes';
 import * as i2 from '@angular/cdk/bidi';
+import '@angular/forms/signals';
 import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 
