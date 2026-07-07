@@ -12,6 +12,7 @@ import { MatFormFieldModule } from './_form-field-module-chunk.js';
 export { MatLabel } from './_form-field-module-chunk.js';
 import * as i3 from '@angular/cdk/text-field';
 import * as i2 from '@angular/cdk/bidi';
+import '@angular/forms/signals';
 import './_palette-chunk.js';
 import '@angular/cdk/observers';
 

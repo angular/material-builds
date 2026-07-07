@@ -5,6 +5,14 @@ class ShowOnDirtyErrorStateMatcher {
   isErrorState(control, form) {
     return !!(control && control.invalid && (control.dirty || form && form.submitted));
   }
+  isSignalErrorState(field) {
+    if (!field) {
+      return false;
+    }
+    const invalid = field().invalid();
+    const dirty = field().dirty();
+    return invalid && dirty;
+  }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.5",
@@ -36,6 +44,14 @@ i0.ɵɵngDeclareClassMetadata({
 class ErrorStateMatcher {
   isErrorState(control, form) {
     return !!(control && control.invalid && (control.touched || form && form.submitted));
+  }
+  isSignalErrorState(field) {
+    if (!field) {
+      return false;
+    }
+    const invalid = field().invalid();
+    const touched = field().touched();
+    return invalid && touched;
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",

@@ -21,6 +21,7 @@ import './_ripple-module-chunk.js';
 import './_ripple-chunk.js';
 import '@angular/cdk/platform';
 import './_pseudo-checkbox-module-chunk.js';
+import '@angular/forms/signals';
 import '@angular/cdk/coercion';
 import './_palette-chunk.js';
 import '@angular/cdk/observers';

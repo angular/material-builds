@@ -20,6 +20,7 @@ import '@angular/cdk/collections';
 import '@angular/cdk/scrolling';
 import '@angular/forms';
 import './_error-options-chunk.js';
+import '@angular/forms/signals';
 import './_form-field-chunk.js';
 import '@angular/cdk/coercion';
 import './_form-field-control-chunk.js';

@@ -367,6 +367,11 @@ class MatStep extends CdkStep {
     const customErrorState = !!(control && control.invalid && this.interacted);
     return originalErrorState || customErrorState;
   }
+  isSignalErrorState(field) {
+    const originalErrorState = this._errorStateMatcher.isSignalErrorState?.(field) ?? false;
+    const customErrorState = !!(field && field().invalid() && this.interacted);
+    return originalErrorState || customErrorState;
+  }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
     version: "22.0.5",
