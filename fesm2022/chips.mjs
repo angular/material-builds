@@ -11,6 +11,7 @@ import { MAT_RIPPLE_GLOBAL_OPTIONS } from './_ripple-chunk.mjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { MatRippleLoader } from './_ripple-loader-chunk.mjs';
 import { Directionality, BidiModule } from '@angular/cdk/bidi';
+import { FORM_FIELD } from '@angular/forms/signals';
 import { ErrorStateMatcher } from './_error-options-chunk.mjs';
 import { _ErrorStateTracker } from './_error-state-chunk.mjs';
 import { MatFormFieldControl, MAT_FORM_FIELD } from './_form-field-chunk.mjs';
@@ -2056,10 +2057,14 @@ class MatChipGrid extends MatChipSet {
       optional: true
     });
     const defaultErrorStateMatcher = inject(ErrorStateMatcher);
+    const formField = inject(FORM_FIELD, {
+      optional: true,
+      self: true
+    });
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
-    this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, this.ngControl, parentFormGroup, parentForm, this.stateChanges);
+    this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, formField || this.ngControl, parentFormGroup, parentForm, this.stateChanges);
   }
   ngAfterContentInit() {
     this.chipBlurChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {

@@ -5,6 +5,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, ElementRef, NgZone, Renderer2, isSignal, effect, booleanAttribute, Input, Directive, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
+import { FORM_FIELD } from '@angular/forms/signals';
 import { Subject } from 'rxjs';
 import { MAT_INPUT_VALUE_ACCESSOR } from './_input-value-accessor-chunk.mjs';
 import { MAT_FORM_FIELD, MatFormFieldControl } from './_form-field-chunk.mjs';
@@ -143,6 +144,10 @@ class MatInput {
       optional: true,
       self: true
     });
+    const formField = inject(FORM_FIELD, {
+      optional: true,
+      self: true
+    });
     const element = this._elementRef.nativeElement;
     const nodeName = element.nodeName.toLowerCase();
     if (accessor) {
@@ -161,7 +166,7 @@ class MatInput {
         this._cleanupIosKeyup = this._renderer.listen(element, 'keyup', this._iOSKeyupListener);
       });
     }
-    this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, this.ngControl, parentFormGroup, parentForm, this.stateChanges);
+    this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, formField || this.ngControl, parentFormGroup, parentForm, this.stateChanges);
     this._isServer = !this._platform.isBrowser;
     this._isNativeSelect = nodeName === 'select';
     this._isTextarea = nodeName === 'textarea';

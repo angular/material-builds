@@ -63,6 +63,7 @@ declare class _ErrorStateTracker {
     constructor(_defaultMatcher: ErrorStateMatcher | null, directive: NgControl | FormField<unknown> | null, _parentFormGroup: FormGroupDirective | null, _parentForm: NgForm | null, _stateChanges: Subject<void>);
     /** Updates the error state based on the provided error state matcher. */
     updateErrorState(): void;
+    private _getCurrentErrorState;
 }
 
 type MatDateFormats = {

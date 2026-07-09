@@ -8,6 +8,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, inject, Injector, ChangeDetectorRef, ElementRef, Renderer2, signal, EventEmitter, HostAttributeToken, booleanAttribute, numberAttribute, Output, Input, ViewChild, ContentChild, ContentChildren, ViewEncapsulation, Component, Directive, NgModule } from '@angular/core';
 import { NgControl, Validators, NgForm, FormGroupDirective } from '@angular/forms';
 import { _getEventTarget } from '@angular/cdk/platform';
+import { FORM_FIELD } from '@angular/forms/signals';
 import { Subject, defer, merge } from 'rxjs';
 import { startWith, switchMap, filter, map, takeUntil, take } from 'rxjs/operators';
 import { MAT_FORM_FIELD, MatFormFieldControl } from './_form-field-chunk.mjs';
@@ -276,13 +277,17 @@ class MatSelect {
     const defaultPopoverConfig = inject(OVERLAY_DEFAULT_CONFIG, {
       optional: true
     });
+    const formField = inject(FORM_FIELD, {
+      optional: true,
+      self: true
+    });
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
     if (this._defaultOptions?.typeaheadDebounceInterval != null) {
       this.typeaheadDebounceInterval = this._defaultOptions.typeaheadDebounceInterval;
     }
-    this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, this.ngControl, parentFormGroup, parentForm, this.stateChanges);
+    this._errorStateTracker = new _ErrorStateTracker(defaultErrorStateMatcher, formField || this.ngControl, parentFormGroup, parentForm, this.stateChanges);
     this._scrollStrategy = this._scrollStrategyFactory();
     this.tabIndex = tabIndex == null ? 0 : parseInt(tabIndex) || 0;
     this._popoverLocation = defaultPopoverConfig?.usePopover === false ? null : 'inline';
