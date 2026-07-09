@@ -22,6 +22,7 @@ import '@angular/cdk/keycodes';
 import '@angular/cdk/overlay';
 import '@angular/cdk/scrolling';
 import '@angular/forms';
+import '@angular/forms/signals';
 import './_error-options-chunk.mjs';
 import './_error-state-chunk.mjs';
 import './form-field.mjs';

@@ -20,6 +20,7 @@ import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators, ControlContainer, NgForm,
 import { MAT_INPUT_VALUE_ACCESSOR } from './_input-value-accessor-chunk.mjs';
 import { MAT_FORM_FIELD, MatFormFieldControl } from './_form-field-chunk.mjs';
 import { CdkScrollableModule } from '@angular/cdk/scrolling';
+import { FORM_FIELD } from '@angular/forms/signals';
 import { ErrorStateMatcher } from './_error-options-chunk.mjs';
 import { _ErrorStateTracker } from './_error-state-chunk.mjs';
 import './_ripple-module-chunk.mjs';
@@ -4332,6 +4333,10 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
   }
   ngOnInit() {
     const ngControl = this._injector.get(NgControl, null, {
+      optional: true,
+      self: true
+    });
+    this._errorStateTracker.formField = this._injector.get(FORM_FIELD, null, {
       optional: true,
       self: true
     });
