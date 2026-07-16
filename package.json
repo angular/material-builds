@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "22.0.4+sha-2dd67df",
+  "version": "22.0.5+sha-eac6975",
   "description": "Angular Material",
   "repository": {
     "type": "git",
@@ -353,7 +353,7 @@
     }
   },
   "peerDependencies": {
-    "@angular/cdk": "22.0.4+sha-2dd67df",
+    "@angular/cdk": "22.0.5+sha-eac6975",
     "@angular/core": "^22.0.0 || ^23.0.0",
     "@angular/common": "^22.0.0 || ^23.0.0",
     "@angular/forms": "^22.0.0 || ^23.0.0",
