@@ -318,7 +318,7 @@ class MatInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatInput,
     deps: [],
@@ -326,7 +326,7 @@ class MatInput {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatInput,
     isStandalone: true,
     selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
@@ -379,7 +379,7 @@ class MatInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatInput,
   decorators: [{
@@ -460,7 +460,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatInputModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatInputModule,
     deps: [],
@@ -468,7 +468,7 @@ class MatInputModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatInputModule,
     imports: [MatFormFieldModule, MatInput],
@@ -476,7 +476,7 @@ class MatInputModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatInputModule,
     imports: [MatFormFieldModule, MatFormFieldModule, TextFieldModule, BidiModule]
@@ -484,7 +484,7 @@ class MatInputModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatInputModule,
   decorators: [{

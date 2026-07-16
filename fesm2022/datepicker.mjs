@@ -58,7 +58,7 @@ class MatDatepickerIntl {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerIntl,
     deps: [],
@@ -66,14 +66,14 @@ class MatDatepickerIntl {
   });
   static ɵprov = i0.ɵɵngDeclareService({
     minVersion: "22.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerIntl
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerIntl,
   decorators: [{
@@ -416,7 +416,7 @@ class MatCalendarBody {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatCalendarBody,
     deps: [],
@@ -424,7 +424,7 @@ class MatCalendarBody {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatCalendarBody,
     isStandalone: true,
     selector: "[mat-calendar-body]",
@@ -466,7 +466,7 @@ class MatCalendarBody {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatCalendarBody,
   decorators: [{
@@ -613,7 +613,7 @@ class MatDateSelectionModel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDateSelectionModel,
     deps: "invalid",
@@ -621,14 +621,14 @@ class MatDateSelectionModel {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDateSelectionModel
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDateSelectionModel,
   decorators: [{
@@ -660,7 +660,7 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatSingleDateSelectionModel,
     deps: [{
@@ -670,14 +670,14 @@ class MatSingleDateSelectionModel extends MatDateSelectionModel {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatSingleDateSelectionModel
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatSingleDateSelectionModel,
   decorators: [{
@@ -729,7 +729,7 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatRangeDateSelectionModel,
     deps: [{
@@ -739,14 +739,14 @@ class MatRangeDateSelectionModel extends MatDateSelectionModel {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatRangeDateSelectionModel
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatRangeDateSelectionModel,
   decorators: [{
@@ -844,7 +844,7 @@ class DefaultMatCalendarRangeStrategy {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: DefaultMatCalendarRangeStrategy,
     deps: [{
@@ -854,14 +854,14 @@ class DefaultMatCalendarRangeStrategy {
   });
   static ɵprov = i0.ɵɵngDeclareInjectable({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: DefaultMatCalendarRangeStrategy
   });
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: DefaultMatCalendarRangeStrategy,
   decorators: [{
@@ -1232,7 +1232,7 @@ class MatMonthView {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatMonthView,
     deps: [],
@@ -1240,7 +1240,7 @@ class MatMonthView {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatMonthView,
     isStandalone: true,
     selector: "mat-month-view",
@@ -1287,7 +1287,7 @@ class MatMonthView {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatMonthView,
   decorators: [{
@@ -1568,7 +1568,7 @@ class MatMultiYearView {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatMultiYearView,
     deps: [],
@@ -1576,7 +1576,7 @@ class MatMultiYearView {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatMultiYearView,
     isStandalone: true,
     selector: "mat-multi-year-view",
@@ -1615,7 +1615,7 @@ class MatMultiYearView {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatMultiYearView,
   decorators: [{
@@ -1912,7 +1912,7 @@ class MatYearView {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatYearView,
     deps: [],
@@ -1920,7 +1920,7 @@ class MatYearView {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatYearView,
     isStandalone: true,
     selector: "mat-year-view",
@@ -1959,7 +1959,7 @@ class MatYearView {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatYearView,
   decorators: [{
@@ -2112,7 +2112,7 @@ class MatCalendarHeader {
   _periodButtonLabelId = inject(_IdGenerator).getId('mat-calendar-period-label-');
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatCalendarHeader,
     deps: [],
@@ -2120,7 +2120,7 @@ class MatCalendarHeader {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatCalendarHeader,
     isStandalone: true,
     selector: "mat-calendar-header",
@@ -2150,7 +2150,7 @@ class MatCalendarHeader {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatCalendarHeader,
   decorators: [{
@@ -2334,7 +2334,7 @@ class MatCalendar {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatCalendar,
     deps: [],
@@ -2342,7 +2342,7 @@ class MatCalendar {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatCalendar,
     isStandalone: true,
     selector: "mat-calendar",
@@ -2433,7 +2433,7 @@ class MatCalendar {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatCalendar,
   decorators: [{
@@ -2637,7 +2637,7 @@ class MatDatepickerContent {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerContent,
     deps: [],
@@ -2645,7 +2645,7 @@ class MatDatepickerContent {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerContent,
     isStandalone: true,
     selector: "mat-datepicker-content",
@@ -2702,7 +2702,7 @@ class MatDatepickerContent {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerContent,
   decorators: [{
@@ -3016,7 +3016,7 @@ class MatDatepickerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerBase,
     deps: [],
@@ -3024,7 +3024,7 @@ class MatDatepickerBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerBase,
     isStandalone: true,
     inputs: {
@@ -3054,7 +3054,7 @@ class MatDatepickerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerBase,
   decorators: [{
@@ -3133,7 +3133,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepicker extends MatDatepickerBase {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepicker,
     deps: null,
@@ -3141,7 +3141,7 @@ class MatDatepicker extends MatDatepickerBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepicker,
     isStandalone: true,
     selector: "mat-datepicker",
@@ -3159,7 +3159,7 @@ class MatDatepicker extends MatDatepickerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepicker,
   decorators: [{
@@ -3397,7 +3397,7 @@ class MatDatepickerInputBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerInputBase,
     deps: [],
@@ -3405,7 +3405,7 @@ class MatDatepickerInputBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerInputBase,
     isStandalone: true,
     inputs: {
@@ -3422,7 +3422,7 @@ class MatDatepickerInputBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerInputBase,
   decorators: [{
@@ -3584,7 +3584,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerInput,
     deps: [],
@@ -3592,7 +3592,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerInput,
     isStandalone: true,
     selector: "input[matDatepicker]",
@@ -3630,7 +3630,7 @@ class MatDatepickerInput extends MatDatepickerInputBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerInput,
   decorators: [{
@@ -3678,7 +3678,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepickerToggleIcon {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerToggleIcon,
     deps: [],
@@ -3686,7 +3686,7 @@ class MatDatepickerToggleIcon {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerToggleIcon,
     isStandalone: true,
     selector: "[matDatepickerToggleIcon]",
@@ -3695,7 +3695,7 @@ class MatDatepickerToggleIcon {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerToggleIcon,
   decorators: [{
@@ -3758,7 +3758,7 @@ class MatDatepickerToggle {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerToggle,
     deps: [],
@@ -3766,7 +3766,7 @@ class MatDatepickerToggle {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "17.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerToggle,
     isStandalone: true,
     selector: "mat-datepicker-toggle",
@@ -3818,7 +3818,7 @@ class MatDatepickerToggle {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerToggle,
   decorators: [{
@@ -4122,7 +4122,7 @@ class MatDateRangeInput {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDateRangeInput,
     deps: [],
@@ -4130,7 +4130,7 @@ class MatDateRangeInput {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDateRangeInput,
     isStandalone: true,
     selector: "mat-date-range-input",
@@ -4180,7 +4180,7 @@ class MatDateRangeInput {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDateRangeInput,
   decorators: [{
@@ -4409,7 +4409,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDateRangeInputPartBase,
     deps: [],
@@ -4417,7 +4417,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDateRangeInputPartBase,
     isStandalone: true,
     inputs: {
@@ -4429,7 +4429,7 @@ class MatDateRangeInputPartBase extends MatDatepickerInputBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDateRangeInputPartBase,
   decorators: [{
@@ -4488,7 +4488,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatStartDate,
     deps: null,
@@ -4496,7 +4496,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatStartDate,
     isStandalone: true,
     selector: "input[matStartDate]",
@@ -4538,7 +4538,7 @@ class MatStartDate extends MatDateRangeInputPartBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatStartDate,
   decorators: [{
@@ -4624,7 +4624,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatEndDate,
     deps: null,
@@ -4632,7 +4632,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatEndDate,
     isStandalone: true,
     selector: "input[matEndDate]",
@@ -4674,7 +4674,7 @@ class MatEndDate extends MatDateRangeInputPartBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatEndDate,
   decorators: [{
@@ -4721,7 +4721,7 @@ class MatDateRangePicker extends MatDatepickerBase {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDateRangePicker,
     deps: null,
@@ -4729,7 +4729,7 @@ class MatDateRangePicker extends MatDatepickerBase {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDateRangePicker,
     isStandalone: true,
     selector: "mat-date-range-picker",
@@ -4756,7 +4756,7 @@ class MatDateRangePicker extends MatDatepickerBase {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDateRangePicker,
   decorators: [{
@@ -4791,7 +4791,7 @@ class MatDatepickerApply {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerApply,
     deps: [],
@@ -4799,7 +4799,7 @@ class MatDatepickerApply {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerApply,
     isStandalone: true,
     selector: "[matDatepickerApply], [matDateRangePickerApply]",
@@ -4813,7 +4813,7 @@ class MatDatepickerApply {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerApply,
   decorators: [{
@@ -4830,7 +4830,7 @@ class MatDatepickerCancel {
   _datepicker = inject(MatDatepickerBase);
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerCancel,
     deps: [],
@@ -4838,7 +4838,7 @@ class MatDatepickerCancel {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerCancel,
     isStandalone: true,
     selector: "[matDatepickerCancel], [matDateRangePickerCancel]",
@@ -4852,7 +4852,7 @@ class MatDatepickerCancel {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerCancel,
   decorators: [{
@@ -4882,7 +4882,7 @@ class MatDatepickerActions {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerActions,
     deps: [],
@@ -4890,7 +4890,7 @@ class MatDatepickerActions {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     type: MatDatepickerActions,
     isStandalone: true,
     selector: "mat-datepicker-actions, mat-date-range-picker-actions",
@@ -4915,7 +4915,7 @@ class MatDatepickerActions {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerActions,
   decorators: [{
@@ -4944,7 +4944,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatDatepickerModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerModule,
     deps: [],
@@ -4952,7 +4952,7 @@ class MatDatepickerModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerModule,
     imports: [MatButtonModule, OverlayModule, A11yModule, PortalModule, MatCalendar, MatCalendarBody, MatDatepicker, MatDatepickerContent, MatDatepickerInput, MatDatepickerToggle, MatDatepickerToggleIcon, MatMonthView, MatYearView, MatMultiYearView, MatCalendarHeader, MatDateRangeInput, MatStartDate, MatEndDate, MatDateRangePicker, MatDatepickerActions, MatDatepickerCancel, MatDatepickerApply],
@@ -4960,7 +4960,7 @@ class MatDatepickerModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.1.0-next.5",
+    version: "22.1.0-next.6",
     ngImport: i0,
     type: MatDatepickerModule,
     providers: [MatDatepickerIntl],
@@ -4969,7 +4969,7 @@ class MatDatepickerModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.1.0-next.5",
+  version: "22.1.0-next.6",
   ngImport: i0,
   type: MatDatepickerModule,
   decorators: [{
