@@ -359,7 +359,7 @@ class MatCheckbox {
     }, {
       kind: "component",
       type: _MatInternalFormField,
-      selector: "div[mat-internal-form-field]",
+      selector: "[mat-internal-form-field]",
       inputs: ["labelPosition"]
     }],
     encapsulation: i0.ViewEncapsulation.None
