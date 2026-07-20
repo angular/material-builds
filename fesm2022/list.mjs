@@ -10,7 +10,7 @@ import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
 import { CdkObserveContent, ObserversModule } from '@angular/cdk/observers';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, UP_ARROW, ENTER, SPACE, A, hasModifierKey } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { NgTemplateOutlet } from '@angular/common';
@@ -1362,6 +1362,15 @@ class MatSelectionList extends MatListBase {
   }
   _handleKeydown(event) {
     const activeItem = this._keyManager.activeItem;
+    if (activeItem && (event.keyCode === DOWN_ARROW || event.keyCode === UP_ARROW)) {
+      const focusedElement = _getFocusedElementPierceShadowDom();
+      const isOptionFocused = this._items.toArray().some(item => item._elementRef.nativeElement === focusedElement);
+      if (!isOptionFocused) {
+        event.preventDefault();
+        activeItem.focus();
+        return;
+      }
+    }
     if ((event.keyCode === ENTER || event.keyCode === SPACE) && !this._keyManager.isTyping() && activeItem && !activeItem.disabled) {
       event.preventDefault();
       activeItem._toggleOnInteraction();
@@ -1381,9 +1390,6 @@ class MatSelectionList extends MatListBase {
     });
   };
   _handleFocusin = event => {
-    if (this.disabled) {
-      return;
-    }
     const activeIndex = this._items.toArray().findIndex(item => item._elementRef.nativeElement.contains(event.target));
     if (activeIndex > -1) {
       this._setActiveOption(activeIndex);
@@ -1392,7 +1398,7 @@ class MatSelectionList extends MatListBase {
     }
   };
   _setupRovingTabindex() {
-    this._keyManager = new FocusKeyManager(this._items).withHomeAndEnd().withTypeAhead().withWrap().skipPredicate(() => this.disabled);
+    this._keyManager = new FocusKeyManager(this._items).withHomeAndEnd().withTypeAhead().withWrap().skipPredicate(() => false);
     this._resetActiveOption();
     this._keyManager.change.subscribe(activeItemIndex => this._setActiveOption(activeItemIndex));
     this._items.changes.pipe(takeUntil(this._destroyed)).subscribe(() => {
@@ -1403,12 +1409,20 @@ class MatSelectionList extends MatListBase {
     });
   }
   _setActiveOption(index) {
-    this._items.forEach((item, itemIndex) => item._setTabindex(itemIndex === index ? 0 : -1));
+    this._items.forEach((item, itemIndex) => {
+      let tabindex = -1;
+      if (!this.disabled && itemIndex === index) {
+        tabindex = 0;
+      }
+      item._setTabindex(tabindex);
+    });
     this._keyManager.updateActiveItem(index);
   }
   _resetActiveOption() {
     if (this.disabled) {
-      this._setActiveOption(-1);
+      const activeItem = this._items.find(item => item.selected) || this._items.first;
+      const index = activeItem ? this._items.toArray().indexOf(activeItem) : -1;
+      this._setActiveOption(index);
       return;
     }
     const activeItem = this._items.find(item => item.selected && !item.disabled) || this._items.first;
