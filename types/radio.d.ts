@@ -266,8 +266,6 @@ declare class MatRadioButton implements OnInit, AfterViewInit, DoCheck, OnDestro
     _isRippleDisabled(): boolean;
     /** Triggered when the radio button receives an interaction from the user. */
     _onInputInteraction(event: Event): void;
-    /** Triggered when the user clicks on the touch target. */
-    _onTouchTargetClick(event: Event): void;
     /** Sets the disabled state and marks for check if a change occurred. */
     protected _setDisabled(value: boolean): void;
     /** Called when the input is clicked. */

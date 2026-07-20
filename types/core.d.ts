@@ -183,7 +183,7 @@ declare class _MatInternalFormField {
     /** Position of the label relative to the content. */
     labelPosition: 'before' | 'after';
     static ɵfac: i0.ɵɵFactoryDeclaration<_MatInternalFormField, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "div[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<_MatInternalFormField, "[mat-internal-form-field]", never, { "labelPosition": { "alias": "labelPosition"; "required": true; }; }, {}, never, ["*"], true, never>;
 }
 
 export { DateAdapter, ErrorStateMatcher$1 as ErrorStateMatcher, MATERIAL_ANIMATIONS, MAT_DATE_FORMATS, MAT_NATIVE_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter, NativeDateModule, VERSION, _ErrorStateTracker, _MatInternalFormField, _StructuralStylesLoader, _animationsDisabled, _getAnimationsState, provideNativeDateAdapter };
