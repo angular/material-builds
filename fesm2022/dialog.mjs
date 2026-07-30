@@ -1,7 +1,7 @@
 import { createBlockScrollStrategy, createGlobalPositionStrategy, OverlayModule } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
 import { EventEmitter, ChangeDetectionStrategy, ViewEncapsulation, Component, InjectionToken, inject, Injector, Service, ElementRef, Input, Directive, NgModule } from '@angular/core';
-import { CdkDialogContainer, Dialog, DialogConfig, DialogModule } from '@angular/cdk/dialog';
+import { CdkDialogContainer, Dialog, DialogConfig, DialogRef, DialogModule } from '@angular/cdk/dialog';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { _animationsDisabled } from './_animation-chunk.mjs';
@@ -451,6 +451,9 @@ class MatDialog {
         }, {
           provide: this._dialogRefConstructor,
           useValue: dialogRef
+        }, {
+          provide: DialogRef,
+          useValue: null
         }];
       }
     });
