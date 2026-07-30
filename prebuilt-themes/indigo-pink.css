@@ -1873,7 +1873,7 @@ html {
   --mat-datepicker-calendar-date-in-range-state-background-color: color-mix(in srgb, #3f51b5 20%, transparent);
   --mat-datepicker-calendar-date-in-comparison-range-state-background-color: color-mix(in srgb, #ff4081 20%, transparent);
   --mat-datepicker-calendar-date-in-overlap-range-state-background-color: #a8dab5;
-  --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: rgb(69.5241935484, 163.4758064516, 93.9516129032);
+  --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: rgb(27.2643896268%, 64.1081593928%, 36.843769766%);
   --mat-datepicker-calendar-date-selected-state-text-color: white;
   --mat-datepicker-calendar-date-selected-state-background-color: #3f51b5;
   --mat-datepicker-calendar-date-selected-disabled-state-background-color: color-mix(in srgb, #3f51b5 38%, transparent);
@@ -1905,7 +1905,7 @@ html {
   --mat-datepicker-calendar-date-in-range-state-background-color: color-mix(in srgb, #ff4081 20%, transparent);
   --mat-datepicker-calendar-date-in-comparison-range-state-background-color: color-mix(in srgb, #ff4081 20%, transparent);
   --mat-datepicker-calendar-date-in-overlap-range-state-background-color: #a8dab5;
-  --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: rgb(69.5241935484, 163.4758064516, 93.9516129032);
+  --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: rgb(27.2643896268%, 64.1081593928%, 36.843769766%);
   --mat-datepicker-calendar-date-selected-state-text-color: white;
   --mat-datepicker-calendar-date-selected-state-background-color: #ff4081;
   --mat-datepicker-calendar-date-selected-disabled-state-background-color: color-mix(in srgb, #ff4081 38%, transparent);
@@ -1936,7 +1936,7 @@ html {
   --mat-datepicker-calendar-date-in-range-state-background-color: color-mix(in srgb, #f44336 20%, transparent);
   --mat-datepicker-calendar-date-in-comparison-range-state-background-color: color-mix(in srgb, #ff4081 20%, transparent);
   --mat-datepicker-calendar-date-in-overlap-range-state-background-color: #a8dab5;
-  --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: rgb(69.5241935484, 163.4758064516, 93.9516129032);
+  --mat-datepicker-calendar-date-in-overlap-range-selected-state-background-color: rgb(27.2643896268%, 64.1081593928%, 36.843769766%);
   --mat-datepicker-calendar-date-selected-state-text-color: white;
   --mat-datepicker-calendar-date-selected-state-background-color: #f44336;
   --mat-datepicker-calendar-date-selected-disabled-state-background-color: color-mix(in srgb, #f44336 38%, transparent);
