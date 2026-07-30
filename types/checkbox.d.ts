@@ -89,8 +89,6 @@ declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAcces
     disableRipple: boolean;
     /** The native `<input type="checkbox">` element */
     _inputElement: ElementRef<HTMLInputElement>;
-    /** The native `<label>` element */
-    _labelElement: ElementRef<HTMLInputElement>;
     /** Tabindex for the checkbox. */
     tabIndex: number;
     /**
@@ -159,7 +157,6 @@ declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAcces
      */
     private _syncIndeterminate;
     _onInputClick(): void;
-    _onTouchTargetClick(): void;
     /**
      *  Prevent click events that come from the `<label/>` element from bubbling. This prevents the
      *  click handler on the host from triggering twice when clicking on the `<label/>` element. After
