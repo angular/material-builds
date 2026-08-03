@@ -1241,7 +1241,7 @@ class MatSliderThumb {
     this._onChangeFn?.(this.value);
     if (this._slider.step || !this._isActive) {
       this._updateThumbUIByValue({
-        withAnimation: true
+        withAnimation: !this._isActive
       });
     }
     this._slider._onValueChange(this);
