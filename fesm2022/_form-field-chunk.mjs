@@ -754,6 +754,7 @@ class MatFormField {
         this._previousControlValidatorFn = this._control.ngControl.control.validator;
       }
       this._previousControl = this._control;
+      this._changeDetectorRef.markForCheck();
     }
     if (this._control.ngControl && this._control.ngControl.control) {
       const validatorFn = this._control.ngControl.control.validator;
