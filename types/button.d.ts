@@ -1,9 +1,9 @@
 import * as i0 from '@angular/core';
 import { InjectionToken, AfterViewInit, OnDestroy, ElementRef, NgZone } from '@angular/core';
 import { FocusOrigin } from '@angular/cdk/a11y';
-import { ThemePalette } from './_palette-chunk.js';
-import { MatRippleLoader } from './_ripple-loader-chunk.js';
-import { MatRippleModule } from './_ripple-module-chunk.js';
+import { ThemePalette } from './core.js';
+import { MatRippleLoader } from './core.js';
+import { MatRippleModule } from './core.js';
 import * as i2 from '@angular/cdk/bidi';
 import './_ripple-chunk.js';
 import '@angular/cdk/platform';

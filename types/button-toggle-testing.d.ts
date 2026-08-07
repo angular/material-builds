@@ -1,5 +1,5 @@
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatButtonToggleAppearance } from './_button-toggle-chunk.js';
+import { MatButtonToggleAppearance } from './button-toggle.js';
 import '@angular/cdk/bidi';
 import '@angular/core';
 import '@angular/forms';

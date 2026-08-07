@@ -3,9 +3,9 @@ import { ElementRef, OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy
 import { Subject, Observable } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { ErrorStateMatcher } from './_error-options-chunk.js';
-import { MatFormFieldControl } from './_form-field-control-chunk.js';
-import { MatRippleModule } from './_ripple-module-chunk.js';
+import { ErrorStateMatcher } from './core.js';
+import { MatFormFieldControl } from './form-field.js';
+import { MatRippleModule } from './core.js';
 import { ModifierKey } from '@angular/cdk/keycodes';
 import * as i2 from '@angular/cdk/bidi';
 import '@angular/forms/signals';

@@ -1,6 +1,7 @@
 import * as i0 from '@angular/core';
 import { AfterContentInit, QueryList, OnInit, AfterContentChecked } from '@angular/core';
-import { MatLine, MatLineModule } from './_line-chunk.js';
+import { MatLine } from './_line-chunk.js';
+import { MatLineModule } from './core.js';
 import { NumberInput } from '@angular/cdk/coercion';
 import * as i2 from '@angular/cdk/bidi';
 

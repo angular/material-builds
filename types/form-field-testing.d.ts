@@ -1,8 +1,8 @@
 import { MatFormFieldControlHarness } from './_form-field-control-harness-chunk.js';
 import { BaseHarnessFilters, ComponentHarness, ComponentHarnessConstructor, HarnessPredicate } from '@angular/cdk/testing';
-import { MatInputHarness } from './_input-harness-chunk.js';
+import { MatInputHarness } from './input-testing.js';
 import { MatSelectHarness } from './select-testing.js';
-import { MatDatepickerInputHarness, MatDateRangeInputHarness } from './_date-range-input-harness-chunk.js';
+import { MatDatepickerInputHarness, MatDateRangeInputHarness } from './datepicker-testing.js';
 import '@angular/material/form-field/testing/control';
 import '@angular/material/core/testing';
 

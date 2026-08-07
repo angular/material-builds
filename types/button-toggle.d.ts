@@ -1,7 +1,7 @@
 import { MatButtonToggleGroup, MatButtonToggle } from './_button-toggle-chunk.js';
 export { MAT_BUTTON_TOGGLE_DEFAULT_OPTIONS, MAT_BUTTON_TOGGLE_GROUP, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleAppearance, MatButtonToggleChange, MatButtonToggleDefaultOptions, ToggleType } from './_button-toggle-chunk.js';
 import * as i0 from '@angular/core';
-import { MatRippleModule } from './_ripple-module-chunk.js';
+import { MatRippleModule } from './core.js';
 import * as i2 from '@angular/cdk/bidi';
 import '@angular/forms';
 import './_ripple-chunk.js';

@@ -2,7 +2,7 @@ import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular
 import * as i0 from '@angular/core';
 import { OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MatIconRegistry } from './_icon-registry-chunk.js';
+import { MatIconRegistry } from './icon.js';
 import '@angular/common/http';
 import '@angular/platform-browser';
 

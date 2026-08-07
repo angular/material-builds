@@ -5,8 +5,8 @@ import { Subject, BehaviorSubject } from 'rxjs';
 import { FocusableOption, FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
 import * as i2 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
-import { ThemePalette } from './_palette-chunk.js';
-import { RippleTarget, RippleConfig, RippleGlobalOptions } from './_ripple-chunk.js';
+import { ThemePalette } from './core.js';
+import { RippleTarget, RippleConfig, RippleGlobalOptions } from './core.js';
 import '@angular/cdk/platform';
 
 /**

@@ -2,11 +2,11 @@ import * as i0 from '@angular/core';
 import { WritableSignal, Signal, ChangeDetectorRef, AfterViewInit, OnDestroy, NgZone, ElementRef, QueryList, EventEmitter } from '@angular/core';
 import * as i2 from '@angular/cdk/bidi';
 import { Directionality } from '@angular/cdk/bidi';
-import { ThemePalette } from './_palette-chunk.js';
-import { MatRipple, RippleGlobalOptions } from './_ripple-chunk.js';
+import { ThemePalette } from './core.js';
+import { MatRipple, RippleGlobalOptions } from './core.js';
 import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { MatRippleModule } from './_ripple-module-chunk.js';
+import { MatRippleModule } from './core.js';
 import '@angular/cdk/platform';
 
 /**

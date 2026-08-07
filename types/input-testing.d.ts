@@ -1,6 +1,6 @@
 export { InputHarnessFilters, MatInputHarness } from './_input-harness-chunk.js';
 import { BaseHarnessFilters, ComponentHarness, HarnessPredicate } from '@angular/cdk/testing';
-import { MatFormFieldControlHarnessBase } from './_form-field-control-harness-chunk.js';
+import { MatFormFieldControlHarnessBase } from './form-field-testing-control.js';
 import { MatFormFieldControlHarnessFilters } from '@angular/material/form-field/testing/control';
 
 /** A set of criteria that can be used to filter a list of `MatNativeSelectHarness` instances. */

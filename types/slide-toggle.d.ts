@@ -2,7 +2,7 @@ import * as i0 from '@angular/core';
 import { InjectionToken, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorRef, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThemePalette } from './_palette-chunk.js';
+import { ThemePalette } from './core.js';
 import * as i2 from '@angular/cdk/bidi';
 
 /** Default `mat-slide-toggle` options that can be overridden. */
