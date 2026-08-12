@@ -637,7 +637,6 @@ html {
   --mat-slide-toggle-disabled-track-opacity: 0.12;
   --mat-slide-toggle-disabled-unselected-handle-opacity: 0.38;
   --mat-slide-toggle-disabled-unselected-icon-opacity: 0.38;
-  --mat-slide-toggle-disabled-unselected-track-outline-color: transparent;
   --mat-slide-toggle-disabled-unselected-track-outline-width: 1px;
   --mat-slide-toggle-handle-height: 20px;
   --mat-slide-toggle-handle-shape: 10px;
@@ -652,11 +651,9 @@ html {
   --mat-slide-toggle-selected-icon-size: 18px;
   --mat-slide-toggle-selected-pressed-handle-horizontal-margin: 0;
   --mat-slide-toggle-selected-pressed-state-layer-opacity: 0.12;
-  --mat-slide-toggle-selected-track-outline-color: transparent;
   --mat-slide-toggle-selected-track-outline-width: 1px;
   --mat-slide-toggle-selected-with-icon-handle-horizontal-margin: 0;
   --mat-slide-toggle-track-height: 14px;
-  --mat-slide-toggle-track-outline-color: transparent;
   --mat-slide-toggle-track-outline-width: 1px;
   --mat-slide-toggle-track-shape: 7px;
   --mat-slide-toggle-track-width: 36px;
@@ -688,6 +685,9 @@ html {
   --mat-slide-toggle-selected-hover-track-color: #d81b60;
   --mat-slide-toggle-selected-pressed-track-color: #d81b60;
   --mat-slide-toggle-selected-track-color: #d81b60;
+  --mat-slide-toggle-disabled-unselected-track-outline-color: transparent;
+  --mat-slide-toggle-selected-track-outline-color: transparent;
+  --mat-slide-toggle-track-outline-color: transparent;
   --mat-slide-toggle-disabled-label-text-color: color-mix(in srgb, white 38%, transparent);
   --mat-slide-toggle-disabled-handle-elevation-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.2), 0px 0px 0px 0px rgba(0, 0, 0, 0.14), 0px 0px 0px 0px rgba(0, 0, 0, 0.12);
   --mat-slide-toggle-disabled-selected-handle-color: white;
@@ -835,7 +835,6 @@ html {
 html {
   --mat-slider-active-track-height: 6px;
   --mat-slider-active-track-shape: 9999px;
-  --mat-slider-handle-elevation: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   --mat-slider-handle-height: 20px;
   --mat-slider-handle-shape: 50%;
   --mat-slider-handle-width: 20px;
@@ -867,6 +866,7 @@ html {
   --mat-slider-ripple-color: #c2185b;
   --mat-slider-with-tick-marks-active-container-color: white;
   --mat-slider-with-tick-marks-inactive-container-color: #c2185b;
+  --mat-slider-handle-elevation: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   --mat-slider-disabled-active-track-color: white;
   --mat-slider-disabled-handle-color: white;
   --mat-slider-disabled-inactive-track-color: white;
@@ -942,17 +942,12 @@ html {
 }
 
 html {
-  --mat-list-active-indicator-color: transparent;
   --mat-list-active-indicator-shape: 4px;
   --mat-list-list-item-container-shape: 0;
   --mat-list-list-item-leading-avatar-shape: 50%;
-  --mat-list-list-item-container-color: transparent;
-  --mat-list-list-item-selected-container-color: transparent;
-  --mat-list-list-item-leading-avatar-color: transparent;
   --mat-list-list-item-leading-icon-size: 24px;
   --mat-list-list-item-leading-avatar-size: 40px;
   --mat-list-list-item-trailing-icon-size: 24px;
-  --mat-list-list-item-disabled-state-layer-color: transparent;
   --mat-list-list-item-disabled-state-layer-opacity: 0;
   --mat-list-list-item-disabled-label-text-opacity: 0.38;
   --mat-list-list-item-disabled-leading-icon-opacity: 0.38;
@@ -960,6 +955,11 @@ html {
 }
 
 html {
+  --mat-list-active-indicator-color: transparent;
+  --mat-list-list-item-container-color: transparent;
+  --mat-list-list-item-selected-container-color: transparent;
+  --mat-list-list-item-leading-avatar-color: transparent;
+  --mat-list-list-item-disabled-state-layer-color: transparent;
   --mat-list-list-item-label-text-color: white;
   --mat-list-list-item-supporting-text-color: rgba(255, 255, 255, 0.7);
   --mat-list-list-item-leading-icon-color: rgba(255, 255, 255, 0.7);
@@ -1597,12 +1597,18 @@ html {
 }
 
 html {
-  --mat-fab-container-elevation-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   --mat-fab-container-shape: 50%;
   --mat-fab-touch-target-size: 48px;
-  --mat-fab-extended-container-elevation-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   --mat-fab-extended-container-height: 48px;
   --mat-fab-extended-container-shape: 24px;
+  --mat-fab-small-container-shape: 50%;
+  --mat-fab-small-touch-target-size: 48px;
+}
+
+html {
+  --mat-fab-container-color: #424242;
+  --mat-fab-container-elevation-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+  --mat-fab-extended-container-elevation-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
   --mat-fab-extended-focus-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --mat-fab-extended-hover-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --mat-fab-extended-pressed-container-elevation-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
@@ -1610,15 +1616,9 @@ html {
   --mat-fab-hover-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --mat-fab-pressed-container-elevation-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
   --mat-fab-small-container-elevation-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
-  --mat-fab-small-container-shape: 50%;
-  --mat-fab-small-touch-target-size: 48px;
   --mat-fab-small-focus-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --mat-fab-small-hover-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --mat-fab-small-pressed-container-elevation-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12);
-}
-
-html {
-  --mat-fab-container-color: #424242;
   --mat-fab-disabled-state-container-color: color-mix(in srgb, white 12%, transparent);
   --mat-fab-disabled-state-foreground-color: color-mix(in srgb, white 38%, transparent);
   --mat-fab-disabled-state-layer-color: rgba(255, 255, 255, 0.7);
@@ -1996,12 +1996,12 @@ html {
 
 html {
   --mat-expansion-container-shape: 4px;
-  --mat-expansion-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   --mat-expansion-legacy-header-indicator-display: inline-block;
   --mat-expansion-header-indicator-display: none;
 }
 
 html {
+  --mat-expansion-container-elevation-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
   --mat-expansion-container-background-color: #424242;
   --mat-expansion-container-text-color: white;
   --mat-expansion-actions-divider-color: rgba(255, 255, 255, 0.12);
@@ -2054,11 +2054,11 @@ html {
 
 html {
   --mat-sidenav-container-shape: 0;
-  --mat-sidenav-container-elevation-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   --mat-sidenav-container-width: auto;
 }
 
 html {
+  --mat-sidenav-container-elevation-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12);
   --mat-sidenav-container-divider-color: rgba(255, 255, 255, 0.12);
   --mat-sidenav-container-background-color: #424242;
   --mat-sidenav-container-text-color: white;
@@ -2179,10 +2179,10 @@ html {
 
 html {
   --mat-timepicker-container-shape: 4px;
-  --mat-timepicker-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 html {
+  --mat-timepicker-container-elevation-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12);
   --mat-timepicker-container-background-color: #424242;
 }
 
