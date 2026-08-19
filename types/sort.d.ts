@@ -70,7 +70,7 @@ declare class MatSortHeader implements MatSortable, OnDestroy, OnInit, AfterView
      * says that the aria-sort property should only be present on one header at a time, so removing
      * ensures this is true.
      */
-    _getAriaSortAttribute(): "none" | "ascending" | "descending";
+    _getAriaSortAttribute(): "ascending" | "descending" | "none";
     /** Whether the arrow inside the sort header should be rendered. */
     _renderArrow(): boolean;
     private _updateSortActionDescription;

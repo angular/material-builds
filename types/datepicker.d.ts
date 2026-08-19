@@ -1641,7 +1641,7 @@ declare class MatDateRangeInput<D> implements MatFormFieldControl<DateRange<D>>,
     /** Opens the date range picker associated with the input. */
     _openDatepicker(): void;
     /** Whether the separate text should be hidden. */
-    _shouldHideSeparator(): boolean | "" | null;
+    _shouldHideSeparator(): "" | boolean | null;
     /** Gets the value for the `aria-labelledby` attribute of the inputs. */
     _getAriaLabelledby(): string | null;
     _getStartDateAccessibleName(): string;

@@ -178,7 +178,7 @@ declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, On
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter';
     /** Emits whenever an animation on the menu completes. */
-    readonly _animationDone: Subject<"void" | "enter">;
+    readonly _animationDone: Subject<"enter" | "void">;
     /** Whether the menu is animating. */
     _isAnimating: i0.WritableSignal<boolean>;
     /** Parent menu of the current menu panel. */

@@ -323,7 +323,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
      * right offset has been calculated, we forcibly render the label inside the infix. Since
      * the label is part of the infix, the label cannot overflow the prefix content.
      */
-    _forceDisplayInfixLabel(): boolean | 0;
+    _forceDisplayInfixLabel(): 0 | boolean;
     _hasFloatingLabel: i0.Signal<boolean>;
     _shouldLabelFloat(): boolean;
     /**
