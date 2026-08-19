@@ -80,7 +80,7 @@ declare class MatTimepicker<D> implements OnDestroy, MatOptionParentComponent {
     private _onOpenRender;
     protected _panelTemplate: Signal<TemplateRef<unknown>>;
     protected _timeOptions: readonly MatTimepickerOption<D>[];
-    protected _options: Signal<readonly MatOption<any>[]>;
+    protected _options: Signal<readonly MatOption<D>[]>;
     private _keyManager;
     /**
      * Interval between each option in the timepicker. The value can either be an amount of
