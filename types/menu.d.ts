@@ -94,6 +94,7 @@ interface MatMenuPanel<T = any> {
  * Single item inside a `mat-menu`. Provides the menu item styling and accessibility treatment.
  */
 declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
+    protected _isAnchor: boolean;
     private _elementRef;
     private _document;
     private _focusMonitor;
@@ -103,6 +104,12 @@ declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
     role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox';
     /** Whether the menu item is disabled. */
     disabled: boolean;
+    /**
+     * Natively disabled menu items prevent focus and any pointer events from reaching the item.
+     * In some scenarios this might not be desirable, because it can prevent users from finding out
+     * why the item is disabled (e.g. via tooltip).
+     */
+    disabledInteractive: boolean;
     /** Whether ripples are disabled on the menu item. */
     disableRipple: boolean;
     /** Stream that emits when the menu item is hovered. */
@@ -120,6 +127,10 @@ declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
     ngOnDestroy(): void;
     /** Used to set the `tabindex`. */
     _getTabIndex(): string;
+    /** Gets the `aria-disabled` value for the menu item. */
+    _getAriaDisabled(): boolean | null;
+    /** Gets the `disabled` attribute value for the menu item. */
+    _getDisabled(): boolean | null;
     /** Returns the host DOM element. */
     _getHostElement(): HTMLElement;
     /** Prevents the default element actions if it is disabled. */
@@ -132,8 +143,9 @@ declare class MatMenuItem implements FocusableOption, AfterViewInit, OnDestroy {
     _setTriggersSubmenu(triggersSubmenu: boolean): void;
     _hasFocus(): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMenuItem, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMenuItem, "[mat-menu-item]", ["matMenuItem"], { "role": { "alias": "role"; "required": false; }; "disabled": { "alias": "disabled"; "required": false; }; "disabledInteractive": { "alias": "disabledInteractive"; "required": false; }; "disableRipple": { "alias": "disableRipple"; "required": false; }; }, {}, never, ["mat-icon, [matMenuItemIcon]", "*"], true, never>;
     static ngAcceptInputType_disabled: unknown;
+    static ngAcceptInputType_disabledInteractive: unknown;
     static ngAcceptInputType_disableRipple: unknown;
 }
 

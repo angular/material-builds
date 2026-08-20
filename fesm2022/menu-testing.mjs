@@ -76,8 +76,7 @@ class MatMenuItemHarness extends ContentContainerComponentHarness {
     return new HarnessPredicate(this, options).addOption('text', options.text, (harness, text) => HarnessPredicate.stringMatches(harness.getText(), text)).addOption('hasSubmenu', options.hasSubmenu, async (harness, hasSubmenu) => (await harness.hasSubmenu()) === hasSubmenu);
   }
   async isDisabled() {
-    const disabled = (await this.host()).getAttribute('disabled');
-    return coerceBooleanProperty(await disabled);
+    return (await this.host()).hasClass('mat-mdc-menu-item-disabled');
   }
   async getText() {
     return (await this.host()).text();
