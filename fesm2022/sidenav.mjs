@@ -129,6 +129,7 @@ class MatDrawer {
   _renderer = inject(Renderer2);
   _interactivityChecker = inject(InteractivityChecker);
   _doc = inject(DOCUMENT);
+  _isAnimating = false;
   _container = inject(MAT_DRAWER_CONTAINER, {
     optional: true
   });
@@ -266,9 +267,12 @@ class MatDrawer {
       case true:
       case 'first-tabbable':
         afterNextRender(() => {
-          const hasMovedFocus = this._focusTrap.focusInitialElement();
+          const focusOptions = this._isAnimating ? {
+            preventScroll: true
+          } : undefined;
+          const hasMovedFocus = this._focusTrap.focusInitialElement(focusOptions);
           if (!hasMovedFocus && typeof element.focus === 'function') {
-            element.focus();
+            element.focus(focusOptions);
           }
         }, {
           injector: this._injector
@@ -344,13 +348,15 @@ class MatDrawer {
     this._opened.set(isOpen);
     this._getContent()?._drawerToggled(this);
     if (this._container?._transitionsEnabled) {
-      this._setIsAnimating(true);
-      setTimeout(() => this._animationStarted.next());
+      if (this._isAnimating) {
+        this._setIsAnimating(false);
+        this._simulateAnimation();
+      } else {
+        this._setIsAnimating(true);
+        setTimeout(() => this._animationStarted.next());
+      }
     } else {
-      setTimeout(() => {
-        this._animationStarted.next();
-        this._animationEnd.next();
-      });
+      this._simulateAnimation();
     }
     this._elementRef.nativeElement.classList.toggle('mat-drawer-opened', isOpen);
     if (!isOpen && restoreFocus) {
@@ -366,7 +372,16 @@ class MatDrawer {
     return this._container?._content || this._container?._userContent;
   }
   _setIsAnimating(isAnimating) {
-    this._elementRef.nativeElement.classList.toggle('mat-drawer-animating', isAnimating);
+    if (isAnimating !== this._isAnimating) {
+      this._isAnimating = isAnimating;
+      this._elementRef.nativeElement.classList.toggle('mat-drawer-animating', isAnimating);
+    }
+  }
+  _simulateAnimation() {
+    setTimeout(() => {
+      this._animationStarted.next();
+      this._animationEnd.next();
+    });
   }
   _getWidth() {
     return this._elementRef.nativeElement.offsetWidth || 0;
