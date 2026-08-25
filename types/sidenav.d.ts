@@ -48,6 +48,7 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
     private _renderer;
     private readonly _interactivityChecker;
     private _doc;
+    private _isAnimating;
     _container?: MatDrawerContainer | null | undefined;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
@@ -162,6 +163,7 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
     private _getContent;
     /** Toggles whether the drawer is currently animating. */
     private _setIsAnimating;
+    private _simulateAnimation;
     _getWidth(): number;
     /** Updates the enabled state of the focus trap. */
     private _updateFocusTrapState;
