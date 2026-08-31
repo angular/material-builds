@@ -402,7 +402,7 @@ class MatMenu {
   }
   ngAfterContentInit() {
     this._updateDirectDescendants();
-    this._keyManager = new FocusKeyManager(this._directDescendantItems).withWrap().withTypeAhead().withHomeAndEnd();
+    this._keyManager = new FocusKeyManager(this._directDescendantItems).withWrap().withTypeAhead().withHomeAndEnd().skipPredicate(item => item.disabled && !item.disabledInteractive);
     this._keyManager.tabOut.subscribe(() => this.closed.emit('tab'));
     this._directDescendantItems.changes.pipe(startWith(this._directDescendantItems), switchMap(items => merge(...items.map(item => item._focused)))).subscribe(focusedItem => this._keyManager.updateActiveItem(focusedItem));
     this._directDescendantItems.changes.subscribe(itemsList => {
