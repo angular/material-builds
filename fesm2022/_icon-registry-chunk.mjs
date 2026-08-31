@@ -40,7 +40,7 @@ class MatIconRegistry {
   _inProgressUrlFetches = new Map();
   _fontCssClassesByAlias = new Map();
   _resolvers = [];
-  _defaultFontSetClass = ['material-icons', 'mat-ligature-font'];
+  _defaultFontSetClass;
   constructor(_httpClient, _sanitizer, document, _errorHandler) {
     this._httpClient = _httpClient;
     this._sanitizer = _sanitizer;
@@ -97,6 +97,7 @@ class MatIconRegistry {
     return this;
   }
   getDefaultFontSetClass() {
+    this._defaultFontSetClass ??= inferDefaultFontSetClass(this._document);
     return this._defaultFontSetClass;
   }
   getSvgIconFromUrl(safeUrl) {
@@ -362,6 +363,27 @@ function iconKey(namespace, name) {
 }
 function isSafeUrlWithOptions(value) {
   return !!(value.url && value.options);
+}
+function inferDefaultFontSetClass(document) {
+  let materialSymbolsVariantion = null;
+  let hasLegacyMaterialIcons = false;
+  if (document.fonts && typeof document.fonts.forEach === 'function') {
+    document.fonts.forEach(({
+      family
+    }) => {
+      if (family.includes('Material Icons')) {
+        hasLegacyMaterialIcons = true;
+      }
+      if (family.includes('Material Symbols Rounded')) {
+        materialSymbolsVariantion = 'rounded';
+      } else if (family.includes('Material Symbols Sharp')) {
+        materialSymbolsVariantion = 'sharp';
+      } else if (family.includes('Material Symbols')) {
+        materialSymbolsVariantion = 'outlined';
+      }
+    });
+  }
+  return [materialSymbolsVariantion && !hasLegacyMaterialIcons ? `material-symbols-${materialSymbolsVariantion}` : 'material-icons', 'mat-ligature-font'];
 }
 
 export { MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
