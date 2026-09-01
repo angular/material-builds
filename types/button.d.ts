@@ -116,7 +116,7 @@ declare class MatButton extends MatButtonBase {
     /** Programmatically sets the appearance of the button. */
     setAppearance(appearance: MatButtonAppearance): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[matButton], a[matButton], button[mat-button], button[mat-raised-button],    button[mat-flat-button], button[mat-stroked-button], a[mat-button], a[mat-raised-button],    a[mat-flat-button], a[mat-stroked-button]  ", ["matButton", "matAnchor"], { "appearance": { "alias": "matButton"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatButton, "    button[matButton], a[matButton], button[mat-button], button[mat-raised-button],    button[mat-flat-button], button[mat-stroked-button], a[mat-button], a[mat-raised-button],    a[mat-flat-button], a[mat-stroked-button]  ", ["matButton", "matAnchor"], { "appearance": { "alias": "matButton"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd]), .material-symbols-outlined:not([iconPositionEnd]), .material-symbols-rounded:not([iconPositionEnd]), .material-symbols-sharp:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd], .material-symbols-outlined[iconPositionEnd], .material-symbols-rounded[iconPositionEnd], .material-symbols-sharp[iconPositionEnd]", "[progressIndicator]"], true, never>;
 }
 /**
  * Material Design button component for anchor elements. Anchor elements are used to provide
@@ -152,7 +152,7 @@ declare class MatFabButton extends MatButtonBase {
     extended: boolean;
     constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab], button[matFab], a[matFab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatFabButton, "button[mat-fab], a[mat-fab], button[matFab], a[matFab]", ["matButton", "matAnchor"], { "extended": { "alias": "extended"; "required": false; }; }, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd]), .material-symbols-outlined:not([iconPositionEnd]), .material-symbols-rounded:not([iconPositionEnd]), .material-symbols-sharp:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd], .material-symbols-outlined[iconPositionEnd], .material-symbols-rounded[iconPositionEnd], .material-symbols-sharp[iconPositionEnd]", "[progressIndicator]"], true, never>;
     static ngAcceptInputType_extended: unknown;
 }
 /**
@@ -165,7 +165,7 @@ declare class MatMiniFabButton extends MatButtonBase {
     _isFab: boolean;
     constructor();
     static ɵfac: i0.ɵɵFactoryDeclaration<MatMiniFabButton, never>;
-    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd]", "[progressIndicator]"], true, never>;
+    static ɵcmp: i0.ɵɵComponentDeclaration<MatMiniFabButton, "button[mat-mini-fab], a[mat-mini-fab], button[matMiniFab], a[matMiniFab]", ["matButton", "matAnchor"], {}, {}, never, [".material-icons:not([iconPositionEnd]), mat-icon:not([iconPositionEnd]), [matButtonIcon]:not([iconPositionEnd]), .material-symbols-outlined:not([iconPositionEnd]), .material-symbols-rounded:not([iconPositionEnd]), .material-symbols-sharp:not([iconPositionEnd])", "*", ".material-icons[iconPositionEnd], mat-icon[iconPositionEnd], [matButtonIcon][iconPositionEnd], .material-symbols-outlined[iconPositionEnd], .material-symbols-rounded[iconPositionEnd], .material-symbols-sharp[iconPositionEnd]", "[progressIndicator]"], true, never>;
 }
 /**
  * Material Design floating action button (FAB) component for anchor elements. Anchor elements
