@@ -27,7 +27,7 @@ declare class MatPaginatorIntl {
     /** A label for the range of items within the current page and the length of the whole list. */
     getRangeLabel: (page: number, pageSize: number, length: number) => string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatPaginatorIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatPaginatorIntl>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /** Object that can used to configure the underlying `MatSelect` inside a `MatPaginator`. */

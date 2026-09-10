@@ -36,7 +36,7 @@ declare class MatStepperIntl {
     /** Label that is used to indicate step as editable to screen readers. */
     editableLabel: string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatStepperIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatStepperIntl>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /** Template context available to an attached `matStepperIcon`. */

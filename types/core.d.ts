@@ -148,7 +148,7 @@ declare class NativeDateAdapter extends DateAdapter<Date> {
      */
     private _parseTimeString;
     static ɵfac: i0.ɵɵFactoryDeclaration<NativeDateAdapter, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<NativeDateAdapter>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 declare const MAT_NATIVE_DATE_FORMATS: MatDateFormats;

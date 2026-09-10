@@ -294,7 +294,7 @@ declare abstract class MatDateSelectionModel<S, D = ExtractDateTypeFromSelection
     /** Clones the selection model. */
     abstract clone(): MatDateSelectionModel<S, D>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDateSelectionModel<any, any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatDateSelectionModel<any, any>>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 /**
  * A selection model that contains a single date.
@@ -317,7 +317,7 @@ declare class MatSingleDateSelectionModel<D> extends MatDateSelectionModel<D | n
     /** Clones the selection model. */
     clone(): MatSingleDateSelectionModel<D>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSingleDateSelectionModel<any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSingleDateSelectionModel<any>>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 /**
  * A selection model that contains a date range.
@@ -341,7 +341,7 @@ declare class MatRangeDateSelectionModel<D> extends MatDateSelectionModel<DateRa
     /** Clones the selection model. */
     clone(): MatRangeDateSelectionModel<D>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRangeDateSelectionModel<any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatRangeDateSelectionModel<any>>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /**
@@ -1382,7 +1382,7 @@ declare class MatDatepickerIntl {
     /** Formats a label for a range of years (used by screen readers). */
     formatYearRangeLabel(start: string, end: string): string;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDatepickerIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatDatepickerIntl>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 /** Can be used to override the icon of a `matDatepickerToggle`. */
@@ -1737,7 +1737,7 @@ declare class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelectio
     createPreview(activeDate: D | null, currentRange: DateRange<D>): DateRange<D>;
     createDrag(dragOrigin: D, originalRange: DateRange<D>, newDate: D): DateRange<D> | null;
     static ɵfac: i0.ɵɵFactoryDeclaration<DefaultMatCalendarRangeStrategy<any>, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<DefaultMatCalendarRangeStrategy<any>>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { DateRange, DefaultMatCalendarRangeStrategy, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_VALIDATORS, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATE_RANGE_SELECTION_STRATEGY, MatCalendar, MatCalendarBody, MatCalendarCell, MatCalendarHeader, MatDateRangeInput, MatDateRangePicker, MatDateSelectionModel, MatDatepicker, MatDatepickerActions, MatDatepickerApply, MatDatepickerCancel, MatDatepickerContent, MatDatepickerInput, MatDatepickerInputEvent, MatDatepickerIntl, MatDatepickerModule, MatDatepickerToggle, MatDatepickerToggleIcon, MatEndDate, MatMonthView, MatMultiYearView, MatRangeDateSelectionModel, MatSingleDateSelectionModel, MatStartDate, MatYearView, yearsPerPage, yearsPerRow };

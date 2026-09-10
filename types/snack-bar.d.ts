@@ -313,7 +313,7 @@ declare class MatSnackBar implements OnDestroy {
      */
     private _createInjector;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSnackBar, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSnackBar>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 declare class MatSnackBarModule {

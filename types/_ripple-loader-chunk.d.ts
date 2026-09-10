@@ -42,7 +42,7 @@ declare class MatRippleLoader implements OnDestroy {
     private _createRipple;
     destroyRipple(host: HTMLElement): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleLoader, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatRippleLoader>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { MatRippleLoader };

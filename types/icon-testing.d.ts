@@ -68,7 +68,7 @@ declare class FakeMatIconRegistry implements PublicApi<MatIconRegistry>, OnDestr
     ngOnDestroy(): void;
     private _generateEmptySvg;
     static ɵfac: i0.ɵɵFactoryDeclaration<FakeMatIconRegistry, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<FakeMatIconRegistry>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 /** Import this module in tests to install the null icon registry. */
 declare class MatIconTestingModule {
