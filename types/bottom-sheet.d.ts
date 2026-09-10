@@ -189,7 +189,7 @@ declare class MatBottomSheet implements OnDestroy {
     dismiss<R = any>(result?: R): void;
     ngOnDestroy(): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatBottomSheet, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatBottomSheet>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { MAT_BOTTOM_SHEET_DATA, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheet, MatBottomSheetConfig, MatBottomSheetContainer, MatBottomSheetModule, MatBottomSheetRef };

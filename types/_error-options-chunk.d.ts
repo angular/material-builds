@@ -7,14 +7,14 @@ declare class ShowOnDirtyErrorStateMatcher implements ErrorStateMatcher {
     isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
     isSignalErrorState(field: Field<unknown> | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<ShowOnDirtyErrorStateMatcher, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ShowOnDirtyErrorStateMatcher>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 /** Provider that defines how form controls behave with regards to displaying error messages. */
 declare class ErrorStateMatcher {
     isErrorState(control: AbstractControl | null, form: FormGroupDirective | NgForm | null): boolean;
     isSignalErrorState?(field: Field<unknown> | null): boolean;
     static ɵfac: i0.ɵɵFactoryDeclaration<ErrorStateMatcher, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<ErrorStateMatcher>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher };

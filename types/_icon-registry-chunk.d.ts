@@ -264,7 +264,7 @@ declare class MatIconRegistry implements OnDestroy {
     /** Tries to create an icon config through the registered resolver functions. */
     private _getIconConfigFromResolvers;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatIconRegistry, [{ optional: true; }, null, { optional: true; }, null]>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatIconRegistry>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };

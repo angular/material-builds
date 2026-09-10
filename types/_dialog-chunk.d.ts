@@ -334,7 +334,7 @@ declare class MatDialog implements OnDestroy {
     ngOnDestroy(): void;
     private _closeDialogs;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatDialog, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatDialog>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MatDialog, MatDialogConfig, MatDialogContainer, MatDialogRef, MatDialogState, _closeDialogVia };

@@ -101,7 +101,7 @@ declare class MatSortHeaderIntl {
      */
     readonly changes: Subject<void>;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatSortHeaderIntl, never>;
-    static ɵprov: i0.ɵɵInjectableDeclaration<MatSortHeaderIntl>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<any>;
 }
 
 export { MatSort, MatSortHeader, MatSortHeaderIntl, MatSortModule, MatSortable, SortDirection, SortHeaderArrowPosition };
