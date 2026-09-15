@@ -365,25 +365,24 @@ function isSafeUrlWithOptions(value) {
   return !!(value.url && value.options);
 }
 function inferDefaultFontSetClass(document) {
-  let materialSymbolsVariantion = null;
+  let materialSymbolsVariation = null;
   let hasLegacyMaterialIcons = false;
   if (document.fonts && typeof document.fonts.forEach === 'function') {
-    document.fonts.forEach(({
-      family
-    }) => {
-      if (family.includes('Material Icons')) {
+    document.fonts.forEach(font => {
+      const family = font.family.replace(/['"]/g, '').trim().toLowerCase();
+      if (family === 'material icons' || family.startsWith('material icons ')) {
         hasLegacyMaterialIcons = true;
       }
-      if (family.includes('Material Symbols Rounded')) {
-        materialSymbolsVariantion = 'rounded';
-      } else if (family.includes('Material Symbols Sharp')) {
-        materialSymbolsVariantion = 'sharp';
-      } else if (family.includes('Material Symbols')) {
-        materialSymbolsVariantion = 'outlined';
+      if (family.startsWith('material symbols rounded')) {
+        materialSymbolsVariation = 'rounded';
+      } else if (family.startsWith('material symbols sharp')) {
+        materialSymbolsVariation = 'sharp';
+      } else if (family.startsWith('material symbols')) {
+        materialSymbolsVariation = 'outlined';
       }
     });
   }
-  return [materialSymbolsVariantion && !hasLegacyMaterialIcons ? `material-symbols-${materialSymbolsVariantion}` : 'material-icons', 'mat-ligature-font'];
+  return [materialSymbolsVariation && !hasLegacyMaterialIcons ? `material-symbols-${materialSymbolsVariation}` : 'material-icons', 'mat-ligature-font'];
 }
 
 export { MatIconRegistry, getMatIconFailedToSanitizeLiteralError, getMatIconFailedToSanitizeUrlError, getMatIconNameNotFoundError, getMatIconNoHttpProviderError };
