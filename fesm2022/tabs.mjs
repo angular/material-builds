@@ -137,7 +137,7 @@ class MatTab {
     inject(_CdkPrivateStyleLoader).load(_StructuralStylesLoader);
   }
   ngOnChanges(changes) {
-    if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
+    if (Object.hasOwn(changes, 'textLabel') || Object.hasOwn(changes, 'disabled')) {
       this._stateChanges.next();
     }
   }
