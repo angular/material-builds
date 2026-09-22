@@ -1,7 +1,6 @@
-import * as i0 from '@angular/core';
-import { InjectionToken, OnDestroy, AfterViewInit, ElementRef, AfterContentInit, AfterContentChecked, QueryList } from '@angular/core';
 import { BooleanInput } from '@angular/cdk/coercion';
-import { AbstractControlDirective } from '@angular/forms';
+import * as i0 from '@angular/core';
+import { InjectionToken, OnDestroy, AfterViewInit, ElementRef, AfterContentInit, AfterContentChecked, Signal, QueryList } from '@angular/core';
 import { ThemePalette } from './_palette-chunk.js';
 import { MatFormFieldControl as MatFormFieldControl$1 } from './_form-field-control-chunk.js';
 
@@ -204,6 +203,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     private _ngZone;
     private _defaults;
     private _currentDirection;
+    protected _unwrapMaybeSignal<T>(value: T | Signal<T>): T;
     _textField: ElementRef<HTMLElement>;
     _iconPrefixContainer: ElementRef<HTMLElement>;
     _textPrefixContainer: ElementRef<HTMLElement>;
@@ -283,7 +283,7 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
     /**
      * Gets the id of the label element. If no label is present, returns `null`.
      */
-    getLabelId: i0.Signal<string | null>;
+    getLabelId: Signal<string | null>;
     /**
      * Gets an ElementRef for the element that a overlay attached to the form field
      * should be positioned relative to.
@@ -324,13 +324,13 @@ declare class MatFormField implements FloatingLabelParent, AfterContentInit, Aft
      * the label is part of the infix, the label cannot overflow the prefix content.
      */
     _forceDisplayInfixLabel(): 0 | boolean;
-    _hasFloatingLabel: i0.Signal<boolean>;
+    _hasFloatingLabel: Signal<boolean>;
     _shouldLabelFloat(): boolean;
     /**
      * Determines whether a class from the AbstractControlDirective
      * should be forwarded to the host element.
      */
-    _shouldForward(prop: keyof AbstractControlDirective): boolean;
+    _shouldForward(prop: 'valid' | 'dirty' | 'touched' | 'pending' | 'untouched' | 'pristine' | 'invalid'): boolean;
     /** Gets the type of subscript message to render (error or hint). */
     _getSubscriptMessageType(): 'error' | 'hint';
     /** Handle label resize events. */

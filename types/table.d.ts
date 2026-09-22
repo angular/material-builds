@@ -9,8 +9,9 @@ import { MatSort } from './sort.js';
 import './_palette-chunk.js';
 import './_form-field-chunk.js';
 import '@angular/cdk/coercion';
-import '@angular/forms';
 import './_form-field-control-chunk.js';
+import '@angular/forms';
+import '@angular/forms/signals';
 import './_sort-direction-chunk.js';
 
 /**

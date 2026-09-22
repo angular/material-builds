@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, TemplateRef, booleanAttribute, Input, Output, ContentChildren, ViewChild, ViewEncapsulation, Component, Directive, Injector, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, NgModule } from '@angular/core';
+import { InjectionToken, inject, ChangeDetectorRef, ElementRef, EventEmitter, TemplateRef, booleanAttribute, Input, Output, ContentChildren, ViewChild, ViewEncapsulation, Component, Directive, Injector, forwardRef, EnvironmentInjector, ViewContainerRef, NgZone, Renderer2, afterNextRender, isWritableSignal, NgModule } from '@angular/core';
 import { _IdGenerator, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Platform, _getFocusedElementPierceShadowDom, _getEventTarget } from '@angular/cdk/platform';
 import { Subscription, Subject, merge, of, defer, Observable } from 'rxjs';
@@ -22,6 +22,7 @@ import '@angular/cdk/private';
 import './_pseudo-checkbox-chunk.mjs';
 import './_structural-styles-chunk.mjs';
 import '@angular/common';
+import '@angular/forms/signals';
 import '@angular/cdk/observers/private';
 import './_ripple-module-chunk.mjs';
 import './_pseudo-checkbox-module-chunk.mjs';
@@ -676,8 +677,13 @@ class MatAutocompleteTrigger {
     this._updateNativeInputValue(toDisplay != null ? toDisplay : '');
   }
   _updateNativeInputValue(value) {
-    if (this._formField) {
-      this._formField._control.value = value;
+    const control = this._formField?._control;
+    if (control) {
+      if (isWritableSignal(control.value)) {
+        control.value.set(value);
+      } else {
+        control.value = value;
+      }
     } else {
       this._element.nativeElement.value = value;
     }

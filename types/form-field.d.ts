@@ -5,9 +5,10 @@ import '@angular/core';
 import '@angular/cdk/observers';
 import '@angular/cdk/bidi';
 import '@angular/cdk/coercion';
-import '@angular/forms';
 import './_palette-chunk.js';
 import 'rxjs';
+import '@angular/forms';
+import '@angular/forms/signals';
 
 /** @docs-private */
 declare function getMatFormFieldPlaceholderConflictError(): Error;
