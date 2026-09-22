@@ -8,6 +8,7 @@ import '@angular/cdk/a11y';
 import '@angular/cdk/coercion';
 import '@angular/cdk/platform';
 import '@angular/common';
+import '@angular/forms/signals';
 import 'rxjs';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';

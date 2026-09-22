@@ -22,6 +22,7 @@ import '@angular/cdk/private';
 import './_pseudo-checkbox-chunk.mjs';
 import './_structural-styles-chunk.mjs';
 import '@angular/common';
+import '@angular/forms/signals';
 import 'rxjs/operators';
 import '@angular/cdk/observers/private';
 import './_ripple-loader-chunk.mjs';
