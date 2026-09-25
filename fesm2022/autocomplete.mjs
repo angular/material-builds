@@ -153,7 +153,7 @@ class MatAutocomplete {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatAutocomplete,
     deps: [],
@@ -161,7 +161,7 @@ class MatAutocomplete {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     type: MatAutocomplete,
     isStandalone: true,
     selector: "mat-autocomplete",
@@ -220,7 +220,7 @@ class MatAutocomplete {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.7",
+  version: "22.2.0",
   ngImport: i0,
   type: MatAutocomplete,
   decorators: [{
@@ -331,7 +331,7 @@ class MatAutocompleteOrigin {
   elementRef = inject(ElementRef);
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatAutocompleteOrigin,
     deps: [],
@@ -339,7 +339,7 @@ class MatAutocompleteOrigin {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "14.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     type: MatAutocompleteOrigin,
     isStandalone: true,
     selector: "[matAutocompleteOrigin]",
@@ -349,7 +349,7 @@ class MatAutocompleteOrigin {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.7",
+  version: "22.2.0",
   ngImport: i0,
   type: MatAutocompleteOrigin,
   decorators: [{
@@ -897,7 +897,7 @@ class MatAutocompleteTrigger {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatAutocompleteTrigger,
     deps: [],
@@ -905,7 +905,7 @@ class MatAutocompleteTrigger {
   });
   static ɵdir = i0.ɵɵngDeclareDirective({
     minVersion: "16.1.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     type: MatAutocompleteTrigger,
     isStandalone: true,
     selector: "input[matAutocomplete], textarea[matAutocomplete]",
@@ -943,7 +943,7 @@ class MatAutocompleteTrigger {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.7",
+  version: "22.2.0",
   ngImport: i0,
   type: MatAutocompleteTrigger,
   decorators: [{
@@ -999,7 +999,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatAutocompleteModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatAutocompleteModule,
     deps: [],
@@ -1007,7 +1007,7 @@ class MatAutocompleteModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatAutocompleteModule,
     imports: [OverlayModule, MatOptionModule, MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
@@ -1015,7 +1015,7 @@ class MatAutocompleteModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatAutocompleteModule,
     imports: [OverlayModule, MatOptionModule, CdkScrollableModule, MatOptionModule, BidiModule]
@@ -1023,7 +1023,7 @@ class MatAutocompleteModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.7",
+  version: "22.2.0",
   ngImport: i0,
   type: MatAutocompleteModule,
   decorators: [{
