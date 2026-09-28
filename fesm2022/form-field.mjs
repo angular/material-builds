@@ -18,7 +18,7 @@ import '@angular/cdk/layout';
 class MatFormFieldModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatFormFieldModule,
     deps: [],
@@ -26,7 +26,7 @@ class MatFormFieldModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatFormFieldModule,
     imports: [ObserversModule, MatFormField, MatLabel, MatError, MatHint, MatPrefix, MatSuffix],
@@ -34,7 +34,7 @@ class MatFormFieldModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.2.0-next.7",
+    version: "22.2.0",
     ngImport: i0,
     type: MatFormFieldModule,
     imports: [ObserversModule, MatFormField, BidiModule]
@@ -42,7 +42,7 @@ class MatFormFieldModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.0-next.7",
+  version: "22.2.0",
   ngImport: i0,
   type: MatFormFieldModule,
   decorators: [{
