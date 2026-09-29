@@ -180,10 +180,11 @@ class MatIcon {
   }
   _prependPathToReferences(path) {
     const elements = this._elementsWithExternalReferences;
+    const normalizedPath = path.startsWith('//') ? `/.${path}` : path;
     if (elements) {
       elements.forEach((attrs, element) => {
         attrs.forEach(attr => {
-          element.setAttribute(attr.name, `url('${path}#${attr.value}')`);
+          element.setAttribute(attr.name, `url('${normalizedPath}#${attr.value}')`);
         });
       });
     }
