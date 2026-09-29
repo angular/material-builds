@@ -1,4 +1,4 @@
-import { ScrollStrategy, ComponentType } from '@angular/cdk/overlay';
+import { ScrollStrategy, OverlayDisposeOnNavigation, ComponentType } from '@angular/cdk/overlay';
 import * as i0 from '@angular/core';
 import { ViewContainerRef, Injector, Binding, OnDestroy, EventEmitter, ComponentRef, InjectionToken, TemplateRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
@@ -94,12 +94,8 @@ declare class MatDialogConfig<D = any> {
     delayFocusTrap?: boolean;
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;
-    /**
-     * Whether the dialog should close when the user goes backwards/forwards in history.
-     * Note that this usually doesn't include clicking on links (unless the user is using
-     * the `HashLocationStrategy`).
-     */
-    closeOnNavigation?: boolean;
+    /** Whether the bottom sheet should be disposed of when the user navigates. */
+    closeOnNavigation?: OverlayDisposeOnNavigation;
     /**
      * Duration of the enter animation in ms.
      * Should be a number, string type is deprecated.

@@ -6,7 +6,7 @@ import * as i2 from '@angular/cdk/portal';
 import { ComponentType } from '@angular/cdk/portal';
 import * as i2$1 from '@angular/cdk/bidi';
 import { Direction } from '@angular/cdk/bidi';
-import { ScrollStrategy } from '@angular/cdk/overlay';
+import { OverlayDisposeOnNavigation, ScrollStrategy } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 
 /**
@@ -79,12 +79,8 @@ declare class MatBottomSheetConfig<D = any> {
      * it is redundant since the dialog marks all outside content as `aria-hidden` anyway.
      */
     ariaModal?: boolean;
-    /**
-     * Whether the bottom sheet should close when the user goes backwards/forwards in history.
-     * Note that this usually doesn't include clicking on links (unless the user is using
-     * the `HashLocationStrategy`).
-     */
-    closeOnNavigation?: boolean;
+    /** Whether the bottom sheet should be disposed of when the user navigates. */
+    closeOnNavigation?: OverlayDisposeOnNavigation;
     /**
      * Where the bottom sheet should focus on open.
      * @breaking-change 14.0.0 Remove boolean option from autoFocus. Use string or
