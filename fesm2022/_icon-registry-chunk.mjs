@@ -218,7 +218,8 @@ class MatIconRegistry {
         name,
         value
       } = attributes[i];
-      if (name !== 'id') {
+      const lowercasedName = name.toLowerCase();
+      if (lowercasedName !== 'id' && !lowercasedName.startsWith('on')) {
         svg.setAttribute(name, value);
       }
     }
