@@ -620,6 +620,7 @@ html {
 
 .mat-mdc-chip.mat-mdc-standard-chip {
   --mat-chip-container-height: 32px;
+  --mat-chip-touch-target-display: block;
 }
 
 .mat-mdc-standard-chip {
