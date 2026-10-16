@@ -3347,9 +3347,9 @@ class MatDatepickerInputBase {
       if (value && !this.value) {
         this._cvaOnChange(date);
       }
-      if (lastValueWasValid !== this._lastValueValid) {
-        this._validatorOnChange();
-      }
+    }
+    if (!hasChanged && lastValueWasValid !== this._lastValueValid) {
+      this._validatorOnChange();
     }
     if (hasChanged) {
       this._assignValue(date);
