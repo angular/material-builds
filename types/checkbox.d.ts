@@ -1,6 +1,6 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import * as i0 from '@angular/core';
-import { AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
+import { OnInit, AfterViewInit, OnChanges, ElementRef, EventEmitter, SimpleChanges, InjectionToken } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ThemePalette } from './core.js';
 import * as i2 from '@angular/cdk/bidi';
@@ -26,12 +26,14 @@ declare class MatCheckboxChange {
     /** The new `checked` value of the checkbox. */
     checked: boolean;
 }
-declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAccessor, Validator, FocusableOption {
+declare class MatCheckbox implements OnInit, AfterViewInit, OnChanges, ControlValueAccessor, Validator, FocusableOption {
     _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _ngZone;
     protected _animationsDisabled: boolean;
     private _options;
+    private readonly _injector;
+    private _signalFormField;
     /** Focuses the checkbox. */
     focus(): void;
     /** Creates the change event that will be emitted by the checkbox. */
@@ -112,6 +114,7 @@ declare class MatCheckbox implements AfterViewInit, OnChanges, ControlValueAcces
     private _validatorChangeFn;
     constructor();
     ngOnChanges(changes: SimpleChanges<this>): void;
+    ngOnInit(): void;
     ngAfterViewInit(): void;
     /** Whether the checkbox is checked. */
     get checked(): boolean;

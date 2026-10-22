@@ -1,8 +1,9 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, EventEmitter, HostAttributeToken, signal, booleanAttribute, forwardRef, numberAttribute, Input, ViewChild, Output, ViewEncapsulation, Component, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, NgZone, Injector, EventEmitter, HostAttributeToken, signal, booleanAttribute, forwardRef, numberAttribute, Input, ViewChild, Output, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { FORM_FIELD } from '@angular/forms/signals';
 import { _MatInternalFormField } from './_internal-form-field-chunk.mjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
@@ -41,6 +42,8 @@ class MatCheckbox {
   _options = inject(MAT_CHECKBOX_DEFAULT_OPTIONS, {
     optional: true
   });
+  _injector = inject(Injector);
+  _signalFormField = null;
   focus() {
     this._inputElement.nativeElement.focus();
   }
@@ -104,6 +107,12 @@ class MatCheckbox {
       this._validatorChangeFn();
     }
   }
+  ngOnInit() {
+    this._signalFormField = this._injector.get(FORM_FIELD, undefined, {
+      optional: true,
+      self: true
+    });
+  }
   ngAfterViewInit() {
     this._syncIndeterminate(this.indeterminate);
   }
@@ -165,7 +174,7 @@ class MatCheckbox {
     this.disabled = isDisabled;
   }
   validate(control) {
-    return this.required && control.value !== true ? {
+    return this.required && control.value !== true && !this._signalFormField ? {
       'required': true
     } : null;
   }
