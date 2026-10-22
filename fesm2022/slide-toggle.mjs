@@ -1,8 +1,9 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, inject, ElementRef, ChangeDetectorRef, EventEmitter, HostAttributeToken, booleanAttribute, forwardRef, numberAttribute, Output, Input, ViewChild, ViewEncapsulation, Component, NgModule } from '@angular/core';
+import { InjectionToken, inject, ElementRef, ChangeDetectorRef, Injector, EventEmitter, HostAttributeToken, booleanAttribute, forwardRef, numberAttribute, Output, Input, ViewChild, ViewEncapsulation, Component, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { FocusMonitor, _IdGenerator } from '@angular/cdk/a11y';
 import { _CdkPrivateStyleLoader } from '@angular/cdk/private';
+import { FORM_FIELD } from '@angular/forms/signals';
 import { _MatInternalFormField } from './_internal-form-field-chunk.mjs';
 import { _animationsDisabled } from './_animation-chunk.mjs';
 import { _StructuralStylesLoader } from './_structural-styles-chunk.mjs';
@@ -34,6 +35,8 @@ class MatSlideToggle {
   _focusMonitor = inject(FocusMonitor);
   _changeDetectorRef = inject(ChangeDetectorRef);
   defaults = inject(MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS);
+  _injector = inject(Injector);
+  _signalFormField = null;
   _onChange = _ => {};
   _onTouched = () => {};
   _validatorOnChange = () => {};
@@ -91,6 +94,12 @@ class MatSlideToggle {
     this.disabledInteractive = defaults.disabledInteractive ?? false;
     this._labelId = this._uniqueId + '-label';
   }
+  ngOnInit() {
+    this._signalFormField = this._injector.get(FORM_FIELD, undefined, {
+      optional: true,
+      self: true
+    });
+  }
   ngAfterContentInit() {
     this._focusMonitor.monitor(this._elementRef, true).subscribe(focusOrigin => {
       if (focusOrigin === 'keyboard' || focusOrigin === 'program') {
@@ -123,7 +132,7 @@ class MatSlideToggle {
     this._onTouched = fn;
   }
   validate(control) {
-    return this.required && control.value !== true ? {
+    return this.required && control.value !== true && !this._signalFormField ? {
       'required': true
     } : null;
   }

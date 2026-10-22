@@ -1,5 +1,5 @@
 import * as i0 from '@angular/core';
-import { InjectionToken, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorRef, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
+import { InjectionToken, OnInit, OnDestroy, AfterContentInit, OnChanges, ChangeDetectorRef, ElementRef, EventEmitter, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ThemePalette } from './core.js';
@@ -37,11 +37,13 @@ declare class MatSlideToggleChange {
     /** The new `checked` value of the slide toggle. */
     checked: boolean);
 }
-declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
+declare class MatSlideToggle implements OnInit, OnDestroy, AfterContentInit, OnChanges, ControlValueAccessor, Validator {
     private _elementRef;
     protected _focusMonitor: FocusMonitor;
     protected _changeDetectorRef: ChangeDetectorRef;
     defaults: MatSlideToggleDefaultOptions;
+    private readonly _injector;
+    private _signalFormField;
     private _onChange;
     private _onTouched;
     private _validatorOnChange;
@@ -108,6 +110,7 @@ declare class MatSlideToggle implements OnDestroy, AfterContentInit, OnChanges, 
     /** Returns the unique id for the visual hidden input. */
     get inputId(): string;
     constructor();
+    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges<this>): void;
     ngOnDestroy(): void;
