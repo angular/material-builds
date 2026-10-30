@@ -37,6 +37,8 @@ interface ChipRemoveHarnessFilters extends BaseHarnessFilters {
 }
 interface ChipAvatarHarnessFilters extends BaseHarnessFilters {
 }
+interface ChipLeadingIconHarnessFilters extends BaseHarnessFilters {
+}
 interface ChipEditInputHarnessFilters extends BaseHarnessFilters {
 }
 
@@ -50,6 +52,18 @@ declare class MatChipAvatarHarness extends ComponentHarness {
      * @return a `HarnessPredicate` configured with the given options.
      */
     static with<T extends MatChipAvatarHarness>(this: ComponentHarnessConstructor<T>, options?: ChipAvatarHarnessFilters): HarnessPredicate<T>;
+}
+
+/** Harness for interacting with a standard Material chip leading icon in tests. */
+declare class MatChipLeadingIconHarness extends ComponentHarness {
+    static hostSelector: string;
+    /**
+     * Gets a `HarnessPredicate` that can be used to search for a chip leading icon with specific
+     * attributes.
+     * @param options Options for filtering which input instances are considered a match.
+     * @return a `HarnessPredicate` configured with the given options.
+     */
+    static with<T extends MatChipLeadingIconHarness>(this: ComponentHarnessConstructor<T>, options?: ChipLeadingIconHarnessFilters): HarnessPredicate<T>;
 }
 
 /** Harness for interacting with a standard Material chip edit button in tests. */
@@ -111,6 +125,11 @@ declare class MatChipHarness extends ContentContainerComponentHarness {
      * @param filter Optionally filters which avatars are included.
      */
     getAvatar(filter?: ChipAvatarHarnessFilters): Promise<MatChipAvatarHarness | null>;
+    /**
+     * Gets the leading icon inside a chip.
+     * @param filter Optionally filters which leading icons are included.
+     */
+    getLeadingIcon(filter?: ChipLeadingIconHarnessFilters): Promise<MatChipLeadingIconHarness | null>;
 }
 
 /** Harness for interacting with a grid's chip input in tests. */
@@ -266,5 +285,5 @@ declare class MatChipSetHarness extends ComponentHarness {
     getChips(filter?: ChipHarnessFilters): Promise<MatChipHarness[]>;
 }
 
-export { MatChipAvatarHarness, MatChipEditHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
-export type { ChipAvatarHarnessFilters, ChipEditHarnessFilters, ChipEditInputHarnessFilters, ChipGridHarnessFilters, ChipHarnessFilters, ChipInputHarnessFilters, ChipListboxHarnessFilters, ChipOptionHarnessFilters, ChipRemoveHarnessFilters, ChipRowHarnessFilters, ChipSetHarnessFilters };
+export { MatChipAvatarHarness, MatChipEditHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipLeadingIconHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export type { ChipAvatarHarnessFilters, ChipEditHarnessFilters, ChipEditInputHarnessFilters, ChipGridHarnessFilters, ChipHarnessFilters, ChipInputHarnessFilters, ChipLeadingIconHarnessFilters, ChipListboxHarnessFilters, ChipOptionHarnessFilters, ChipRemoveHarnessFilters, ChipRowHarnessFilters, ChipSetHarnessFilters };

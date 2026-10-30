@@ -8,6 +8,13 @@ class MatChipAvatarHarness extends ComponentHarness {
   }
 }
 
+class MatChipLeadingIconHarness extends ComponentHarness {
+  static hostSelector = '.mat-mdc-chip-leading-icon';
+  static with(options = {}) {
+    return new HarnessPredicate(this, options);
+  }
+}
+
 class MatChipEditHarness extends ComponentHarness {
   static hostSelector = '.mat-mdc-chip-edit';
   static with(options = {}) {
@@ -40,7 +47,7 @@ class MatChipHarness extends ContentContainerComponentHarness {
   }
   async getText() {
     return (await this.host()).text({
-      exclude: '.mat-mdc-chip-avatar, .mat-mdc-chip-trailing-icon, .mat-icon'
+      exclude: '.mat-mdc-chip-avatar, .mat-mdc-chip-leading-icon, .mat-mdc-chip-trailing-icon, .mat-icon'
     });
   }
   async isDisabled() {
@@ -58,6 +65,9 @@ class MatChipHarness extends ContentContainerComponentHarness {
   }
   async getAvatar(filter = {}) {
     return this.locatorForOptional(MatChipAvatarHarness.with(filter))();
+  }
+  async getLeadingIcon(filter = {}) {
+    return this.locatorForOptional(MatChipLeadingIconHarness.with(filter))();
   }
 }
 
@@ -235,5 +245,5 @@ class MatChipSetHarness extends ComponentHarness {
   }
 }
 
-export { MatChipAvatarHarness, MatChipEditHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
+export { MatChipAvatarHarness, MatChipEditHarness, MatChipEditInputHarness, MatChipGridHarness, MatChipHarness, MatChipInputHarness, MatChipLeadingIconHarness, MatChipListboxHarness, MatChipOptionHarness, MatChipRemoveHarness, MatChipRowHarness, MatChipSetHarness };
 //# sourceMappingURL=chips-testing.mjs.map
