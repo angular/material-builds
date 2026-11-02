@@ -509,7 +509,7 @@ class MatSlider {
     }
   }
   displayWith = value => `${value}`;
-  _tickMarks;
+  _tickMarks = [];
   _noopAnimations = _animationsDisabled();
   _resizeObserver = null;
   _cachedWidth;
@@ -814,7 +814,7 @@ class MatSlider {
     });
   }
   _updateTickMarkUI() {
-    if (!this.showTickMarks || this.step === undefined || this.min === undefined || this.max === undefined) {
+    if (!this.showTickMarks || !this._cachedWidth || this.step === undefined || this.min === undefined || this.max === undefined) {
       return;
     }
     const step = this.step > 0 ? this.step : 1;
