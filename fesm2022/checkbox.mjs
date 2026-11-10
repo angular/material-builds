@@ -276,7 +276,7 @@ class MatCheckbox {
   }
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.4",
+    version: "22.2.5",
     ngImport: i0,
     type: MatCheckbox,
     deps: [],
@@ -284,7 +284,7 @@ class MatCheckbox {
   });
   static ɵcmp = i0.ɵɵngDeclareComponent({
     minVersion: "16.1.0",
-    version: "22.2.4",
+    version: "22.2.5",
     type: MatCheckbox,
     isStandalone: true,
     selector: "mat-checkbox",
@@ -364,7 +364,7 @@ class MatCheckbox {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.4",
+  version: "22.2.5",
   ngImport: i0,
   type: MatCheckbox,
   decorators: [{
@@ -502,7 +502,7 @@ i0.ɵɵngDeclareClassMetadata({
 class MatCheckboxModule {
   static ɵfac = i0.ɵɵngDeclareFactory({
     minVersion: "12.0.0",
-    version: "22.2.4",
+    version: "22.2.5",
     ngImport: i0,
     type: MatCheckboxModule,
     deps: [],
@@ -510,7 +510,7 @@ class MatCheckboxModule {
   });
   static ɵmod = i0.ɵɵngDeclareNgModule({
     minVersion: "14.0.0",
-    version: "22.2.4",
+    version: "22.2.5",
     ngImport: i0,
     type: MatCheckboxModule,
     imports: [MatCheckbox],
@@ -518,7 +518,7 @@ class MatCheckboxModule {
   });
   static ɵinj = i0.ɵɵngDeclareInjector({
     minVersion: "12.0.0",
-    version: "22.2.4",
+    version: "22.2.5",
     ngImport: i0,
     type: MatCheckboxModule,
     imports: [MatCheckbox, BidiModule]
@@ -526,7 +526,7 @@ class MatCheckboxModule {
 }
 i0.ɵɵngDeclareClassMetadata({
   minVersion: "12.0.0",
-  version: "22.2.4",
+  version: "22.2.5",
   ngImport: i0,
   type: MatCheckboxModule,
   decorators: [{
