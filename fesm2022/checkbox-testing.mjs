@@ -4,7 +4,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 class MatCheckboxHarness extends ComponentHarness {
   static hostSelector = '.mat-mdc-checkbox';
   _input = this.locatorFor('input');
-  _label = this.locatorFor('label');
+  _label = this.locatorFor('.mat-internal-form-field-label');
   _inputContainer = this.locatorFor('.mdc-checkbox');
   static with(options = {}) {
     return new HarnessPredicate(this, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label)).addOption('name', options.name, async (harness, name) => (await harness.getName()) === name).addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked).addOption('disabled', options.disabled, async (harness, disabled) => {
