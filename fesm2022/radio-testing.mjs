@@ -92,8 +92,8 @@ class MatRadioButtonHarness extends ComponentHarness {
   static with(options = {}) {
     return new HarnessPredicate(this, options).addOption('label', options.label, (harness, label) => HarnessPredicate.stringMatches(harness.getLabelText(), label)).addOption('name', options.name, async (harness, name) => (await harness.getName()) === name).addOption('checked', options.checked, async (harness, checked) => (await harness.isChecked()) == checked);
   }
-  _textLabel = this.locatorFor('label');
-  _clickLabel = this._textLabel;
+  _textLabel = this.locatorFor('.mat-internal-form-field-label');
+  _clickLabel = this.locatorFor('label');
   _input = this.locatorFor('input');
   async isChecked() {
     const checked = (await this._input()).getProperty('checked');
