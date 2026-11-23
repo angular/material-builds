@@ -49,8 +49,9 @@ class MatRippleLoader {
   setDisabled(host, disabled) {
     const ripple = this._hosts.get(host);
     if (ripple) {
-      ripple.target.rippleDisabled = disabled;
-      if (!disabled && !ripple.hasSetUpEvents) {
+      const rippleDisabled = disabled || this._isGloballyDisabled();
+      ripple.target.rippleDisabled = rippleDisabled;
+      if (!rippleDisabled && !ripple.hasSetUpEvents) {
         ripple.hasSetUpEvents = true;
         ripple.renderer.setupTriggerEvents(host);
       }
@@ -81,7 +82,7 @@ class MatRippleLoader {
     const enterDuration = this._animationsDisabled ? 0 : globalOptions?.animation?.enterDuration ?? defaultRippleAnimationConfig.enterDuration;
     const exitDuration = this._animationsDisabled ? 0 : globalOptions?.animation?.exitDuration ?? defaultRippleAnimationConfig.exitDuration;
     const target = {
-      rippleDisabled: this._animationsDisabled || globalOptions?.disabled || host.hasAttribute(matRippleDisabled),
+      rippleDisabled: this._isGloballyDisabled() || host.hasAttribute(matRippleDisabled),
       rippleConfig: {
         centered: host.hasAttribute(matRippleCentered),
         terminateOnPointerUp: globalOptions?.terminateOnPointerUp,
@@ -102,6 +103,9 @@ class MatRippleLoader {
       hasSetUpEvents
     });
     host.removeAttribute(matRippleUninitialized);
+  }
+  _isGloballyDisabled() {
+    return this._animationsDisabled || !!this._globalRippleOptions?.disabled;
   }
   destroyRipple(host) {
     const ripple = this._hosts.get(host);
