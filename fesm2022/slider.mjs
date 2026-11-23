@@ -66,7 +66,7 @@ class MatSliderVisualThumb {
     this._ngZone.runOutsideAngular(() => {
       const input = this._sliderInputEl;
       const renderer = this._renderer;
-      this._listenerCleanups = [renderer.listen(input, 'pointermove', this._onPointerMove), renderer.listen(input, 'pointerdown', this._onDragStart), renderer.listen(input, 'pointerup', this._onDragEnd), renderer.listen(input, 'pointerleave', this._onMouseLeave), renderer.listen(input, 'focus', this._onFocus), renderer.listen(input, 'blur', this._onBlur)];
+      this._listenerCleanups = [renderer.listen(input, 'pointermove', this._onPointerMove), renderer.listen(input, 'pointerdown', this._onDragStart), renderer.listen(input, 'pointerup', this._onDragEnd), renderer.listen(input, 'pointercancel', this._onDragEnd), renderer.listen(input, 'pointerleave', this._onMouseLeave), renderer.listen(input, 'focus', this._onFocus), renderer.listen(input, 'blur', this._onBlur)];
     });
   }
   ngOnDestroy() {
@@ -1181,9 +1181,10 @@ class MatSliderThumb {
   _onTouchedFn = () => {};
   _isControlInitialized = false;
   constructor() {
-    const renderer = inject(Renderer2);
     this._ngZone.runOutsideAngular(() => {
-      this._listenerCleanups = [renderer.listen(this._hostElement, 'pointerdown', this._onPointerDown.bind(this)), renderer.listen(this._hostElement, 'pointermove', this._onPointerMove.bind(this)), renderer.listen(this._hostElement, 'pointerup', this._onPointerUp.bind(this))];
+      const renderer = inject(Renderer2);
+      const endListener = this._onPointerUp.bind(this);
+      this._listenerCleanups = [renderer.listen(this._hostElement, 'pointerdown', this._onPointerDown.bind(this)), renderer.listen(this._hostElement, 'pointermove', this._onPointerMove.bind(this)), renderer.listen(this._hostElement, 'pointerup', endListener), renderer.listen(this._hostElement, 'pointercancel', endListener)];
     });
   }
   ngOnDestroy() {
