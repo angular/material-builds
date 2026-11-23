@@ -40,6 +40,7 @@ declare class MatRippleLoader implements OnDestroy {
     private _onInteraction;
     /** Creates a MatRipple and appends it to the given element. */
     private _createRipple;
+    private _isGloballyDisabled;
     destroyRipple(host: HTMLElement): void;
     static ɵfac: i0.ɵɵFactoryDeclaration<MatRippleLoader, never>;
     static ɵprov: i0.ɵɵInjectableDeclaration<any>;
