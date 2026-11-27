@@ -89,9 +89,9 @@ declare class MatDrawer implements AfterViewInit, OnDestroy {
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */
-    readonly _animationStarted: Subject<unknown>;
+    readonly _animationStarted: Subject<void>;
     /** Emits whenever the drawer is done animating. */
-    readonly _animationEnd: Subject<unknown>;
+    readonly _animationEnd: Subject<void | TransitionEvent>;
     /** Event emitted when the drawer open state is changed. */
     readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the drawer has been opened. */
